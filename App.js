@@ -16,6 +16,7 @@ const Stack = createStackNavigator()
 export default function App() {
   let [fontsLoaded] = useFonts({
     'Segoe-Print': require('./assets/fonts/SegoePrint.ttf'),
+    'Gill Sans': require('./assets/fonts/gillsans.ttf'),
   });
 
   if(!fontsLoaded){
