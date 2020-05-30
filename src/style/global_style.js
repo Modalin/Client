@@ -8,10 +8,11 @@ const style = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: "#ffffff"
   },
   img_banner:{
-    resizeMode: "center"
+    resizeMode: "cover"
   },
   container_full_white:{
     paddingTop: Constant.statusBarHeight,
