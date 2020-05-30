@@ -3,10 +3,12 @@ import {View, Text, TextInput} from 'react-native'
 import {Form, Button} from 'native-base'
 import Gstyle from '../../style/global_style'
 
-export default function login() {
+export default function login({route, navigation}) {
+  const {request} = route.params
+  const {role} = route.params
   return (
     <View style={Gstyle.container_full_white}>
-      <Text style={Gstyle.title_bold}>Masuk Investor Modalin</Text>
+      <Text style={Gstyle.title_bold}>Masuk {role} Modalin</Text>
       <Form style={Gstyle.form_style}>
         <TextInput
         style={Gstyle.login_input}

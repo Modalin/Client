@@ -10,12 +10,12 @@ export default function landing_user({navigation}) {
     <View style={Gstyle.containerFull}>
       <Text style={Gstyle.logo_text_title}>ModalIn</Text>
       <Image source={bgImage}/>
-      <Button style={Gstyle.btn_style}>
+      <Button style={Gstyle.btn_style} onPress={() => navigation.navigate('identify user',{request: 'signup'})}>
         <Text style={Gstyle.btn_text}> Buat Akun Gratis</Text>
       </Button>
       <View style={{marginTop:10}}>
         <Text>Sudah memiliki akun?
-          <Text style={Gstyle.text_green} onPress={() => navigation.navigate('identify user')}>
+          <Text style={Gstyle.text_green} onPress={() => navigation.navigate('identify user',{request: 'login'})}>
           Klik disini untuk masuk
           </Text>
         </Text>

@@ -1,15 +1,18 @@
-import {StyleSheet} from 'react-native'
+import {Dimensions, StyleSheet} from 'react-native'
 import Constant from 'expo-constants'
 
 const style = StyleSheet.create({
   containerFull:{
+    width: Dimensions.get('window').width,
     paddingTop: Constant.statusBarHeight + 50,
+    paddingHorizontal: 20,
     flex: 1,
     flexDirection: "column",
     alignItems: "center"
   },
   container_full_white:{
     paddingTop: Constant.statusBarHeight + 50,
+    paddingHorizontal: 20,
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
