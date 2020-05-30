@@ -10,10 +10,10 @@ import landing_user from './src/pages/login/landing_user'
 import identify_user from './src/pages/login/identify_user';
 import login from './src/pages/login/login';
 
-
 const Stack = createStackNavigator()
 
 export default function App() {
+
   let [fontsLoaded] = useFonts({
     'Segoe-Print': require('./assets/fonts/SegoePrint.ttf'),
   });

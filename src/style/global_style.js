@@ -1,18 +1,20 @@
-import {Dimensions, StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native'
 import Constant from 'expo-constants'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const style = StyleSheet.create({
   containerFull:{
-    width: Dimensions.get('window').width,
-    paddingTop: Constant.statusBarHeight + 50,
-    paddingHorizontal: 20,
+    paddingTop: Constant.statusBarHeight,
     flex: 1,
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  img_banner:{
+    resizeMode: "center"
   },
   container_full_white:{
-    paddingTop: Constant.statusBarHeight + 50,
-    paddingHorizontal: 20,
+    paddingTop: Constant.statusBarHeight,
     flex: 1,
     flexDirection: "column",
     alignItems: "center",

@@ -9,7 +9,7 @@ export default function landing_user({navigation}) {
   return (
     <View style={Gstyle.containerFull}>
       <Text style={Gstyle.logo_text_title}>ModalIn</Text>
-      <Image source={bgImage}/>
+      <Image source={bgImage} style={Gstyle.img_banner}/>
       <Button style={Gstyle.btn_style} onPress={() => navigation.navigate('identify user',{request: 'signup'})}>
         <Text style={Gstyle.btn_text}> Buat Akun Gratis</Text>
       </Button>
