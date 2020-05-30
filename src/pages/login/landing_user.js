@@ -14,9 +14,9 @@ export default function landing_user({navigation}) {
         <Text style={Gstyle.btn_text}> Buat Akun Gratis</Text>
       </Button>
       <View style={{marginTop:10}}>
-        <Text>Sudah memiliki akun?
+        <Text>Sudah memiliki akun ?<Text> </Text>
           <Text style={Gstyle.text_green} onPress={() => navigation.navigate('identify user')}>
-          Klik disini untuk masuk
+           Klik disini untuk masuk
           </Text>
         </Text>
       </View>
