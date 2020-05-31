@@ -15,7 +15,7 @@ const style = StyleSheet.create({
     resizeMode: "cover"
   },
   container_full_white:{
-    paddingTop: Constant.statusBarHeight,
+    paddingTop: Constant.statusBarHeight + 100,
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
