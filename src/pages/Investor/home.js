@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, Text, ScrollView} from 'react-native'
 import {Button , Card, CardItem, Body} from 'native-base'
-import SvgUri from "expo-svg-uri";
+import SvgUri from "expo-svg-uri"
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 
 export default function home() {
