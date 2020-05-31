@@ -9,7 +9,7 @@ import { AppLoading } from 'expo'
 import landing_user from './src/pages/login/landing_user'
 import identify_user from './src/pages/login/identify_user';
 import login from './src/pages/login/login';
-
+import maps from './src/pages/maps/maps'
 const Stack = createStackNavigator()
 
 export default function App() {
@@ -26,9 +26,10 @@ export default function App() {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="landing user" component={landing_user} options={{headerShown: false}}/>
+          {/* <Stack.Screen name="landing user" component={landing_user} options={{headerShown: false}}/>
           <Stack.Screen name="identify user" component={identify_user} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Segoe-Print"}}}/>
-          <Stack.Screen name="login" component={login} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Segoe-Print"}}}/>
+          <Stack.Screen name="login" component={login} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Segoe-Print"}}}/> */}
+          <Stack.Screen name="maps" component={maps} options={{headerShown: false}}/>
         </Stack.Navigator>
       </NavigationContainer>
     );
