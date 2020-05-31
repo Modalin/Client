@@ -13,7 +13,7 @@ export default function home() {
           <SvgUri
             width="70"
             height="70"
-            // source={require('../../../assets/garden.svg')}
+            source={require('../../../assets/garden.svg')}
           />
         </View>
         <View>

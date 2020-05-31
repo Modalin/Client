@@ -14,7 +14,10 @@ import login from './src/pages/login/login';
 import investorPage from './src/pages/Investor/home';
 import mitraPage from './src/pages/mitra/home';
 
+import tab_bottom_investor from './src/pages/Investor/bottom_nav'
+import payment from './src/pages/Investor/payment'
 const Stack = createStackNavigator()
+
 
 export default function App() {
 
@@ -35,8 +38,9 @@ export default function App() {
           <Stack.Screen name="landing user" component={landing_user} options={{headerShown: false}}/>
           <Stack.Screen name="identify user" component={identify_user} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Segoe-Print"}}}/>
           <Stack.Screen name="login" component={login} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
-          <Stack.Screen name="investor dashboard" component={investorPage} options={{title: "Investor Page", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
           <Stack.Screen name="mitra dashboard" component={mitraPage} options={{title: "Mitra Page", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
+          <Stack.Screen name="investor" component={tab_bottom_investor} options={{headerShown: false}}/>
+          <Stack.Screen name="payment" component={payment} options={{headerShown: false}}/>
         </Stack.Navigator>
       </NavigationContainer>
       </Provider>

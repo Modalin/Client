@@ -75,7 +75,7 @@ export default function login({route, navigation}) {
         placeholder= "Password"
         />
       </Form>
-      <Button style={Gstyle.btn_style} blurOnSubmit={true} onPress={(e) => onLoginSubmit(e)}>
+      <Button style={Gstyle.btn_style} onPress={() => navigation.navigate('investor')}>
         <Text style={[Gstyle.btn_text, {fontSize: 18}]}> Masuk </Text>
       </Button>
     </View>
