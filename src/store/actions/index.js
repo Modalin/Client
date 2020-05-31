@@ -21,6 +21,10 @@ export const SET_EDIT_MITRA_BUSINESS = 'SET_POST_MITRA_BUSINESS';
 export const SET_EDIT_MITRA_BUSINESS_INVEST = 'SET_POST_MITRA_BUSINESS_INVEST';
 export const SET_EDIT_MITRA_BUSINESS_PROFIT = 'SET_POST_MITRA_BUSINESS_PROFIT';
 
+//error
+export const SET_ERROR_LOGIN_INVESTOR = 'SET_ERROR_LOGIN_INVESTOR';
+export const SET_ERROR_LOGIN_MITRA = 'SET_ERROR_LOGIN_MITRA';
+
 export const setLoading = (status) => {
     return { type: SET_LOADING, payload : status }
 }
@@ -77,19 +81,27 @@ export const set_edit_mitra_business = (data) => {
     return { type: SET_EDIT_MITRA_BUSINESS, payload: data }
 }
 
-export const set_edit_mitra_business_invest = () => {
+export const set_edit_mitra_business_invest = (data) => {
     return { type: SET_EDIT_MITRA_BUSINESS_INVEST, payload: data }
 }
 
-export const set_edit_mitra_business_profit = () => {
+export const set_edit_mitra_business_profit = (data) => {
     return { type: SET_EDIT_MITRA_BUSINESS_PROFIT, payload: data }
+}
+
+//error
+export const set_error_login_investor = (status) => {
+    return { type: SET_ERROR_LOGIN_INVESTOR, payload: status }
+}
+
+export const set_error_login_mitra = (status) => {
+    return { type: SET_ERROR_LOGIN_MITRA, payload: status }
 }
 
 
 
 export const loginInvestor = (data) => {
     return (dispatch) => {
-        dispatch(setLoading(true));
         axios
             .post(`${baseUrl}/investor/signIn`, {
                 email: data.email, password: data.password
@@ -98,13 +110,10 @@ export const loginInvestor = (data) => {
                 dispatch(setInvestor(data.token))
             })
             .catch(err => {
-                console.log('masuk error');
+                console.log('masuk error investor');
                 console.log(err);
+                // dispatch(set_error_login_investor(err))
             })
-            .finally(_ => {
-                dispatch(setLoading(false));
-            })
-
     }
 }
 
@@ -118,7 +127,9 @@ export const loginMitra = (data) => {
                 dispatch(setLoginMitra(data.token))
             })
             .catch(err => {
+                console.log('masuk error mitra');
                 console.log(err);
+                dispatch(set_error_login_mitra(err))
             })
     }
 }
