@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://98f06d124b6f.ngrok.io'  
+const baseUrl = 'http://7a400804c6eb.ngrok.io'  
 
 export const SET_LOGIN_INVESTOR = 'SET_LOGIN_INVESTOR';
 export const SET_LOGIN_MITRA = 'SET_LOGIN_MITRA';
@@ -26,8 +26,8 @@ export const SET_ERROR_LOGIN_INVESTOR = 'SET_ERROR_LOGIN_INVESTOR';
 export const SET_ERROR_LOGIN_MITRA = 'SET_ERROR_LOGIN_MITRA';
 
 
-export const setInvestor = (status) => {
-    return { type: SET_LOGIN_INVESTOR, payload : status }
+export const setInvestor = (data) => {
+    return { type: "SET_LOGIN_INVESTOR", payload : data }
 }
 
 export const setLoading = (status) => {
@@ -104,7 +104,6 @@ export const set_error_login_mitra = (status) => {
 }
 
 
-
 export const loginInvestor = (data) => {
     return (dispatch) => {
         axios
@@ -112,10 +111,9 @@ export const loginInvestor = (data) => {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
-                dispatch(setInvestor(data.token))
+                dispatch(setInvestor(data))
             })
             .catch(err => {
-                console.log('masuk error investor');
                 console.log(err);
                 // dispatch(set_error_login_investor(err))
             })
@@ -129,6 +127,7 @@ export const loginMitra = (data) => {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
+                console.log(JSON.stringify(data, null, 4));
                 dispatch(setLoginMitra(data.token))
             })
             .catch(err => {
@@ -221,15 +220,24 @@ export const deleteMitraProfile = (id) => {
     }
 }
 
-export const getInvestorWallet = () => {
+export const getInvestorWallet = ({ token }) => {
+    console.log('masuk getInvestor wallet');
+    console.log(token);
+
     return (dispatch) => {
         axios
-            .get(`${baseUrl}/investor/wallet/`)
+            .get(`${baseUrl}/investor/wallet/`, {
+                headers: {
+                    'token' : `${token.token}`
+                  }
+            })
             .then(({ data }) => {
-
+                console.log('masuk investor wallet di store action');
+                console.log(JSON.stringify(data,null,4));
+                dispatch(set_get_investor_wallet(data))
             })
             .catch(err => {
-                
+                console.log(err);
             })
     }
 }
@@ -247,15 +255,21 @@ export const deleteInvestorWallet = () => {
     }
 }
 
-export const getInvestorBusiness = () => {
+export const getInvestorBusiness = (id, token) => {
     return (dispatch) => {
-        axios
-            .get(`${baseUrl}/investor/business`)
+        axios({
+            method: 'get',
+            url: `${baseUrl}/investor/business/${id}`,
+            headers: {
+                'token' : `${token}`
+            }
+        })
+            .get(`${baseUrl}/investor/business/${id}`)
             .then(({ data }) => {
-
+                dispatch(set_investor_business(data))
             })
             .catch(err => {
-                
+                console.log(err);
             })
     } 
 }
@@ -265,10 +279,10 @@ export const getInvestorInvest = () => {
         axios
             .get(`${baseUrl}/investor/invest`)
             .then(({ data }) => {
-
+                dispatch(set_investor_invest(data))
             })
             .catch(err => {
-                
+                console.log(err);
             })
     } 
 }

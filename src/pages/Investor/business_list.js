@@ -1,10 +1,23 @@
 import React from 'react'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {View, Text, ScrollView} from 'react-native'
 import {Button, Card, CardItem, Body} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
+import { getInvestorBusiness } from '../../store/actions'
 
 export default function Business(params) {
   const data = [{id: 1, value: "All"},{id: 2, value: "Pertanian"},{id: 3, value: "Jasa"},{id: 4, value: "Industri"},{id: 5, value: "Peternakan"},{id: 6, value: "Perikanan"}]
+  const { tokenInvestor } = useSelector(state => state.tokenInvestor)
+  const { investorBusiness } = useSelector(state => state.investorBusiness)
+  const dispatch = useDispatch()
+
+  console.log(investorBusiness);
+
+  useEffect(() => {
+    dispatch(getInvestorBusiness(tokenInvestor.id, tokenInvestor.token))
+  }, [dispatch])
+
   return(
     <View style={[investor_style.container_home,investor_style.bar_, {backgroundColor: "#ffffff"}]}>
       <View style={[investor_style.category_list]}>

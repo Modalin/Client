@@ -1,10 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {View, Text, ScrollView} from 'react-native'
 import {Card, Button} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import Gstyle from '../../style/global_style'
 
 export default function Profile(params) {
+  const { tokenInvestor } = useSelector(state => state.tokenInvestor)
+  
   return (
     <View style={[investor_style.container_home]}>
       <ScrollView>
@@ -14,7 +17,7 @@ export default function Profile(params) {
             <View></View>
           </Card>
           <View style={[{justifyContent: "center", marginHorizontal: 20}]}>
-            <Text>Jhon Doe</Text>
+            <Text>{tokenInvestor.name}</Text>
             <Text>Investor</Text>
           </View>
         </View>
@@ -23,31 +26,31 @@ export default function Profile(params) {
           {/* email */}
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>Email</Text>
-            <Text>Jhon@mail.com</Text>
+            <Text>{tokenInvestor.email}</Text>
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>Phone</Text>
-            <Text>+62898298398293</Text>
+            <Text>{tokenInvestor.phone}</Text>
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>Address</Text>
-            <Text>Jl. Plitur 1 No.2, RT.2, Kayu Putih, Kec. Pulo Gadung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13210</Text>
+            <Text>{tokenInvestor.address}</Text>
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>No Rekening</Text>
-            <Text>092898298398293</Text>
+            <Text>{tokenInvestor.wallet.account_number}</Text>
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>Pekerjaan</Text>
-            <Text>Petani</Text>
+            <Text>{tokenInvestor.job}</Text>
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>KTP</Text>
-            <Text>33102908984</Text>
+            <Text>{tokenInvestor.document.KTP.no_KTP}</Text>
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>NPWP</Text>
-            <Text>33102923343508984</Text>
+            <Text>{tokenInvestor.document.NPWP.no_NPWP}</Text>
           </View>
           {/* footer */}
           <View style={{marginBottom: 20, }}>

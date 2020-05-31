@@ -1,11 +1,16 @@
 import React from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {View, Text, ScrollView} from 'react-native'
 import {Button , Card, CardItem, Body} from 'native-base'
 import SvgUri from "expo-svg-uri"
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
+import { getInvestorBusiness } from '../../store/actions'
 
 export default function home() {
   const data = [{id: 1, value: "All"},{id: 2, value: "Pertanian"},{id: 3, value: "Jasa"},{id: 4, value: "Industri"},{id: 5, value: "Peternakan"},{id: 6, value: "Perikanan"}]
+  const {investorBusiness} = useSelector((state) => state.investorBusiness)
+
   return (
     <View style={investor_style.container_home}>
       <View style={investor_style.container}>

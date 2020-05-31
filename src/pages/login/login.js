@@ -4,7 +4,7 @@ import {View, Text, TextInput, StyleSheet} from 'react-native';
 import {Form, Button} from 'native-base';
 import Gstyle from '../../style/global_style';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginInvestor, loginMitra } from '../../store/actions';
+import { loginInvestor, loginMitra, getInvestorWallet } from '../../store/actions';
 import Spinner from 'react-native-loading-spinner-overlay';
 // import SyncStorage from 'sync-storage';
 
@@ -15,18 +15,7 @@ export default function login({route, navigation}) {
   const {request} = route.params;
   const {role} = route.params;
   const dispatch = useDispatch();
-  const tokenInvestor = useSelector((state) => state.tokenInvestor);
-  const tokenMitra = useSelector((state) => state.tokenMitra);
   const loading = useSelector((state) => state.loading);
-
-
- useEffect(() => {
-  //  if (loading) {
-     setInterval(() => {
-       setSpinner(false);
-     }, 3000);
-  //  }
- }, [loading])
 
   const onLoginSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +30,7 @@ export default function login({route, navigation}) {
 
       if (role.toLowerCase() === 'investor') {
         dispatch(loginInvestor({ email, password }))
-        navigation.navigate('investor dashboard',{ request: 'investorPage' })
+        navigation.navigate('investor', { request: 'tab-bottom-investor'})
       } else if (role.toLowerCase() === 'mitra') {
         dispatch(loginMitra({ email, password }))
         navigation.navigate('mitra dashboard',{ request: 'mitraPage' })
@@ -75,7 +64,7 @@ export default function login({route, navigation}) {
         placeholder= "Password"
         />
       </Form>
-      <Button style={Gstyle.btn_style} onPress={() => navigation.navigate('investor')}>
+      <Button style={Gstyle.btn_style} onPress={onLoginSubmit}>
         <Text style={[Gstyle.btn_text, {fontSize: 18}]}> Masuk </Text>
       </Button>
     </View>
