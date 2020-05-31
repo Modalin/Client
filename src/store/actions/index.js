@@ -25,6 +25,11 @@ export const SET_EDIT_MITRA_BUSINESS_PROFIT = 'SET_POST_MITRA_BUSINESS_PROFIT';
 export const SET_ERROR_LOGIN_INVESTOR = 'SET_ERROR_LOGIN_INVESTOR';
 export const SET_ERROR_LOGIN_MITRA = 'SET_ERROR_LOGIN_MITRA';
 
+
+export const setInvestor = (status) => {
+    return { type: SET_LOGIN_INVESTOR, payload : status }
+}
+
 export const setLoading = (status) => {
     return { type: SET_LOADING, payload : status }
 }
