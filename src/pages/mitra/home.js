@@ -7,7 +7,7 @@ export default function mitraPage({navigation}) {
 
   return (
     <View style={Gstyle.containerFull}>
-      <Text style={Gstyle.logo_text_title}>Investor Page</Text>
+      <Text style={Gstyle.logo_text_title}>Mitra Page</Text>
     </View>
   )
 }

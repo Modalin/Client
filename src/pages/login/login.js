@@ -1,20 +1,32 @@
 import React from 'react';
-import { useState } from 'react';
-import {View, Text, TextInput} from 'react-native';
+import { useState, useEffect } from 'react';
+import {View, Text, TextInput, StyleSheet} from 'react-native';
 import {Form, Button} from 'native-base';
 import Gstyle from '../../style/global_style';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginInvestor, loginMitra } from '../../store/actions';
+import Spinner from 'react-native-loading-spinner-overlay';
 // import SyncStorage from 'sync-storage';
 
 export default function login({route, navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [spinner, setSpinner] = useState(false);
   const {request} = route.params;
   const {role} = route.params;
   const dispatch = useDispatch();
   const tokenInvestor = useSelector((state) => state.tokenInvestor);
   const tokenMitra = useSelector((state) => state.tokenMitra);
+  const loading = useSelector((state) => state.loading);
+
+
+ useEffect(() => {
+  //  if (loading) {
+     setInterval(() => {
+       setSpinner(false);
+     }, 3000);
+  //  }
+ }, [loading])
 
   const onLoginSubmit = (e) => {
     e.preventDefault();
@@ -32,7 +44,7 @@ export default function login({route, navigation}) {
         navigation.navigate('investor dashboard',{ request: 'investorPage' })
       } else if (role.toLowerCase() === 'mitra') {
         dispatch(loginMitra({ email, password }))
-        navigation.navigate('investor dashboard',{ request: 'investorPage' })
+        navigation.navigate('mitra dashboard',{ request: 'mitraPage' })
       }
     }
 
@@ -42,6 +54,11 @@ export default function login({route, navigation}) {
 
   return (
     <View style={Gstyle.container_full_white}>
+      <Spinner
+          visible={spinner}
+          textContent={'Loading...'}
+          textStyle={styles.spinnerTextStyle}
+        />
       <Text style={Gstyle.title_bold}>Masuk {role} Modalin</Text>
       <Form style={Gstyle.form_style}>
         <TextInput
@@ -64,3 +81,9 @@ export default function login({route, navigation}) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  spinnerTextStyle: {
+    color: '#FFF'
+  }
+});

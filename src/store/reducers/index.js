@@ -1,8 +1,9 @@
-import { SET_LOGIN_INVESTOR, SET_LOGIN_MITRA } from '../actions';
+import { SET_LOGIN_INVESTOR, SET_LOGIN_MITRA, SET_LOADING } from '../actions';
 
 const initialStore = {
     tokenInvestor: '',
-    tokenMitra: ''
+    tokenMitra: '',
+    loading: false
 }
 
 export default function token (state=initialStore, action) {
@@ -13,8 +14,9 @@ export default function token (state=initialStore, action) {
             return { ...state, tokenInvestor : payload }
         case SET_LOGIN_MITRA :
             return { ...state, tokenMitra : payload }
+        case SET_LOADING :
+            return { ...state, loading : payload }
         default:
             return state;
     }
-    
 }
