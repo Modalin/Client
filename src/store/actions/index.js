@@ -298,16 +298,16 @@ export const deleteInvestorWallet = () => {
     }
 }
 
-export const getInvestorBusiness = (id, token) => {
+export const getInvestorBusiness = (data) => {
+    console.log(data);
     return (dispatch) => {
         axios({
             method: 'get',
-            url: `${baseUrl}/investor/business/${id}`,
+            url: `${baseUrl}/investor/business/${data.id}`,
             headers: {
-                'token' : `${token}`
+                'token' : `${data.token}`
             }
         })
-            .get(`${baseUrl}/investor/business/${id}`)
             .then(({ data }) => {
                 dispatch(set_investor_business(data))
             })
@@ -330,15 +330,15 @@ export const getInvestorInvest = () => {
     } 
 }
 
-export const getMitraBusiness = () => {
+export const getMitraBusiness = (data) => {
     return (dispatch) => {
         axios
             .get(`${baseUrl}/mitra/business`)
             .then(({ data }) => {
-
+                dispatch(set_mitra_business(data))
             })
             .catch(err => {
-                
+                console.log(err);
             })
     } 
 }

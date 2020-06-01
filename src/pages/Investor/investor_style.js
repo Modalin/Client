@@ -75,6 +75,9 @@ const style = StyleSheet.create({
   text_grey:{
     color: "#AEAEAE"
   },
+  text_yellow:{
+    color: "#FFFF00"
+  },
   text_green: {
     color: "#00B965"
   },

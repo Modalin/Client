@@ -9,23 +9,15 @@ import {editInvestorProfile} from '../../store/actions'
 export default function Profile({ navigation }) {
   const { tokenInvestor } = useSelector(state => state.tokenInvestor)
   const [editStatus, setEditStatus] = useState(false)
-  // const [name, setName] = useState('')
-  // const [email, setEmail] = useState('')
-  // const [phone, setPhone] = useState(0)
-  // const [address, setAddress] = useState('')
-  // const [account, setAccount] = useState(0)
-  // const [job, setJob] = useState('')
-  // const [ktp, setKtp] = useState(0)
-  // const [npwp, setNpwp] = useState(0)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState(0)
+  const [address, setAddress] = useState('')
+  const [account, setAccount] = useState(0)
+  const [job, setJob] = useState('')
+  const [ktp, setKtp] = useState(0)
+  const [npwp, setNpwp] = useState(0)
   const dispatch = useDispatch()
-
-  // console.log(name);
-  //   console.log(email);
-  //   console.log(phone);
-  //   console.log(address);
-  //   console.log(job);
-  //   console.log(ktp);
-  //   console.log(npwp);
 
   const onHandleEdit = (e) => {
     e.preventDefault()
@@ -53,7 +45,7 @@ export default function Profile({ navigation }) {
     //   }
     // }))
     alert('successfully edit' )
-    // setEditStatus(false)
+    setEditStatus(false)
   }
   
   return (

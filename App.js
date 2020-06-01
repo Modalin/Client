@@ -20,7 +20,7 @@ import payment from './src/pages/Investor/payment'
 import maps from './src/pages/maps/maps'
 const Stack = createStackNavigator()
 
-
+console.disableYellowBox = true;
 export default function App() {
 
   let [fontsLoaded] = useFonts({

@@ -11,7 +11,7 @@ export default function Tab_nav() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Beranda" component={home}/>
-      <Tab.Screen name="Investasi" component={business}/>
+      <Tab.Screen name="Pendanaan" component={business}/>
       <Tab.Screen name="Transaksi" component={transaction}/>
       <Tab.Screen name="Profile" component={profile}/>
     </Tab.Navigator>
