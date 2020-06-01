@@ -107,6 +107,13 @@ const style = StyleSheet.create({
     backgroundColor: "#00B965",
     justifyContent: "center"
   },
+  btn_red:{
+    width: "80%",
+    padding: 2,
+    borderRadius: 10,
+    backgroundColor: "#C20000",
+    justifyContent: "center"
+  },
 
   banner_:{
     justifyContent: "flex-end"

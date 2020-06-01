@@ -3,7 +3,7 @@ import {View, Text, ScrollView} from 'react-native'
 import {Button, Card, CardItem, Body} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 
-export default function Business(params) {
+export default function Business({navigation}) {
   const data = [{id: 1, value: "All"},{id: 2, value: "Pertanian"},{id: 3, value: "Jasa"},{id: 4, value: "Industri"},{id: 5, value: "Peternakan"},{id: 6, value: "Perikanan"}]
   return(
     <View style={[investor_style.container_home,investor_style.bar_, {backgroundColor: "#ffffff"}]}>
@@ -24,7 +24,8 @@ export default function Business(params) {
       {/* list bisnis */}
       <View style={investor_style.container_list}>
         {/* flat list here */}
-        <Card>
+        {/* kirim parameter untuk dapat detail by id nya */}
+        <Card onTouchMove={() => navigation.navigate('detail business',{})}>
           <CardItem>
             <Body>
               <View style={investor_style.card}>

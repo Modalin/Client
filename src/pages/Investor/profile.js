@@ -4,7 +4,7 @@ import {Card, Button} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import Gstyle from '../../style/global_style'
 
-export default function Profile(params) {
+export default function Profile({navigation}) {
   return (
     <View style={[investor_style.container_home]}>
       <ScrollView>
@@ -53,7 +53,7 @@ export default function Profile(params) {
           <View style={{marginBottom: 20, }}>
             <Text style={[investor_style.text_green, {textAlign: "center", paddingVertical: 10}]}>Pastikan nama kamu sesuai dengan nama yang tertera di rekening bank kamu</Text>
             <View style={{alignItems:"center"}}>
-              <Button style={[investor_style.btn_green]} onPress={() => alert('hi')}>
+              <Button style={[investor_style.btn_green]} onPress={() => navigation.navigate('edit profile',{})}>
                 <Text style={[{fontSize: 14, color: '#ffffff'}]}> Edit </Text>
               </Button>
             </View>
