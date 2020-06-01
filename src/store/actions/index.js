@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://98f06d124b6f.ngrok.io'  
+const baseUrl = 'http://0ccb44d71db1.ngrok.io'  
 
 export const SET_LOGIN_INVESTOR = 'SET_LOGIN_INVESTOR';
 export const SET_LOGIN_MITRA = 'SET_LOGIN_MITRA';
@@ -26,8 +26,8 @@ export const SET_ERROR_LOGIN_INVESTOR = 'SET_ERROR_LOGIN_INVESTOR';
 export const SET_ERROR_LOGIN_MITRA = 'SET_ERROR_LOGIN_MITRA';
 
 
-export const setInvestor = (status) => {
-    return { type: SET_LOGIN_INVESTOR, payload : status }
+export const setInvestor = (data) => {
+    return { type: "SET_LOGIN_INVESTOR", payload : data }
 }
 
 export const setLoading = (status) => {
@@ -104,7 +104,6 @@ export const set_error_login_mitra = (status) => {
 }
 
 
-
 export const loginInvestor = (data) => {
     return (dispatch) => {
         axios
@@ -112,10 +111,9 @@ export const loginInvestor = (data) => {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
-                dispatch(setInvestor(data.token))
+                dispatch(setInvestor(data))
             })
             .catch(err => {
-                console.log('masuk error investor');
                 console.log(err);
                 // dispatch(set_error_login_investor(err))
             })
@@ -129,6 +127,7 @@ export const loginMitra = (data) => {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
+                console.log(JSON.stringify(data, null, 4));
                 dispatch(setLoginMitra(data.token))
             })
             .catch(err => {
@@ -143,12 +142,29 @@ export const registInvestor = (data) => {
     return (dispatch) => {
         axios
             .post(`${baseUrl}/investor/signUp`, {
-
+                name: data.name, 
+                email : data.email, 
+                password: data.password,
+                address: ' ',
+                job: ' ',
+                phone: '0',
+                photo_profile: ' ',
+                document: {
+                    KTP: {
+                        url: ' ',
+                        no_KTP: '0'
+                    },
+                    NPWP: {
+                        url: ' ',
+                        no_NPWP: ' '
+                    }
+                }
             })
             .then(({ data }) => {
-
+                dispatch(set_regist_investor(data))
             })
             .catch(err => {
+                console.log('masuk error');
                 console.log(err);
             })
     }
@@ -169,15 +185,41 @@ export const registMitra = (data) => {
     }
 }
 
-export const editInvestorProfile = (id, data) => {
+export const editInvestorProfile = (data) => {
     return (dispatch) => {
         axios
-            .patch(`${baseUrl}/investor/${id}`)
+            .patch(`${baseUrl}/investor/`, {
+                name: data.name, 
+                email : data.email, 
+                password: data.password,
+                address: data.address,
+                job: data.job,
+                phone: data.phone,
+                photo_profile: data.photo_profile,
+                document: {
+                    KTP: {
+                        url: data.document.KTP.url,
+                        no_KTP: data.document.KTP.no_KTP
+                    },
+                    NPWP: {
+                        url: data.document.NPWP.url,
+                        no_NPWP: data.document.NPWP.no_NPWP
+                    }
+                },
+                wallet: {
+                    account_name: data.wallet.account_name,
+                    bank_name: data.wallet.bank_name,
+                    account_number: data.wallet.account_number,
+                    saldo: data.wallet.saldo,
+                    income: data.wallet.income,
+                    incomePersentase: data.wallet.incomePersentase
+                  }
+            })
             .then(({ data }) => {
-
+                console.log('sukses regist');
             })
             .catch(err => {
-
+                console.log(err);
             })
     }
 }
@@ -221,15 +263,22 @@ export const deleteMitraProfile = (id) => {
     }
 }
 
-export const getInvestorWallet = () => {
+export const getInvestorWallet = ({ token }) => {
+    console.log('masuk getInvestor wallet');
+    console.log(token);
+
     return (dispatch) => {
         axios
-            .get(`${baseUrl}/investor/wallet/`)
+            .get(`${baseUrl}/investor/wallet`, {
+                headers: {
+                    'token' : `${token}`
+                  }
+            })
             .then(({ data }) => {
-
+                dispatch(set_get_investor_wallet(data))
             })
             .catch(err => {
-                
+                console.log(err);
             })
     }
 }
@@ -237,7 +286,7 @@ export const getInvestorWallet = () => {
 export const deleteInvestorWallet = () => {
     return (dispatch) => {
         axios
-            .delete(`${baseUrl}/investor/wallet/`)
+            .delete(`${baseUrl}/investor/wallet/id`)
             .then(({ data }) => {
 
             })
@@ -247,15 +296,22 @@ export const deleteInvestorWallet = () => {
     }
 }
 
-export const getInvestorBusiness = () => {
+export const getInvestorBusiness = (data) => {
+    console.log('masuk get investor store');
+    console.log(data);
     return (dispatch) => {
-        axios
-            .get(`${baseUrl}/investor/business`)
+        axios({
+            method: 'get',
+            url: `${baseUrl}/investor/business`,
+            headers: {
+                'token' : `${data.token}`
+            }
+        })
             .then(({ data }) => {
-
+                dispatch(set_investor_business(data))
             })
             .catch(err => {
-                
+                console.log(err);
             })
     } 
 }
@@ -265,23 +321,23 @@ export const getInvestorInvest = () => {
         axios
             .get(`${baseUrl}/investor/invest`)
             .then(({ data }) => {
-
+                dispatch(set_investor_invest(data))
             })
             .catch(err => {
-                
+                console.log(err);
             })
     } 
 }
 
-export const getMitraBusiness = () => {
+export const getMitraBusiness = (data) => {
     return (dispatch) => {
         axios
             .get(`${baseUrl}/mitra/business`)
             .then(({ data }) => {
-
+                dispatch(set_mitra_business(data))
             })
             .catch(err => {
-                
+                console.log(err);
             })
     } 
 }

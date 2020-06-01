@@ -29,7 +29,6 @@ const style = StyleSheet.create({
     flex: 1,
   },
   container:{
-    paddingHorizontal: 20,
     paddingTop: Constant.statusBarHeight,
     backgroundColor: "#ffffff",
   },
@@ -63,20 +62,6 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginVertical: 30
-  },
-
-
-  category_list:{
-    flexDirection: "row",
-  },
-  card_category:{
-    left: 20,
-    backgroundColor: "#ffffff",
-    borderRadius: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 5,
-    marginRight: 10,
-    marginVertical: 10
   },
 
   text_grey:{
@@ -113,7 +98,6 @@ const style = StyleSheet.create({
 
   btn_green:{
     width: "80%",
-    padding: 2,
     borderRadius: 10,
     backgroundColor: "#00B965",
     justifyContent: "center"
@@ -138,6 +122,18 @@ const style = StyleSheet.create({
 
   padding_b_10: {
     paddingBottom: 10
+  },
+
+  shadow:{
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+   },
+   shadowOpacity: 0.25,
+   shadowRadius: 3.84,
+   elevation: 5,
   }
 })
 

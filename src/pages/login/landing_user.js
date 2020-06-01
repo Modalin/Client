@@ -10,7 +10,7 @@ export default function landing_user({navigation}) {
     <View style={Gstyle.containerFull}>
       <Text style={Gstyle.logo_text_title}>ModalIn</Text>
       {/* <Image source={bgImage} style={Gstyle.img_banner}/> */}
-      <Button style={Gstyle.btn_style} onPress={() => navigation.navigate('identify user',{request: 'signup'})}>
+      <Button style={Gstyle.btn_style} onPress={() => navigation.navigate('identify user register',{request: 'identify_user_register'})}>
         <Text style={Gstyle.btn_text}> Buat Akun Gratis</Text>
       </Button>
       <View style={{marginTop:10}}>
