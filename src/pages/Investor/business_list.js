@@ -6,16 +6,20 @@ import {Button, Card, CardItem, Body} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import { getInvestorBusiness } from '../../store/actions'
 
-export default function Business(params) {
+export default function Business({navigation}) {
   const data = [{id: 1, value: "All"},{id: 2, value: "Pertanian"},{id: 3, value: "Jasa"},{id: 4, value: "Industri"},{id: 5, value: "Peternakan"},{id: 6, value: "Perikanan"}]
   const {investorBusiness} = useSelector((state) => state.investorBusiness)
   const {tokenInvestor} = useSelector((state) => state.tokenInvestor)
   const dispatch = useDispatch()
 
+
   useEffect(() => {
 
     if (tokenInvestor) {
-      dispatch(getInvestorBusiness({ id: tokenInvestor.id, token: tokenInvestor.token }))
+      console.log('ini token investor');
+      console.log(tokenInvestor);
+
+      dispatch(getInvestorBusiness({ token: tokenInvestor.token }))
     }
 
   }, [dispatch, tokenInvestor])
@@ -27,9 +31,8 @@ export default function Business(params) {
       </View>
     )
   } else {
-    console.log('masuk investor');
-    console.log(investorBusiness);
 
+    console.log(investorBusiness);
     return(
       <View style={[investor_style.container_home,investor_style.bar_, {backgroundColor: "#ffffff"}]}>
         <View style={[investor_style.category_list]}>
@@ -52,7 +55,7 @@ export default function Business(params) {
           <FlatList
             data={investorBusiness}
             renderItem={({ item }) => 
-              <Card>
+              <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })} key={item._id}>
                 <CardItem>
                   <Body>
                     <View style={investor_style.card}>

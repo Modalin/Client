@@ -7,17 +7,22 @@ import { AppLoading } from 'expo'
 import { Provider } from 'react-redux';
 import store from './src/store/index';
 
-//screen
+//login
 import landing_user from './src/pages/login/landing_user';
 import identify_user from './src/pages/login/identify_user';
 import identify_user_register from './src/pages/register/identify_user';
 import login from './src/pages/login/login';
 import register_investor from './src/pages/register/register_investor';
-import mitraPage from './src/pages/mitra/home';
 
+//investor
 import tab_bottom_investor from './src/pages/Investor/bottom_nav'
 import payment from './src/pages/Investor/payment'
 import maps from './src/pages/maps/maps'
+import detail_business from './src/pages/Investor/detail_business'
+import edit_profile from './src/pages/Investor/edit_profile'
+
+//mitra
+import mitraPage from './src/pages/mitra/home';
 const Stack = createStackNavigator()
 
 console.disableYellowBox = true;
@@ -45,7 +50,9 @@ export default function App() {
           <Stack.Screen name="mitra dashboard" component={mitraPage} options={{title: "Mitra Page", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
           <Stack.Screen name="investor" component={tab_bottom_investor} options={{headerShown: false}}/>
           <Stack.Screen name="payment" component={payment} options={{headerShown: false}}/>
-          <Stack.Screen name="maps" component={maps} options={{headerShown: false}}/>
+          <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
+          <Stack.Screen name="detail business" component={detail_business} options={{headerShown: false}}/>
+          <Stack.Screen name="edit profile" component={edit_profile} options={{headerShown: false}}/>
         </Stack.Navigator>
       </NavigationContainer>
       </Provider>

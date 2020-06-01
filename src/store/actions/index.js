@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://7a400804c6eb.ngrok.io'  
+const baseUrl = 'http://0ccb44d71db1.ngrok.io'  
 
 export const SET_LOGIN_INVESTOR = 'SET_LOGIN_INVESTOR';
 export const SET_LOGIN_MITRA = 'SET_LOGIN_MITRA';
@@ -269,14 +269,12 @@ export const getInvestorWallet = ({ token }) => {
 
     return (dispatch) => {
         axios
-            .get(`${baseUrl}/investor/wallet/`, {
+            .get(`${baseUrl}/investor/wallet`, {
                 headers: {
-                    'token' : `${token.token}`
+                    'token' : `${token}`
                   }
             })
             .then(({ data }) => {
-                console.log('masuk investor wallet di store action');
-                console.log(JSON.stringify(data,null,4));
                 dispatch(set_get_investor_wallet(data))
             })
             .catch(err => {
@@ -288,7 +286,7 @@ export const getInvestorWallet = ({ token }) => {
 export const deleteInvestorWallet = () => {
     return (dispatch) => {
         axios
-            .delete(`${baseUrl}/investor/wallet/`)
+            .delete(`${baseUrl}/investor/wallet/id`)
             .then(({ data }) => {
 
             })
@@ -299,11 +297,12 @@ export const deleteInvestorWallet = () => {
 }
 
 export const getInvestorBusiness = (data) => {
+    console.log('masuk get investor store');
     console.log(data);
     return (dispatch) => {
         axios({
             method: 'get',
-            url: `${baseUrl}/investor/business/${data.id}`,
+            url: `${baseUrl}/investor/business`,
             headers: {
                 'token' : `${data.token}`
             }

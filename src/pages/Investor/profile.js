@@ -44,8 +44,9 @@ export default function Profile({ navigation }) {
     //     }
     //   }
     // }))
-    alert('successfully edit' )
-    setEditStatus(false)
+    // alert('successfully edit' )
+    navigation.navigate('edit profile', {request: 'edit_profile'})
+    // setEditStatus(false)
   }
   
   return (

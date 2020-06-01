@@ -11,15 +11,27 @@ const initialState = {
   longitudeDelta: 0.0421,
 };
 
-export default function Maps({ props }) {
+export default function Maps({ route }) {
+  const { lat, long } = route.params.map;
+
+
   // const { lat, long } = props --> get latitude dan longitude dari server
   const [currentLocation, setCurrentLocation] = useState(initialState);
   const [destination, setDestination] = useState({
-    latitude: -6.219096, // lat
-    longitude: 106.845259, // long
+    latitude: null, // lat
+    longitude: null, // long
     latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    longitudeDelta: 0.0421
   });
+
+  useEffect(() => {
+    setDestination({
+      latitude: Number(lat),
+      longitude: Number(long),
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421
+    })
+  }, [])
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -58,7 +70,7 @@ export default function Maps({ props }) {
     getDirections(data);
   };
 
-  return currentLocation.longitude ? (
+  return destination.longitude && currentLocation.longitude ? (
     <>
         <MapView style={styles.map}
           provider={PROVIDER_GOOGLE}

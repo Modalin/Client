@@ -19,6 +19,12 @@ const style = StyleSheet.create({
   bar_:{
     paddingTop: Constant.statusBarHeight + 20
   },
+  m_bar_btm_:{
+    marginBottom: 180
+  },
+  m_b_20:{
+    marginBottom: 20
+  },
   container_home:{
     flex: 1,
   },
@@ -103,6 +109,27 @@ const style = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#00B965",
     justifyContent: "center"
+  },
+  btn_red:{
+    width: "80%",
+    padding: 2,
+    borderRadius: 10,
+    backgroundColor: "#C20000",
+    justifyContent: "center"
+  },
+
+  banner_:{
+    justifyContent: "flex-end"
+  },
+
+  card_detail:{
+    backgroundColor: "#ffffff",
+    padding: 20,
+    borderRadius: 15
+  },
+
+  padding_b_10: {
+    paddingBottom: 10
   }
 })
 
@@ -117,5 +144,11 @@ const shadow_ = {
   y:3,
   style:{marginVertical:5}
 }
+const color_ ={
+  grey: "#AEAEAE",
+  green: "#00B965",
+  white: "#ffffff",
+  black: "#000000"
+}
 
-export {style, shadow_}
+export {style, shadow_, color_}

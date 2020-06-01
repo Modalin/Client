@@ -1,9 +1,28 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {View, Text} from 'react-native'
 import {Card,  CardItem, Body, Button} from 'native-base'
+import * as ImagePicker from 'expo-image-picker'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 
 export default function Payment({navigation}) {
+  const [source, setSource] = useState(null)
+  const _pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      })
+      if (!result.cancelled) {
+        setSource(result.uri);
+      }
+
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  }
   return(
     <View style={[investor_style.container, {minHeight: "100%", justifyContent: "center"}]}>
       <View style={{paddingVertical: 20}}>
@@ -46,7 +65,7 @@ export default function Payment({navigation}) {
           <Card>
             <CardItem>
               <Body style={{alignItems: "center"}}>
-                <Button style={investor_style.btn_green}>
+                <Button style={investor_style.btn_green} onPress={_pickImage}>
                   <Text style={[investor_style.text_white]}>Upload</Text>
                 </Button>
               </Body>
