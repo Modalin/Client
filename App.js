@@ -10,6 +10,7 @@ import landing_user from './src/pages/login/landing_user'
 import identify_user from './src/pages/login/identify_user';
 import login from './src/pages/login/login';
 import maps from './src/pages/maps/maps'
+import image360 from './src/pages/google-vr/newImage360'
 const Stack = createStackNavigator()
 
 export default function App() {
@@ -29,7 +30,8 @@ export default function App() {
           {/* <Stack.Screen name="landing user" component={landing_user} options={{headerShown: false}}/>
           <Stack.Screen name="identify user" component={identify_user} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Segoe-Print"}}}/>
           <Stack.Screen name="login" component={login} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Segoe-Print"}}}/> */}
-          <Stack.Screen name="maps" component={maps} options={{headerShown: false}}/>
+          {/* <Stack.Screen name="maps" component={maps} options={{headerShown: false}}/> */}
+          <Stack.Screen name="image360" component={image360}/>
         </Stack.Navigator>
       </NavigationContainer>
     );
