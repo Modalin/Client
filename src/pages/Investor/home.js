@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {View, Text, ScrollView, FlatList} from 'react-native'
+import {View, Text, ScrollView, FlatList, Image} from 'react-native'
 import {Button , Card, CardItem, Body} from 'native-base'
 import SvgUri from "expo-svg-uri"
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
@@ -31,6 +31,8 @@ export default function home({navigation}) {
       </View>
     )
   } else {
+    console.log('ini di mitra bisnis');
+    console.log(mitraBusiness)
     return (
       <View style={investor_style.container_home}>
         <View style={investor_style.container}>
@@ -77,14 +79,13 @@ export default function home({navigation}) {
           {/* flat list here */}
           <FlatList
             data={mitraBusiness}
+            keyExtractor={(item, index) => 'key'+index}
             renderItem={({ item }) => 
-            <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })} key={item._id}>
+            <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })}>
               <CardItem>
                 <Body>
                   <View style={investor_style.card}>
-                    <View style={investor_style.round}>
-                        {/* image here */}
-                    </View>
+                    <Image style={investor_style.image_round} source={{ uri: `${item.images_360}`}}/>
                     <View>
                       <Text style={investor_style.text_bold}>{item.business_name}</Text>
                       {

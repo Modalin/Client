@@ -6,14 +6,14 @@ import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 export default function Edit({ route, navigation }) {
   const data = route.params.data;
-  console.log('masuk detail');
+  console.log('masuk detail di client yang baru');
   console.log(data);
   
   const [modalVisible, setModalVisible] = useState(false);
   const [value, onChangeText] = useState(0);
   return (
     <View style={[investor_style.bar_, {flex: 1}]}>
-      <ImageBackground style={{width: "100%",height: 150}} source={{ uri : 'https://reactnativecode.com/wp-content/uploads/2018/02/motorcycle.jpg'}}>
+      <ImageBackground style={{width: "100%",height: 150}} source={{ uri : `${data.images_360}`}}>
         <View style={[{height: 150, backgroundColor: "#000000", opacity: 0.75,justifyContent: "flex-end"}]}>
           <View style={[{flexDirection: "row", justifyContent: "space-between", padding: 10}]}>
             <Text style={[investor_style.text_white]}>{data.business_name}</Text>
@@ -82,7 +82,7 @@ export default function Edit({ route, navigation }) {
             <Text>Min Rp {data.value_per_unit}/Unit</Text>
             <TextInput
               style={{ height: 40, borderColor: color.grey, borderWidth: 1 , borderRadius: 10, padding: 10, width: "100%", marginVertical: 20}}
-              onChangeText={text => onChangeText(+text)}
+              onChangeText={text => onChangeText(text)}
               value={value}
               placeholder= 'Banyak Unit'
               keyboardType= "numeric"

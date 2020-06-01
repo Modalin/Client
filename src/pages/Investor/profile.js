@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {View, Text, ScrollView, TextInput} from 'react-native'
+import {View, Text, ScrollView, TextInput, TouchableHighlight} from 'react-native'
 import {Card, Button} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import {editInvestorProfile} from '../../store/actions'
@@ -45,21 +45,29 @@ export default function Profile({ navigation }) {
     //   }
     // }))
     // alert('successfully edit' )
-    navigation.navigate('edit profile', {request: 'edit_profile'})
+    
     // setEditStatus(false)
   }
   
   return (
     <View style={[investor_style.container_home]}>
       <ScrollView>
-
         <View style={[investor_style.container,investor_style.bar_,{flexDirection: "row", paddingBottom: 20}]}>
-          <Card style={[investor_style.profile_round]}>
-            <View></View>
-          </Card>
+          <View style={{ justifyContent: "center", marginHorizontal: 10}}>
+            <Card style={[investor_style.profile_round]}>
+              <View></View>
+            </Card>
+            <TouchableHighlight
+              style={[investor_style.btn_image_profile]}
+              activeOpacity={0.6}
+              underlayColor="#DDDDDD"
+              onPress={() => navigation.navigate('edit profile', {request: 'edit_profile'})}>
+              <Text style={[{fontSize: 12, color: '#ffffff'}]}> Edit </Text>
+            </TouchableHighlight>
+          </View>
           <View style={[{justifyContent: "center", marginHorizontal: 20}]}>
             {
-              editStatus ? <TextInput onChangeText={setName} value={name}>{tokenInvestor.name ? tokenInvestor.name : ''}</TextInput> :
+              editStatus ? <TextInput style={{ borderBottomWidth:1, borderBottomColor: "#aeaeae", paddingVertical: 5}} onChangeText={setName} value={name}>{tokenInvestor.name ? tokenInvestor.name : ''}</TextInput> :
               <Text>{tokenInvestor.name ? tokenInvestor.name : ''}</Text>
             }
             <Text>Investor</Text>
@@ -71,49 +79,46 @@ export default function Profile({ navigation }) {
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>Email</Text>
             {
-              editStatus ? <TextInput onChangeText={setEmail} value={email}>{tokenInvestor.email ? tokenInvestor.email : ''}</TextInput> :
               <Text>{tokenInvestor.email ? tokenInvestor.email : ''}</Text>
             }
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>Phone</Text>
             {
-              editStatus ? <TextInput onChangeText={setPhone} value={phone}>{tokenInvestor.phone ? tokenInvestor.phone : ''}</TextInput> :
+              editStatus ? <TextInput style={{ borderBottomWidth:1, borderBottomColor: "#aeaeae", padding: 5}} onChangeText={setPhone} value={phone}>{tokenInvestor.phone ? tokenInvestor.phone : ''}</TextInput> :
               <Text>{tokenInvestor.phone ? tokenInvestor.phone : ''}</Text>
             }
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>Address</Text>
             {
-              editStatus ? <TextInput onChangeText={setAddress} value={address}>{tokenInvestor.address ? tokenInvestor.address : ''}</TextInput> :
+              editStatus ? <TextInput style={{ borderBottomWidth:1, borderBottomColor: "#aeaeae", padding: 5}} onChangeText={setAddress} value={address}>{tokenInvestor.address ? tokenInvestor.address : ''}</TextInput> :
               <Text>{tokenInvestor.address ? tokenInvestor.address : ''}</Text>
             }
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>No Rekening</Text>
             {
-              editStatus ? <TextInput onChangeText={setAccount} value={account}>{tokenInvestor.wallet.account_number ? tokenInvestor.wallet.account_number : '0'}</TextInput> :
+              editStatus ? <TextInput style={{ borderBottomWidth:1, borderBottomColor: "#aeaeae", padding: 5}} onChangeText={setAccount} value={account}>{tokenInvestor.wallet.account_number ? tokenInvestor.wallet.account_number : '0'}</TextInput> :
               <Text>{tokenInvestor.wallet.account_number ? tokenInvestor.wallet.account_number : '0'}</Text>
             }
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>Pekerjaan</Text>
             {
-              editStatus ? <TextInput onChangeText={setJob} value={job}>{tokenInvestor.job ? tokenInvestor.job : ''}</TextInput> :
+              editStatus ? <TextInput style={{ borderBottomWidth:1, borderBottomColor: "#aeaeae", padding: 5}} onChangeText={setJob} value={job}>{tokenInvestor.job ? tokenInvestor.job : ''}</TextInput> :
               <Text>{tokenInvestor.job ? tokenInvestor.job : ''}</Text>
             }
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>KTP</Text>
             {
-              editStatus ? <TextInput onChangeText={setKtp} value={ktp}>{tokenInvestor.document.KTP.no_KTP ? tokenInvestor.document.KTP.no_KTP : '0'}</TextInput> :
               <Text>{tokenInvestor.document.KTP.no_KTP ? tokenInvestor.document.KTP.no_KTP : '0'}</Text>
             }
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>NPWP</Text>
             {
-              editStatus ? <TextInput onChangeText={setNpwp} value={npwp}>{tokenInvestor.document.NPWP.no_NPWP ? tokenInvestor.document.NPWP.no_NPWP : ''}</TextInput> :
               <Text>{tokenInvestor.document.NPWP.no_NPWP ? tokenInvestor.document.NPWP.no_NPWP : ''}</Text>
             }
           </View>

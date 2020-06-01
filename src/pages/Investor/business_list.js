@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {View, Text, ScrollView, FlatList} from 'react-native'
+import {View, Text, ScrollView, FlatList, Image} from 'react-native'
 import {Button, Card, CardItem, Body} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import { getInvestorBusiness } from '../../store/actions'
@@ -54,14 +54,13 @@ export default function Business({navigation}) {
           {/* flat list here */}
           <FlatList
             data={investorBusiness}
+            keyExtractor={(item, index) => 'key'+index}
             renderItem={({ item }) => 
-              <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })} key={item._id}>
+              <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })}>
                 <CardItem>
                   <Body>
                     <View style={investor_style.card}>
-                      <View style={investor_style.round}>
-                          {/* image here */}
-                      </View>
+                      <Image style={investor_style.image_round} source={{ uri: `${item.images_360}`}}/>
                       <View>
                         <Text style={investor_style.text_bold}>{item.business_name}</Text>
                         <View style={investor_style.sub_income_card}>

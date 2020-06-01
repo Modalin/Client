@@ -52,6 +52,12 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#AEAEAE"
   },
+  image_round:{
+    height: 60,
+    width: 60,
+    borderRadius: 40,
+    borderWidth: 1,
+  },
   sub_income_card:{
     maxWidth: "75%",
     minWidth: "100%",
@@ -95,7 +101,7 @@ const style = StyleSheet.create({
   },
 
   profile_round:{
-    margin: 10,
+    marginVertical: 10,
     height: 60,
     width: 60,
     borderRadius: 40,
@@ -106,6 +112,14 @@ const style = StyleSheet.create({
   btn_green:{
     width: "80%",
     padding: 2,
+    borderRadius: 10,
+    backgroundColor: "#00B965",
+    justifyContent: "center"
+  },
+  btn_image_profile:{
+    width: "90%",
+    padding: 3,
+    alignItems: "center",
     borderRadius: 10,
     backgroundColor: "#00B965",
     justifyContent: "center"
