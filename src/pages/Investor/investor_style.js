@@ -37,6 +37,7 @@ const style = StyleSheet.create({
 
   container_list:{
     marginTop: 10,
+    marginBottom: 50,
     paddingHorizontal: 20,
   },
   card:{

@@ -8,7 +8,7 @@ export default function Edit(params) {
   const [value, onChangeText] = useState(0);
   return (
     <View style={[investor_style.bar_, {flex: 1}]}>
-      <ImageBackground style={{width: "100%",height: 150}} source={require('./tst.jpg')}>
+      <ImageBackground resizeMode="contain" style={{width: "100%",height: 150}} source={{uri: 'https://meet.google.com/linkredirect?authuser=0&dest=https%3A%2F%2Fwww.panorama-jtb.com%2Fthemes%2Fbasic-v3%2Fassets%2Fuploads%2Flanding_page%2Fxindonesia-1140x410.jpg.pagespeed.ic.znlonjF3Ao.jpg'}}>
         <View style={[{height: 150, backgroundColor: "#000000", opacity: 0.75,justifyContent: "flex-end"}]}>
           <View style={[{flexDirection: "row", justifyContent: "space-between", padding: 10}]}>
             <Text style={[investor_style.text_white]}>Bengkel Mobil A&S</Text>

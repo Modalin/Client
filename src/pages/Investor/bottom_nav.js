@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator()
 
 export default function Tab_nav() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator tabBarOptions={{style: {marginTop: 5}}}>
       <Tab.Screen name="Beranda" component={home}/>
       <Tab.Screen name="Investasi" component={business}/>
       <Tab.Screen name="Transaksi" component={transaction}/>
