@@ -142,12 +142,29 @@ export const registInvestor = (data) => {
     return (dispatch) => {
         axios
             .post(`${baseUrl}/investor/signUp`, {
-
+                name: data.name, 
+                email : data.email, 
+                password: data.password,
+                address: ' ',
+                job: ' ',
+                phone: '0',
+                photo_profile: ' ',
+                document: {
+                    KTP: {
+                        url: ' ',
+                        no_KTP: '0'
+                    },
+                    NPWP: {
+                        url: ' ',
+                        no_NPWP: ' '
+                    }
+                }
             })
             .then(({ data }) => {
-
+                dispatch(set_regist_investor(data))
             })
             .catch(err => {
+                console.log('masuk error');
                 console.log(err);
             })
     }
@@ -168,15 +185,41 @@ export const registMitra = (data) => {
     }
 }
 
-export const editInvestorProfile = (id, data) => {
+export const editInvestorProfile = (data) => {
     return (dispatch) => {
         axios
-            .patch(`${baseUrl}/investor/${id}`)
+            .patch(`${baseUrl}/investor/`, {
+                name: data.name, 
+                email : data.email, 
+                password: data.password,
+                address: data.address,
+                job: data.job,
+                phone: data.phone,
+                photo_profile: data.photo_profile,
+                document: {
+                    KTP: {
+                        url: data.document.KTP.url,
+                        no_KTP: data.document.KTP.no_KTP
+                    },
+                    NPWP: {
+                        url: data.document.NPWP.url,
+                        no_NPWP: data.document.NPWP.no_NPWP
+                    }
+                },
+                wallet: {
+                    account_name: data.wallet.account_name,
+                    bank_name: data.wallet.bank_name,
+                    account_number: data.wallet.account_number,
+                    saldo: data.wallet.saldo,
+                    income: data.wallet.income,
+                    incomePersentase: data.wallet.incomePersentase
+                  }
+            })
             .then(({ data }) => {
-
+                console.log('sukses regist');
             })
             .catch(err => {
-
+                console.log(err);
             })
     }
 }

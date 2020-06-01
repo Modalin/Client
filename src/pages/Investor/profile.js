@@ -1,12 +1,60 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import {View, Text, ScrollView} from 'react-native'
+import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import {View, Text, ScrollView, TextInput} from 'react-native'
 import {Card, Button} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
-import Gstyle from '../../style/global_style'
+import {editInvestorProfile} from '../../store/actions'
 
-export default function Profile(params) {
+export default function Profile({ navigation }) {
   const { tokenInvestor } = useSelector(state => state.tokenInvestor)
+  const [editStatus, setEditStatus] = useState(false)
+  // const [name, setName] = useState('')
+  // const [email, setEmail] = useState('')
+  // const [phone, setPhone] = useState(0)
+  // const [address, setAddress] = useState('')
+  // const [account, setAccount] = useState(0)
+  // const [job, setJob] = useState('')
+  // const [ktp, setKtp] = useState(0)
+  // const [npwp, setNpwp] = useState(0)
+  const dispatch = useDispatch()
+
+  // console.log(name);
+  //   console.log(email);
+  //   console.log(phone);
+  //   console.log(address);
+  //   console.log(job);
+  //   console.log(ktp);
+  //   console.log(npwp);
+
+  const onHandleEdit = (e) => {
+    e.preventDefault()
+    setEditStatus(true)
+  }
+
+  const onSubmitEdit = (e) => {
+    e.preventDefault()
+    // dispatch(editInvestorProfile({
+    //   name,
+    //   email,
+    //   phone,
+    //   address,
+    //   job,
+    //   wallet : {
+    //     account_number : account
+    //   },
+    //   document : {
+    //     KTP : {
+    //       no_KTP: ktp
+    //     },
+    //     NPWP: {
+    //       no_NPWP: npwp
+    //     }
+    //   }
+    // }))
+    alert('successfully edit' )
+    // setEditStatus(false)
+  }
   
   return (
     <View style={[investor_style.container_home]}>
@@ -17,7 +65,10 @@ export default function Profile(params) {
             <View></View>
           </Card>
           <View style={[{justifyContent: "center", marginHorizontal: 20}]}>
-            <Text>{tokenInvestor.name}</Text>
+            {
+              editStatus ? <TextInput onChangeText={setName} value={name}>{tokenInvestor.name ? tokenInvestor.name : ''}</TextInput> :
+              <Text>{tokenInvestor.name ? tokenInvestor.name : ''}</Text>
+            }
             <Text>Investor</Text>
           </View>
         </View>
@@ -26,39 +77,66 @@ export default function Profile(params) {
           {/* email */}
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>Email</Text>
-            <Text>{tokenInvestor.email}</Text>
+            {
+              editStatus ? <TextInput onChangeText={setEmail} value={email}>{tokenInvestor.email ? tokenInvestor.email : ''}</TextInput> :
+              <Text>{tokenInvestor.email ? tokenInvestor.email : ''}</Text>
+            }
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>Phone</Text>
-            <Text>{tokenInvestor.phone}</Text>
+            {
+              editStatus ? <TextInput onChangeText={setPhone} value={phone}>{tokenInvestor.phone ? tokenInvestor.phone : ''}</TextInput> :
+              <Text>{tokenInvestor.phone ? tokenInvestor.phone : ''}</Text>
+            }
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>Address</Text>
-            <Text>{tokenInvestor.address}</Text>
+            {
+              editStatus ? <TextInput onChangeText={setAddress} value={address}>{tokenInvestor.address ? tokenInvestor.address : ''}</TextInput> :
+              <Text>{tokenInvestor.address ? tokenInvestor.address : ''}</Text>
+            }
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>No Rekening</Text>
-            <Text>{tokenInvestor.wallet.account_number}</Text>
+            {
+              editStatus ? <TextInput onChangeText={setAccount} value={account}>{tokenInvestor.wallet.account_number ? tokenInvestor.wallet.account_number : '0'}</TextInput> :
+              <Text>{tokenInvestor.wallet.account_number ? tokenInvestor.wallet.account_number : '0'}</Text>
+            }
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>Pekerjaan</Text>
-            <Text>{tokenInvestor.job}</Text>
+            {
+              editStatus ? <TextInput onChangeText={setJob} value={job}>{tokenInvestor.job ? tokenInvestor.job : ''}</TextInput> :
+              <Text>{tokenInvestor.job ? tokenInvestor.job : ''}</Text>
+            }
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>KTP</Text>
-            <Text>{tokenInvestor.document.KTP.no_KTP}</Text>
+            {
+              editStatus ? <TextInput onChangeText={setKtp} value={ktp}>{tokenInvestor.document.KTP.no_KTP ? tokenInvestor.document.KTP.no_KTP : '0'}</TextInput> :
+              <Text>{tokenInvestor.document.KTP.no_KTP ? tokenInvestor.document.KTP.no_KTP : '0'}</Text>
+            }
           </View>
           <View style={{marginBottom: 20}}>
             <Text style={[investor_style.text_grey]}>NPWP</Text>
-            <Text>{tokenInvestor.document.NPWP.no_NPWP}</Text>
+            {
+              editStatus ? <TextInput onChangeText={setNpwp} value={npwp}>{tokenInvestor.document.NPWP.no_NPWP ? tokenInvestor.document.NPWP.no_NPWP : ''}</TextInput> :
+              <Text>{tokenInvestor.document.NPWP.no_NPWP ? tokenInvestor.document.NPWP.no_NPWP : ''}</Text>
+            }
           </View>
           {/* footer */}
           <View style={{marginBottom: 20, }}>
             <Text style={[investor_style.text_green, {textAlign: "center", paddingVertical: 10}]}>Pastikan nama kamu sesuai dengan nama yang tertera di rekening bank kamu</Text>
             <View style={{alignItems:"center"}}>
-              <Button style={[investor_style.btn_green]} onPress={() => alert('hi')}>
+              {
+                editStatus ? 
+              <Button style={[investor_style.btn_green]} onPress={onSubmitEdit}>
+                <Text style={[{fontSize: 14, color: '#ffffff'}]}> Save </Text>
+              </Button> :
+              <Button style={[investor_style.btn_green]} onPress={onHandleEdit}>
                 <Text style={[{fontSize: 14, color: '#ffffff'}]}> Edit </Text>
               </Button>
+              }
             </View>
           </View>
         </View>
