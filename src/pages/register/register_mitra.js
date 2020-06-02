@@ -4,28 +4,36 @@ import { useDispatch } from 'react-redux'
 import {View, Text, TextInput, ScrollView} from 'react-native'
 import {Form, Button} from 'native-base'
 import Gstyle from '../../style/global_style'
-import { registInvestor } from '../../store/actions'
+import { registMitra } from '../../store/actions'
 import { storage } from '../../firebase/config'
 import * as ImagePicker from 'expo-image-picker'
+import Splash from '../login/splahScreen'
+
 
 export default function registerMitra({route, navigation}) {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [bankName, setBankName] = useState('')
-    const [bankNumber, setBankNumber] = useState('')
-    const [bankAccount, setBankAccount] = useState('')
     const [ktp, setKtp] = useState('')
     const [urlKtp, setUrlKtp] = useState('')
     const [npwp, setNpwp] = useState('')
     const [urlNpwp, setUrlNpwp] = useState('')
-    const [finalUrlKtp, setFinalUrlKtp] = useState('')
-    const [finalUrlNpwp, setFinalUrlNpwp] = useState('')
     const [uploaded, setUploaded] = useState('')
     const [selectDocument, setSelectDocument] = useState('')
+    const [employee, setEmployee] = useState('')
+    const [bankName, setBankName] = useState('')
+    const [accountName, setAccountName] = useState('')
+    const [accountNumber, setAccountNumber] = useState('')
+    const [urlKta, setUrlKta] = useState('')
+    const [urlSiup, setUrlSiup] = useState('')
+    const [siup, setSiup] = useState('')
+    const [finalUrlKtp, setFinalUrlKtp] = useState('')
+    const [finalUrlNpwp, setFinalUrlNpwp] = useState('')
+    const [finalUrlSiup, setFinalUrlSiup] = useState('')
+    const [finalUrlKta, setFinalUrlKta] = useState('')
     const dispatch = useDispatch()
 
-    async function uploadImage(uri, selectedtDocument) {
+    async function uploadImage(uri, selected) {
       // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
       console.disableYellowBox = true
       //Get image name
@@ -54,31 +62,48 @@ export default function registerMitra({route, navigation}) {
       const url =  await snapshot.ref.getDownloadURL()
       // dispatch(setInvestor({ photo_profile: url }))
       console.log("URL", url)
-        if (selectedtDocument === "ktp") {
+        if (selected === "ktp") {
           setFinalUrlKtp(url)
         }
-        if (selectedtDocument === "npwp"){
+        else if (selected === "npwp") {
           setFinalUrlNpwp(url)
+        }
+        else if (selected === "siup") {
+          setFinalUrlSiup(url)
+        }
+        else if (selected === "kta") {
+            setFinalUrlKta(url)
         }
     }
 
     const onRegistSubmit = async (e) => {
 
         e.preventDefault();
-        await uploadImage(urlKtp,"ktp").then(() => {
-          uploadImage(urlNpwp, "npwp")
-        })  
 
-        if (finalUrlKtp && finalUrlNpwp) {
-          dispatch(registInvestor({ 
+        await uploadImage(urlKtp,"ktp").then(async () => {
+        console.log('ini finalKtp');
+          await uploadImage(urlNpwp, "npwp").then(async () => {
+              console.log('ini finalNpwp');
+              await uploadImage(urlSiup, "siup").then( async() => {
+                  console.log('ini finalSiup');
+                  await uploadImage(urlKta, "kta")
+                  console.log('ini finalKta');
+              })
+          })
+        })
+        console.log(finalUrlKtp);
+        console.log(finalUrlNpwp);
+        console.log(finalUrlKta);
+        console.log(finalUrlSiup);
+
+        if (finalUrlKtp && finalUrlNpwp && finalUrlKta && finalUrlSiup) {
+          dispatch(registMitra({ 
             name: name, 
             email : email, 
             password: password,
-            wallet: {
-              account_name: bankAccount,
-              bank_name: bankName,
-              account_number: bankNumber
-            },
+            bank_name: bankName,
+            bank_account: accountName,
+            account_number: accountNumber,
             document: {
               KTP: {
                 no_KTP: ktp,
@@ -87,20 +112,36 @@ export default function registerMitra({route, navigation}) {
               NPWP: {
                 no_NPWP: npwp,
                 url: finalUrlNpwp
+              },
+              KTA: {
+                  kta: finalUrlKta,
+                  total_employee: employee
+              },
+              SIUP: {
+                  no_SIUP: siup,
+                  url: finalUrlSiup
               }
             }
         }))
           navigation.navigate('login', { request: 'login', role: 'investor'})
+            setName('')
+            setEmail('')
+            setPassword('')
+            setBankName('')
+            setAccountName('')
+            setAccountNumber('')
+            setKtp('')
+            setUrlKtp('')
+            setNpwp('')
+            setUrlNpwp('')
+            setSiup('')
+            setUrlSiup('')
+            setEmployee('')
+            setUrlKta('')
+        } else {
+            <Splash></Splash>
         }
 
-        setName('')
-        setEmail('')
-        setPassword('')
-        setBankName('')
-        setBankAccount('')
-        setBankNumber('')
-        setKtp('')
-        setNpwp('')
     }
 
     const _pickImage = async (document) => {
@@ -116,8 +157,14 @@ export default function registerMitra({route, navigation}) {
           if (document.data === "ktp") {
             setUrlKtp(result.uri)
           }
-          if (document.data === "npwp") {
+          else if (document.data === "npwp") {
             setUrlNpwp(result.uri)
+          }
+          else if (document.data === "siup") {
+            setUrlSiup(result.uri)
+          }
+          else if (document.data === "kta") {
+            setUrlKta(result.uri)
           }
           setUploaded(result.uri)
         }
@@ -133,13 +180,13 @@ export default function registerMitra({route, navigation}) {
       flexDirection: "column",
       alignItems: "center",
       backgroundColor: "#ffffff"}}>
-      <Text style={Gstyle.title_bold}>Daftar Investor Modalin</Text>
+      <Text style={Gstyle.title_bold}>Daftar Mitra Usaha Modalin</Text>
       <Form style={Gstyle.form_style}>
       <TextInput
         style={Gstyle.login_input}
         onChangeText={setName}
         value={name}
-        placeholder= "Nama Investor"
+        placeholder= "Nama Mitra"
         />
         <TextInput
         style={Gstyle.login_input}
@@ -162,15 +209,15 @@ export default function registerMitra({route, navigation}) {
         />
         <TextInput
         style={Gstyle.login_input}
-        onChangeText={setBankNumber}
-        value={bankNumber}
-        placeholder= "Nomer Rekening"
+        onChangeText={setAccountName}
+        value={accountName}
+        placeholder= "Nama Akun"
         />
         <TextInput
         style={Gstyle.login_input}
-        onChangeText={setBankAccount}
-        value={bankAccount}
-        placeholder= "Nama Akun Bank"
+        onChangeText={setAccountNumber}
+        value={accountNumber}
+        placeholder= "No. Rekening"
         />
         <TextInput
         style={Gstyle.login_input}
@@ -237,6 +284,74 @@ export default function registerMitra({route, navigation}) {
             }}
             onPress={() =>_pickImage({ data : "npwp"})}>
               <Text style={{fontSize: 10,color: "#ffffff"}}>upload npwp</Text>
+            </Button>
+        </View>
+        <TextInput
+        style={Gstyle.login_input}
+        onChangeText={setSiup}
+        value={siup}
+        placeholder= "Nomer SIUP"
+        />
+        <View style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", width: "90%"}}>
+            <TextInput
+              style={{
+              width: "67.5%",
+              borderColor: "#AEAEAE",
+              borderWidth: 1,
+              borderRadius: 10,
+              marginRight: 5,
+              padding: 10,
+              marginTop: 20
+            }}
+            value={urlSiup}
+            placeholder= "Upload SIUP"
+            />
+            <Button style={{
+              width: "30%",
+              padding: 10,
+              marginTop: 20,
+              borderRadius: 10,
+              backgroundColor: "#00B965",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+            onPress={() => _pickImage({ data : "siup"})}
+            >
+              <Text style={{fontSize: 10,color: "#ffffff"}}>upload siup</Text>
+            </Button>
+        </View>
+        <TextInput
+        style={Gstyle.login_input}
+        onChangeText={setEmployee}
+        value={employee}
+        placeholder= "Total Karyawan"
+        />
+        <View style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", width: "90%"}}>
+            <TextInput
+              style={{
+              width: "67.5%",
+              borderColor: "#AEAEAE",
+              borderWidth: 1,
+              borderRadius: 10,
+              marginRight: 5,
+              padding: 10,
+              marginTop: 20
+            }}
+            value={urlKta}
+            placeholder= "Upload Document Karyawan"
+            />
+            <Button style={{
+              width: "30%",
+              padding: 10,
+              marginTop: 20,
+              borderRadius: 10,
+              backgroundColor: "#00B965",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+            onPress={() => _pickImage({ data : "kta"})}
+            >
+              <Text style={{fontSize: 10,color: "#ffffff", textAlign: "center"}}>upload doc anggota</Text>
             </Button>
         </View>
       </Form>

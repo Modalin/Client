@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://fc59e7d57bdc.ngrok.io'  
+const baseUrl = 'http://ee754c622c73.ngrok.io'  
 
 export const SET_LOGIN_INVESTOR = 'SET_LOGIN_INVESTOR';
 export const SET_LOGIN_MITRA = 'SET_LOGIN_MITRA';
@@ -186,11 +186,37 @@ export const registInvestor = (data) => {
 export const registMitra = (data) => {
     return (dispatch) => {
         axios
-            .post(`${baseUrl}/mitra/signUp`, {
-
+            .post(`${baseUrl}/mitra/signup`, {
+                name: data.name, 
+                email : data.email, 
+                password: data.password,
+                bank_name: data.bank_name,
+                bank_account: data.bank_account,
+                account_number: data.account_number,
+                address: ' ',
+                photo_profile: ' ',
+                phone: 0,
+                document: {
+                    KTP: {
+                        no_KTP: Number(data.document.KTP.no_KTP),
+                        url: data.document.KTP.url
+                    },
+                    NPWP: {
+                        no_NPWP: data.document.NPWP.no_NPWP,
+                        url: data.document.NPWP.url
+                    },
+                    KTA: {
+                        kta: data.document.KTA.kta,
+                        total_employee: Number(data.document.KTA.total_employee)
+                    },
+                    SIUP: {
+                        no_SIUP: Number(data.document.SIUP.no_SIUP),
+                        url: data.document.SIUP.url
+                    }
+                }
             })
             .then(({ data }) => {
-
+                dispatch(set_regist_mitra(data))
             })
             .catch(err => {
                 console.log(err);
