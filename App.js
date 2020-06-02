@@ -29,6 +29,7 @@ import image360 from './src/pages/google-vr/Image360'
 import tab_bottom_mitra from './src/pages/mitra/bottom_nav';
 import detail_business_mitra from './src/pages/mitra/detail';
 import repot from './src/pages/mitra/repot';
+import register_mitra from './src/pages/register/register_mitra'
 const Stack = createStackNavigator()
 
 //Firebase
@@ -58,14 +59,12 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="mitra" component={tab_bottom_mitra} options={{headerShown: false}} />
-          <Stack.Screen name="detail business mitra" component={detail_business_mitra} options={{headerShown: false}} />
-          <Stack.Screen name="repot" component={repot} options={{title: 'Repot'}} />
           {/* User Login */}
           <Stack.Screen name="landing user" component={landing_user} options={{headerShown: false}}/>
           <Stack.Screen name="identify user" component={identify_user} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
           <Stack.Screen name="login" component={login} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
           <Stack.Screen name="register investor" component={register_investor} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
+          <Stack.Screen name="register mitra" component={register_mitra} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
           <Stack.Screen name="identify user register" component={identify_user_register} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
           {/* Investor */}
           <Stack.Screen name="investor" component={tab_bottom_investor} options={{headerShown: false}} />
@@ -74,6 +73,11 @@ export default function App() {
           <Stack.Screen name="edit profile" component={edit_profile} options={{headerShown: false}}/>
           <Stack.Screen name="image360" component={image360}/>
           {/* Mitra */}
+          <Stack.Screen name="mitra" component={tab_bottom_mitra} options={{headerShown: false}}/>
+          <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
+          <Stack.Screen name="detail business mitra" component={detail_business_mitra} options={{headerShown: false}} />
+          <Stack.Screen name="repot" component={repot} options={{title: 'Repot'}} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

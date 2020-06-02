@@ -9,7 +9,8 @@ const style = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#ffffff"
+    backgroundColor: "#ffffff",
+    paddingVertical: 20
   },
   img_banner:{
     resizeMode: "cover"

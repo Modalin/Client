@@ -1,9 +1,14 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {Image, View, Text, TouchableHighlight, ScrollView} from 'react-native'
 import {Button, Card} from 'native-base'
 import {style, color_ as color} from './mitra_style'
+import {} from '../../store/actions'
 
-export default function mitraPage({navigation}) {
+export default function mitraPage({route, navigation}) {
+  const [name, setName] = useState(null)
+  const [phone, setPhone] = useState(null)
+  const [Address, setAddress] = useState(null)
 
   return (
     <View style={[style.container_home, {}]}>
