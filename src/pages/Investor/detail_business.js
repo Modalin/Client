@@ -3,12 +3,14 @@ import {View, Text, ImageBackground, ScrollView, Image, Modal, StyleSheet, TextI
 import {Button} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow, color_ as color} from './investor_style'
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import MapData from '../maps/maps.js'
+import NumberFormat  from 'react-number-format'
 
 export default function Edit({ route, navigation }) {
   const data = route.params.data;
   
   const [modalVisible, setModalVisible] = useState(false);
-  const [value, onChangeText] = useState(0);
+  const [value, onChangeText] = useState(null);
   return (
     <View style={[investor_style.bar_, {flex: 1}]}>
       <ImageBackground style={{width: "100%",height: 150}} source={{ uri : `${data.images_360}`}}>
@@ -25,7 +27,7 @@ export default function Edit({ route, navigation }) {
             <View style={[{flexDirection: "row", justifyContent: "space-between"}]}>
               <View>
                 <Text style={[investor_style.text_grey]}>Minimal Invest</Text>
-                <Text style={[investor_style.text_bold]}>Rp {data.value_per_unit}/unit</Text>
+                <NumberFormat value={data.value_per_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_bold]}>{value}</Text>} />
               </View>
               <View style={[{}]}>
                 <View style={[{alignItems:"flex-end"}]}>
@@ -34,7 +36,7 @@ export default function Edit({ route, navigation }) {
                 </View>
                 <View style={[{alignItems:"flex-end"}]}>
                   <Text style={[investor_style.text_grey]}>Perkiraan Untung</Text>
-                  <Text style={[investor_style.text_green]}>Rp. {data.value_per_unit * data.persentase_value}</Text>
+                  <NumberFormat value={data.value_per_unit * data.persentase_value} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_green]}>{value}</Text>} />
                 </View>
               </View>
             </View>
@@ -55,11 +57,9 @@ export default function Edit({ route, navigation }) {
               <Text style={[{textAlign: "justify"}, investor_style.padding_b_10]}>{data.location.address}</Text>
               <View style={[{borderBottomWidth: 1, borderColor: color.grey},investor_style.padding_b_10]}></View>
             </View>
-            <View style={[investor_style.padding_b_10]} onTouchEnd={() => navigation.navigate('maps', { request: 'maps', map: data.location })}>
-              <Image
-                style={[{width: "100%"}]}
-                source={require('../../../assets/map_.jpg')}
-              />
+            {/* onTouchEnd={() => navigation.navigate('maps', { request: 'maps', map: data.location })} */}
+            <View style={[investor_style.padding_b_10,{}]} >
+              <MapData props={{ request: 'maps', map: data.location }}></MapData>
             </View>
             <View style={{alignItems:"center"}}>
               <Button style={[investor_style.btn_green]} onPress={() => {setModalVisible(true);}}>
@@ -77,7 +77,7 @@ export default function Edit({ route, navigation }) {
         <View style={[styles.centeredView, {backgroundColor: 'rgba(0, 0, 0, 0.75)'}]}>
           <View style={styles.modalView}>
             <Text style={[investor_style.text_bold,{fontSize: 18, textAlign: "left"}]}>Berapa Unit?</Text>
-            <Text>Min Rp {data.value_per_unit}/Unit</Text>
+            <NumberFormat value={data.value_per_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_grey]}>Min {value}/Unit</Text>} />
             <TextInput
               style={{ height: 40, borderColor: color.grey, borderWidth: 1 , borderRadius: 10, padding: 10, width: "100%", marginVertical: 20}}
               onChangeText={text => onChangeText(text)}

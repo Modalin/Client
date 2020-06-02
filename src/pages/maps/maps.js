@@ -11,8 +11,10 @@ const initialState = {
   longitudeDelta: 0.0421,
 };
 
-export default function Maps({ route }) {
-  const { lat, long } = route.params.map;
+export default function Maps(props,{ route }) {
+  console.log(props)
+  const {lat, long} = props.props.map
+  // const { lat, long } = route.params.map;
 
 
   // const { lat, long } = props --> get latitude dan longitude dari server
@@ -58,7 +60,7 @@ export default function Maps({ route }) {
       params: [
         {
           key: "travelmode",
-          value: "driving", 
+          value: "driving",
         },
         {
           key: "dir_action",

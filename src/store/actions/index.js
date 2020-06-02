@@ -6,10 +6,10 @@ export const SET_LOGIN_MITRA = 'SET_LOGIN_MITRA';
 export const SET_LOADING = 'SET_LOADING';
 export const SET_REGIST_INVESTOR = 'SET_REGIST_INVESTOR';
 export const SET_REGIST_MITRA = 'SET_REGIST_MITRA';
-export const SET_EDIT_INVESTOR_PROFILE = 'SET_EDIT_INVESTOR_PROFILE'; 
-export const SET_DELETE_MITRA_PROFILE = 'SET_DELETE_MITRA_PROFILE'; 
-export const SET_DELETE_INVESTOR_PROFILE = 'SET_DELETE_INVESTOR_PROFILE'; 
-export const SET_EDIT_MITRA_PROFILE = 'SET_EDIT_MITRA_PROFILE'; 
+export const SET_EDIT_INVESTOR_PROFILE = 'SET_EDIT_INVESTOR_PROFILE';
+export const SET_DELETE_MITRA_PROFILE = 'SET_DELETE_MITRA_PROFILE';
+export const SET_DELETE_INVESTOR_PROFILE = 'SET_DELETE_INVESTOR_PROFILE';
+export const SET_EDIT_MITRA_PROFILE = 'SET_EDIT_MITRA_PROFILE';
 export const SET_GET_INVESTOR = 'SET_GET_INVESTOR';
 export const SET_GET_INVESTOR_WALLET = 'SET_GET_INVESTOR_WALLET';
 export const SET_DELETE_INVESTOR_WALLET = 'SET_DELETE_INVESTOR_WALLET';
@@ -147,8 +147,8 @@ export const registInvestor = (data) => {
     return (dispatch) => {
         axios
             .post(`${baseUrl}/investor/signUp`, {
-                name: data.name, 
-                email : data.email, 
+                name: data.name,
+                email : data.email,
                 password: data.password,
                 address: ' ',
                 job: ' ',
@@ -237,7 +237,7 @@ export const editMitraProfile = (id, data) => {
 
             })
             .catch(err => {
-                
+
             })
     }
 }
@@ -263,7 +263,7 @@ export const deleteMitraProfile = (id) => {
 
             })
             .catch(err => {
-                
+
             })
     }
 }
@@ -293,7 +293,7 @@ export const deleteInvestorWallet = () => {
 
             })
             .catch(err => {
-                
+
             })
     }
 }
@@ -313,7 +313,7 @@ export const getInvestorBusiness = (data) => {
             .catch(err => {
                 console.log(err);
             })
-    } 
+    }
 }
 
 export const getInvestorInvest = () => {
@@ -326,7 +326,7 @@ export const getInvestorInvest = () => {
             .catch(err => {
                 console.log(err);
             })
-    } 
+    }
 }
 
 export const getMitraBusiness = (data) => {
@@ -339,7 +339,7 @@ export const getMitraBusiness = (data) => {
             .catch(err => {
                 console.log(err);
             })
-    } 
+    }
 }
 
 export const postMitraBusiness = (data) => {
@@ -350,9 +350,9 @@ export const postMitraBusiness = (data) => {
 
             })
             .catch(err => {
-                
+
             })
-    } 
+    }
 }
 
 export const editMitraBusiness = (id, data) => {
@@ -363,9 +363,9 @@ export const editMitraBusiness = (id, data) => {
 
             })
             .catch(err => {
-                
+
             })
-    } 
+    }
 }
 
 export const editMitraInvest = (id, data) => {
@@ -376,9 +376,9 @@ export const editMitraInvest = (id, data) => {
 
             })
             .catch(err => {
-                
+
             })
-    } 
+    }
 }
 
 export const editMitraInvestProfit = (id, data) => {
@@ -389,7 +389,7 @@ export const editMitraInvestProfit = (id, data) => {
 
             })
             .catch(err => {
-                
+
             })
-    } 
+    }
 }
