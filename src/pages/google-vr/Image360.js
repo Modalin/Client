@@ -6,20 +6,17 @@ import {StyleSheet} from 'react-native'
 console.disableYellowBox = true
 export default function Image360() {
 
-  const imageUrl = "https://images.unsplash.com/photo-1450387635522-8ecb968079bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
-
-  let jsCode = `
-  document.querySelector('').style.backgroundColor = 'red';
-`;
+  const imageUrl = "https://roundme.com/tour/408702/view/1425791/"
   const imagePage = `
   <!DOCTYPE html>
   <html>
       <head>
-      <title> Gambar 360  </title>
+      <title> Gambar 360 </title>
+      <script type="text/javascript" src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
       </head>
-      <body>
+      <body id="test">
         <a-scene>
-            <img id="panorama" src="https://4.bp.blogspot.com/-wWrAiyiMxGo/WYBi00nxR_I/AAAAAAAAIas/triIz0uDWG84E21VVqp9-OWfmJJ4pnbbACLcBGAs/s1600/Cara%2BMembuat%2BFoto%2B360%2BDerajat%2Bdi%2BFacebook.jpg" />
+            <img id="panorama" src=${imageUrl} />
             <a-sky src="#panorama" rotation="0 -90 0"></a-sky>
         </a-scene>
         </body>
@@ -27,9 +24,12 @@ export default function Image360() {
   `
   return (
    <WebView
-            source={{html: imagePage 
+            source={{uri: imageUrl
             }}
-            style={style.container}
+            // scalesPageToFit={false}
+            // injectedJavaScript={jsCode}
+            javaScriptEnabled={true}
+            // style={style.container}
   />
   )
 }

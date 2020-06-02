@@ -10,7 +10,7 @@ import landing_user from './src/pages/login/landing_user'
 import identify_user from './src/pages/login/identify_user';
 import login from './src/pages/login/login';
 import maps from './src/pages/maps/maps'
-import image360 from './src/pages/google-vr/newImage360'
+import image360 from './src/pages/google-vr/Image360'
 const Stack = createStackNavigator()
 
 export default function App() {
