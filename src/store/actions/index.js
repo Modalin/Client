@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://0ccb44d71db1.ngrok.io'  
+const baseUrl = 'http://c2f09190294b.ngrok.io'  
 
 export const SET_LOGIN_INVESTOR = 'SET_LOGIN_INVESTOR';
 export const SET_LOGIN_MITRA = 'SET_LOGIN_MITRA';
@@ -20,6 +20,7 @@ export const SET_POST_MITRA_BUSINESS = 'SET_POST_MITRA_BUSINESS';
 export const SET_EDIT_MITRA_BUSINESS = 'SET_POST_MITRA_BUSINESS';
 export const SET_EDIT_MITRA_BUSINESS_INVEST = 'SET_POST_MITRA_BUSINESS_INVEST';
 export const SET_EDIT_MITRA_BUSINESS_PROFIT = 'SET_POST_MITRA_BUSINESS_PROFIT';
+export const SET_GET_INVESTOR_DATA = 'SET_GET_INVESTOR_DATA';
 
 //error
 export const SET_ERROR_LOGIN_INVESTOR = 'SET_ERROR_LOGIN_INVESTOR';
@@ -92,6 +93,10 @@ export const set_edit_mitra_business_invest = (data) => {
 
 export const set_edit_mitra_business_profit = (data) => {
     return { type: SET_EDIT_MITRA_BUSINESS_PROFIT, payload: data }
+}
+
+export const set_get_investor = (data) => {
+    return { type: SET_GET_INVESTOR_DATA, payload: data}
 }
 
 //error
@@ -185,38 +190,38 @@ export const registMitra = (data) => {
     }
 }
 
-export const editInvestorProfile = (data) => {
+export const getInvestor = (data) => {
+    console.log('masuk params di store');
+    console.log('ini datanya', data);
     return (dispatch) => {
         axios
-            .patch(`${baseUrl}/investor/`, {
-                name: data.name, 
-                email : data.email, 
-                password: data.password,
-                address: data.address,
-                job: data.job,
-                phone: data.phone,
-                photo_profile: data.photo_profile,
-                document: {
-                    KTP: {
-                        url: data.document.KTP.url,
-                        no_KTP: data.document.KTP.no_KTP
-                    },
-                    NPWP: {
-                        url: data.document.NPWP.url,
-                        no_NPWP: data.document.NPWP.no_NPWP
-                    }
-                },
-                wallet: {
-                    account_name: data.wallet.account_name,
-                    bank_name: data.wallet.bank_name,
-                    account_number: data.wallet.account_number,
-                    saldo: data.wallet.saldo,
-                    income: data.wallet.income,
-                    incomePersentase: data.wallet.incomePersentase
-                  }
+            .get(`${baseUrl}/investor/`, {
+                headers: {
+                    'token' : `${data.token}`
+                }
+            })
+            .then(({ data }) => {
+                console.log('masuk success get data profile investor di store', data);
+                dispatch(set_get_investor(data))
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+export const editInvestorProfile = (dataProfile) => {
+    console.log('masuk edit profil');
+    return (dispatch) => {
+        axios
+            .patch(`${baseUrl}/investor/`, dataProfile.data, {
+                headers : {
+                    'token' : `${dataProfile.token}`
+                }
             })
             .then(({ data }) => {
                 console.log('sukses regist');
+                dispatch(set_get_investor(data))
             })
             .catch(err => {
                 console.log(err);
@@ -264,9 +269,6 @@ export const deleteMitraProfile = (id) => {
 }
 
 export const getInvestorWallet = ({ token }) => {
-    console.log('masuk getInvestor wallet');
-    console.log(token);
-
     return (dispatch) => {
         axios
             .get(`${baseUrl}/investor/wallet`, {
@@ -297,8 +299,6 @@ export const deleteInvestorWallet = () => {
 }
 
 export const getInvestorBusiness = (data) => {
-    console.log('masuk get investor store');
-    console.log(data);
     return (dispatch) => {
         axios({
             method: 'get',

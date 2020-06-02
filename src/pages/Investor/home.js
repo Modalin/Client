@@ -7,6 +7,7 @@ import SvgUri from "expo-svg-uri"
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import { getMitraBusiness, getInvestorWallet } from '../../store/actions'
 
+console.disableYellowBox = true;
 export default function home({navigation}) {
   const data = [{id: 1, value: "All"},{id: 2, value: "Pertanian"},{id: 3, value: "Jasa"},{id: 4, value: "Industri"},{id: 5, value: "Peternakan"},{id: 6, value: "Perikanan"}]
   const {mitraBusiness} = useSelector((state) => state.mitraBusiness)
@@ -31,8 +32,7 @@ export default function home({navigation}) {
       </View>
     )
   } else {
-    console.log('ini di mitra bisnis');
-    console.log(mitraBusiness)
+    
     return (
       <View style={investor_style.container_home}>
         <View style={investor_style.container}>
@@ -79,7 +79,7 @@ export default function home({navigation}) {
           {/* flat list here */}
           <FlatList
             data={mitraBusiness}
-            keyExtractor={(item, index) => 'key'+index}
+            keyExtractor={(key, index) => 'key'+index}
             renderItem={({ item }) => 
             <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })}>
               <CardItem>
