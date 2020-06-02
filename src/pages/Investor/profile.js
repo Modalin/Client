@@ -50,7 +50,7 @@ export default function Profile({ navigation }) {
       }
 
     }
-    
+
     alert('successfully edit' )
     setEditStatus(false)
   }
@@ -115,7 +115,7 @@ export default function Profile({ navigation }) {
   }
 
   if (dataInvestor.wallet) {
-      
+
     console.log('ini data investor', dataInvestor);
     return (
       <View style={[investor_style.container_home]}>
@@ -197,7 +197,7 @@ export default function Profile({ navigation }) {
               <Text style={[investor_style.text_green, {textAlign: "center", paddingVertical: 10}]}>Pastikan nama kamu sesuai dengan nama yang tertera di rekening bank kamu</Text>
               <View style={{alignItems:"center"}}>
                 {
-                  editStatus ? 
+                  editStatus ?
                 <Button style={[investor_style.btn_green]} onPress={onSubmitEdit}>
                   <Text style={[{fontSize: 14, color: '#ffffff'}]}> Save </Text>
                 </Button> :
@@ -213,9 +213,7 @@ export default function Profile({ navigation }) {
     )
   } else {
     return (
-      <View>
-          <Text>Loading ...</Text>
-      </View>
+      <Splash></Splash>
     )
   }
 }

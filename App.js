@@ -7,6 +7,9 @@ import { AppLoading } from 'expo'
 import { Provider } from 'react-redux';
 import store from './src/store/index';
 
+//splash
+import Splash from './src/pages/login/splahScreen'
+
 //login
 import landing_user from './src/pages/login/landing_user';
 import identify_user from './src/pages/login/identify_user';
@@ -49,7 +52,7 @@ export default function App() {
     )
   }else{
     return (
-      <Provider store={store}>
+    <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
           {/* baypass mitra */}
@@ -62,14 +65,14 @@ export default function App() {
           <Stack.Screen name="register investor" component={register_investor} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
           <Stack.Screen name="identify user register" component={identify_user_register} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
           {/* Investor */}
-          <Stack.Screen name="investor" component={tab_bottom_investor} options={{headerShown: false}}/>
+          <Stack.Screen name="investor" component={tab_bottom_investor} options={{headerShown: false}} />
           <Stack.Screen name="payment" component={payment} options={{headerShown: false}}/>
-          <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
           <Stack.Screen name="detail business" component={detail_business} options={{headerShown: false}}/>
           <Stack.Screen name="edit profile" component={edit_profile} options={{headerShown: false}}/>
+          <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
         </Stack.Navigator>
       </NavigationContainer>
-      </Provider>
+    </Provider>
     );
   }
 }
