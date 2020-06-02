@@ -7,12 +7,14 @@ import mitraBusiness from './mitras'
 import dataInvestor from './investors'
 import mitraBusinessAuth from './mitras'
 import tokenMitra from './mitras'
+import dataInvestorById from './investors'
 
 export default combineReducers ({
     tokenInvestor,
     investorBusiness,
     investorWallet,
     investorInvest,
+    dataInvestorById,
     mitraBusiness,
     mitraBusinessAuth,
     dataInvestor,

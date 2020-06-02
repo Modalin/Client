@@ -1,6 +1,8 @@
 import axios from 'axios';
 const baseUrl = 'http://ee754c622c73.ngrok.io'  
 
+//investor
+
 export const SET_LOGIN_INVESTOR = 'SET_LOGIN_INVESTOR';
 export const SET_LOADING = 'SET_LOADING';
 export const SET_REGIST_INVESTOR = 'SET_REGIST_INVESTOR';
@@ -13,6 +15,7 @@ export const SET_DELETE_INVESTOR_WALLET = 'SET_DELETE_INVESTOR_WALLET';
 export const SET_GET_INVESTOR_BUSINESS = 'SET_GET_INVESTOR_BUSINESS';
 export const SET_GET_INVESTOR_DATA = 'SET_GET_INVESTOR_DATA';
 export const SET_GET_INVESTOR_INVEST = 'SET_GET_INVESTOR_INVEST';
+export const SET_GET_INVESTOR_BY_ID = 'SET_GET_INVESTOR_BY_ID';
 
 //mitra
 export const SET_LOGIN_MITRA = 'SET_LOGIN_MITRA';
@@ -36,6 +39,10 @@ export const setInvestor = (data) => {
 
 export const setLoginMitra = (data) => {
     return { type: SET_LOGIN_MITRA, payload: data }
+}
+
+export const setGetInvestorById = (data) => {
+    return { type: SET_GET_INVESTOR_BY_ID, payload: data }
 }
 
 export const setLoading = (status) => {
@@ -256,8 +263,6 @@ export const getMitraBusinessAuth = (data) => {
 }
 
 export const getInvestor = (data) => {
-    console.log('masuk params di store');
-    console.log('ini datanya', data);
     return (dispatch) => {
         axios
             .get(`${baseUrl}/investor/`, {
@@ -268,6 +273,21 @@ export const getInvestor = (data) => {
             .then(({ data }) => {
                 console.log('masuk success get data profile investor di store', data);
                 dispatch(set_get_investor(data))
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+export const getInvestorById = (id) => {
+    console.log('masuk store');
+    console.log(id);
+    return (dispatch) => {
+        axios
+            .get(`${baseUrl}/investor/find/${id}`)
+            .then(({ data }) => {
+                dispatch(setGetInvestorById(data))
             })
             .catch(err => {
                 console.log(err);

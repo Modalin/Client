@@ -25,8 +25,6 @@ export default function mitraPage({navigation}) {
       </View>
     )
   } else {
-    console.log('ini mitra business');
-    console.log(tokenMitra);
     return (
       <View style={[{flex: 1, backgroundColor: "#ffffff"}]}>
         <View style={[style.shadow,style.container, {width: "100%", height: "30%", justifyContent: "center"}]}>
@@ -41,7 +39,7 @@ export default function mitraPage({navigation}) {
           {/* Flat List Here */}
             { mitraBusinessAuth.map((el) => 
               
-            <Card onTouchEnd={() => navigation.navigate('detail business mitra')} key={el._id}>
+            <Card onTouchEnd={() => navigation.navigate('detail business mitra', { data: el })} key={el._id}>
               <CardItem>
                 <Body>
                   <View style={[style.card,{justifyContent: "space-between",width: "100%", alignContent: "center"}]}>
@@ -79,7 +77,6 @@ export default function mitraPage({navigation}) {
               </CardItem>
             </Card>
               )}
-          
         </ScrollView>
       </View>
     )

@@ -3,7 +3,8 @@ import {
     SET_GET_INVESTOR_WALLET,
     SET_GET_INVESTOR_BUSINESS,
     SET_GET_INVESTOR_INVEST,
-    SET_GET_INVESTOR_DATA
+    SET_GET_INVESTOR_DATA,
+    SET_GET_INVESTOR_BY_ID
  } from '../actions';
 
 const initialStore = {
@@ -18,7 +19,8 @@ const initialStore = {
     investorBusiness: [],
     investorWallet: {},
     investorInvest: {},
-    dataInvestor: {}
+    dataInvestor: {},
+    dataInvestorById: {}
 }
 
 export default function investors (state=initialStore, action) {
@@ -35,6 +37,8 @@ export default function investors (state=initialStore, action) {
             return { ...state, investorInvest: payload }
         case SET_GET_INVESTOR_DATA :
             return { ...state, dataInvestor: payload }
+        case SET_GET_INVESTOR_BY_ID :
+            return { ...state, dataInvestorById: payload }
         default:
             break;
     }

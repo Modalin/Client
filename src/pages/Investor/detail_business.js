@@ -17,7 +17,6 @@ export default function Edit({ route, navigation }) {
     let result = Rumus(data.profit_times,data.persentase_value,data.value_per_unit)
     setIncome(result)
   }else{
-    console.log('*********************************************************',income);
     return (
       <View style={[investor_style.bar_, {flex: 1}]}>
         <ImageBackground style={{width: "100%",height: 150}} source={{ uri : `${data.images_360}`}}>
