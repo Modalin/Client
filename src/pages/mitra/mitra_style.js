@@ -122,7 +122,7 @@ const style = StyleSheet.create({
   },
 
   padding_b_10: {
-    paddingBottom: 10
+    paddingVertical: 10
   },
 
   shadow:{
