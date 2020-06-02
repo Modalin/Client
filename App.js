@@ -28,6 +28,7 @@ import image360 from './src/pages/google-vr/Image360'
 //mitra
 import tab_bottom_mitra from './src/pages/mitra/bottom_nav';
 import detail_business_mitra from './src/pages/mitra/detail';
+import repot from './src/pages/mitra/repot';
 const Stack = createStackNavigator()
 
 //Firebase
@@ -59,6 +60,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="mitra" component={tab_bottom_mitra} options={{headerShown: false}} />
           <Stack.Screen name="detail business mitra" component={detail_business_mitra} options={{headerShown: false}} />
+          <Stack.Screen name="repot" component={repot} options={{title: 'Repot'}} />
           {/* User Login */}
           <Stack.Screen name="landing user" component={landing_user} options={{headerShown: false}}/>
           <Stack.Screen name="identify user" component={identify_user} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>

@@ -5,7 +5,7 @@ import {style, color_ as color} from './mitra_style'
 import NumberFormat  from 'react-number-format'
 import Repot from './repot'
 
-export default function Detail(params) {
+export default function Detail({navigation}) {
   const [status, setStatus] = useState({selected: null})
   const [IsInvestorViewModal, setIsInvestorViewModal] = useState(false);
   const [IsRepotViewModal, setIsRepotViewModal] = useState(false);
@@ -71,7 +71,7 @@ export default function Detail(params) {
                 {/* <Map></Map> */}
               </View>
               <View style={[{alignItems: "center"}]}>
-                <Button style={[style.btn_green,{marginVertical: 10}]} onPress={() => alert('wait')}>
+                <Button style={[style.btn_green,{marginVertical: 10}]} onPress={() => navigation.navigate('repot')}>
                   <Text style={[style.text_white]}>Repot</Text>
                 </Button>
               </View>
@@ -93,13 +93,6 @@ export default function Detail(params) {
               </Button>
             </View>
           </View>
-        </Modal>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={IsRepotViewModal}
-        >
-          <Repot></Repot>
         </Modal>
     </View>
   )
