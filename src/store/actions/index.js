@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://248d151ea52c.ngrok.io'  
+const baseUrl = 'http://ee754c622c73.ngrok.io'  
 
 export const SET_LOGIN_INVESTOR = 'SET_LOGIN_INVESTOR';
 export const SET_LOGIN_MITRA = 'SET_LOGIN_MITRA';
@@ -350,10 +350,16 @@ export const getMitraBusiness = (data) => {
     }
 }
 
-export const postMitraBusiness = (data) => {
+export const postMitraBusiness = (data, token) => {
     return (dispatch) => {
-        axios
-            .post(`${baseUrl}/mitra/business`)
+        axios({
+            method: 'post',
+            url: `${baseUrl}/mitra/business`,
+            data,
+            headers: {
+                'token' : `${token}`
+            }
+        })
             .then(({ data }) => {
 
             })
