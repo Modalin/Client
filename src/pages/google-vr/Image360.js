@@ -10,21 +10,20 @@ export default function Image360() {
   const imagePage = `
   <!DOCTYPE html>
   <html>
-      <head>
-      <title> Gambar 360 </title>
-      <script type="text/javascript" src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
-      </head>
-      <body id="test">
-        <a-scene>
-            <img id="panorama" src=${imageUrl} />
-            <a-sky src="#panorama" rotation="0 -90 0"></a-sky>
-        </a-scene>
-        </body>
-      </html>
+    <head>
+    <title> 360 Image</title>
+    </head>
+    <body>
+        <div class="image-box" >
+            <iframe width="100%" height="2000px" src="https://momento360.com/e/u/b9a9d0c82ca74cf18754ebdd187de731?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=75">
+            </iframe>
+        </div>
+      </body>
+    </html>
   `
   return (
    <WebView
-            source={{uri: imageUrl
+            source={{html: imagePage
             }}
             // scalesPageToFit={false}
             // injectedJavaScript={jsCode}
