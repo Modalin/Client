@@ -16,8 +16,13 @@ export default function mitraPage({navigation}) {
         </Button>
       </View>
       <View style={[{marginVertical: 10, marginHorizontal: 20}]}>
-        <Card style={[{borderRadius: 10, padding: 10}]}>
-          <Text>Hello</Text>
+        <Card style={[{borderRadius: 10, padding: 10, flexDirection:"row"}]}>
+          <View>
+            <Image style={style.image_round} source={{ uri: `https://media-cdn.tripadvisor.com/media/photo-s/11/67/bb/9b/rinjani-mountain-panorama.jpg`}}/>
+          </View>
+          <View>
+            <Text style={[]}>Bengkel A&S</Text>
+          </View>
         </Card>
       </View>
     </View>

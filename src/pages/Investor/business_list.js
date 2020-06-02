@@ -1,10 +1,11 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {View, Text, ScrollView, FlatList} from 'react-native'
+import {View, Text, ScrollView, FlatList, Image} from 'react-native'
 import {Button, Card, CardItem, Body} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import { getInvestorBusiness } from '../../store/actions'
+import NumberFormat  from 'react-number-format'
 
 export default function Business({navigation}) {
   const data = [{id: 1, value: "All"},{id: 2, value: "Pertanian"},{id: 3, value: "Jasa"},{id: 4, value: "Industri"},{id: 5, value: "Peternakan"},{id: 6, value: "Perikanan"}]
@@ -55,20 +56,19 @@ export default function Business({navigation}) {
           <FlatList
             keyExtractor={(item, index) => 'key'+index}
             data={investorBusiness}
+            keyExtractor={(item, index) => 'key'+index}
             renderItem={({ item }) =>
-              <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })} key={item._id}>
+              <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })}>
                 <CardItem>
                   <Body>
                     <View style={investor_style.card}>
-                      <View style={investor_style.round}>
-                          {/* image here */}
-                      </View>
-                      <View>
+                      <Image style={investor_style.image_round} source={{ uri: `${item.images_360}`}}/>
+                      <View style={[{marginHorizontal: 20}]}>
                         <Text style={investor_style.text_bold}>{item.business_name}</Text>
                         <View style={investor_style.sub_income_card}>
                           <View>
                             <Text style={investor_style.text_grey}>Investasi</Text>
-                            <Text >Rp {item.business_value}</Text>
+                            <NumberFormat value={item.value_per_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[]}>{value}</Text>} />
                           </View>
                           <View>
                             <Text style={investor_style.text_grey}>Pendapatan</Text>
@@ -82,7 +82,6 @@ export default function Business({navigation}) {
               </Card>
           }
           />
-
         </View>
       </View>
     )

@@ -1,9 +1,9 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {View, Text, ScrollView, FlatList} from 'react-native'
+import {View, Text, ScrollView, FlatList, Image} from 'react-native'
 import {Button , Card, CardItem, Body} from 'native-base'
-import SvgUri from "expo-svg-uri"
+import NumberFormat  from 'react-number-format'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import { getMitraBusiness, getInvestorWallet } from '../../store/actions'
 
@@ -31,21 +31,23 @@ export default function home({navigation}) {
       </View>
     )
   } else {
+    // console.log('ini di mitra bisnis');
+    // console.log(mitraBusiness)
     return (
       <View style={investor_style.container_home}>
         <View style={investor_style.container}>
-          <View style={{alignSelf: "flex-start"}}>
-            <SvgUri
-              width="70"
-              height="70"
-              source={require('../../../assets/garden.svg')}
+          <View style={{alignSelf: "flex-start", backgroundColor: "white"}}>
+            <Image
+              resizeMode="contain"
+              style={{width: 70}}
+              source={require('../../../assets/garden.png')}
             />
           </View>
           <View>
-            <Text style={[investor_style.text_bold,{alignSelf: "center", fontSize: 18}]}>Rp. {investorWallet.saldo}</Text>
+            <NumberFormat value={investorWallet.saldo} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_bold,{alignSelf: "center", fontSize: 18}]}>{value}</Text>} />
             <View style={investor_style.income_value}>
               <View>
-                <Text style={[investor_style.text_green, {alignSelf: "flex-start"}]}>Rp. {investorWallet.income}</Text>
+                <NumberFormat value={investorWallet.income} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_green, {alignSelf: "flex-start"}]}>{value}</Text>} />
                 <Text style={[investor_style.text_grey,{alignSelf: "flex-start"}]}>Pendapatan</Text>
               </View>
               <View style={{borderLeftWidth: 1, height: 80, borderColor: "#AEAEAE"}}></View>
@@ -78,15 +80,14 @@ export default function home({navigation}) {
           <FlatList
             keyExtractor={(item, index) => 'key'+index}
             data={mitraBusiness}
+            keyExtractor={(item, index) => 'key'+index}
             renderItem={({ item }) =>
-            <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })} key={item._id}>
+            <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })}>
               <CardItem>
                 <Body>
                   <View style={investor_style.card}>
-                    <View style={investor_style.round}>
-                        {/* image here */}
-                    </View>
-                    <View>
+                    <Image style={investor_style.image_round} source={{ uri: `${item.images_360}`}}/>
+                    <View style={[{marginHorizontal: 20}]}>
                       <Text style={investor_style.text_bold}>{item.business_name}</Text>
                       {
                         item.status === "" ? <Text></Text> :
@@ -96,7 +97,7 @@ export default function home({navigation}) {
                       <View style={investor_style.sub_income_card}>
                         <View>
                           <Text style={investor_style.text_grey}>Min Investasi</Text>
-                          <Text >Rp {item.value_per_unit}</Text>
+                          <NumberFormat value={item.value_per_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[]}>{value}</Text>} />
                         </View>
                         <View>
                           <Text style={investor_style.text_grey}>Persentase</Text>

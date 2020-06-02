@@ -3,6 +3,7 @@ import {View, Text} from 'react-native'
 import {Card,  CardItem, Body, Button} from 'native-base'
 import * as ImagePicker from 'expo-image-picker'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
+import NumberFormat  from 'react-number-format'
 
 export default function Payment({navigation}) {
   const [source, setSource] = useState(null)
@@ -55,7 +56,7 @@ export default function Payment({navigation}) {
                   </View>
                   <View style={[{paddingBottom: 20}]}>
                     <Text style={[investor_style.text_large, investor_style.text_grey]}>Jumlah Transfer </Text>
-                    <Text style={[investor_style.text_large]}>Rp 1,000,000</Text>
+                    <NumberFormat value={100000} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[]}>{value}</Text>} />
                   </View>
                 </View>
               </Body>
