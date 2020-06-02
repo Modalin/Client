@@ -31,11 +31,12 @@ export default function Profile({ navigation }) {
 
   console.log(name);
   console.log(job);
-  const onSubmitEdit = (e) => {
+  const onSubmitEdit = async (e) => {
     e.preventDefault()
     if (tokenInvestor) {
 
       if (dataInvestor) {
+        await uploadImage(result.uri)
 
         const dataProfil = {
           name: name ? name : dataInvestor.name,
@@ -47,7 +48,7 @@ export default function Profile({ navigation }) {
             account_number : account ? account : dataInvestor.wallet.account_number
           }
         }
-        dispatch(editInvestorProfile( { data : dataProfil, token :tokenInvestor.token }))
+        await dispatch(editInvestorProfile( { data : dataProfil, token :tokenInvestor.token }))
       }
 
     }
@@ -75,44 +76,44 @@ export default function Profile({ navigation }) {
       })
       if (!result.cancelled) {
         setPhoto(result.uri)
-        uploadImage(result.uri)
       }
     } catch (E) {
       console.log(E)
     }
 
-    async function uploadImage(uri) {
-      // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
-      console.disableYellowBox = true
-      //Get image name
-      let imageName = uri.split('/')
-      imageName = imageName[imageName.length - 1]
+  }
 
-      const blob = await new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest()
-        xhr.onload = function() {
-          resolve(xhr.response)
-        }
-        xhr.onerror = function(e) {
-          console.log(e)
-          reject(new TypeError('Network request failed'))
-        }
-        xhr.responseType = 'blob'
-        xhr.open('GET', uri, true)
-        xhr.send(null)
-      })
+  async function uploadImage(uri) {
+    // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
+    console.disableYellowBox = true
+    //Get image name
+    let imageName = uri.split('/')
+    imageName = imageName[imageName.length - 1]
 
-      const ref = storage.ref('/investor').child(imageName)
-      const snapshot = await ref.put(blob)
-      // We're done with the blob, close and release it
-      blob.close()
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+      xhr.onload = function() {
+        resolve(xhr.response)
+      }
+      xhr.onerror = function(e) {
+        console.log(e)
+        reject(new TypeError('Network request failed'))
+      }
+      xhr.responseType = 'blob'
+      xhr.open('GET', uri, true)
+      xhr.send(null)
+    })
 
-      const url =  await snapshot.ref.getDownloadURL()
-      // dispatch(setInvestor({ photo_profile: url }))
-      setPhoto(url)
-      console.log("URL", url)
-      dispatch(setInvestor({ photo_profile: url }))
-    }
+    const ref = storage.ref('/investor').child(imageName)
+    const snapshot = await ref.put(blob)
+    // We're done with the blob, close and release it
+    blob.close()
+
+    const url =  await snapshot.ref.getDownloadURL()
+    // dispatch(setInvestor({ photo_profile: url }))
+    setPhoto(url)
+    console.log("URL", url)
+    dispatch(setInvestor({ photo_profile: url }))
   }
 
   if (dataInvestor.wallet) {
@@ -125,7 +126,7 @@ export default function Profile({ navigation }) {
             <View style={{ justifyContent: "center", marginHorizontal: 10}}>
               <Card style={[investor_style.profile_round]}>
                 <View>
-                  <Image style={investor_style.image_round} source={{ uri: `${tokenInvestor ? tokenInvestor.photo_profile : ''}`}}/>
+                  <Image style={investor_style.image_round} source={{ uri: `${photo_profile}`}}/>
                 </View>
               </Card>
               <TouchableHighlight
