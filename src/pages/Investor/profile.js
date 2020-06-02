@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {View, Text, ScrollView, TextInput, TouchableHighlight, ActivityIndicator, SafeAreaView} from 'react-native'
+import {View, Text, ScrollView, TextInput, TouchableHighlight, ActivityIndicator, SafeAreaView, Image} from 'react-native'
 import {Card, Button} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import {editInvestorProfile, getInvestor, setInvestor} from '../../store/actions'
@@ -122,7 +122,9 @@ export default function Profile({ navigation }) {
           <View style={[investor_style.container,investor_style.bar_,{flexDirection: "row", paddingBottom: 20}]}>
             <View style={{ justifyContent: "center", marginHorizontal: 10}}>
               <Card style={[investor_style.profile_round]}>
-                <View></View>
+                <View>
+                  <Image style={investor_style.image_round} source={{ uri: `${tokenInvestor ? tokenInvestor.photo_profile : ''}`}}/>
+                </View>
               </Card>
               <TouchableHighlight
                 style={[investor_style.btn_image_profile]}
