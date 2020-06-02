@@ -79,9 +79,8 @@ export default function home({navigation}) {
         <View style={[investor_style.container_list, { marginBottom: 140 }]}>
           {/* flat list here */}
           <FlatList
-            keyExtractor={(item, index) => 'key'+index}
+            keyExtractor={(item, index) => index}
             data={mitraBusiness}
-            keyExtractor={(item, index) => 'key'+index}
             renderItem={({ item }) =>
             <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })}>
               <CardItem>
