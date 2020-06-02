@@ -55,7 +55,7 @@ export default function App() {
           <Stack.Screen name="register investor" component={register_investor} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
           <Stack.Screen name="identify user register" component={identify_user_register} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
           {/* Investor */}
-          <Stack.Screen name="investor" component={tab_bottom_investor} options={{headerShown: false}}/>
+          <Stack.Screen name="investor" component={tab_bottom_investor} options={{headerShown: false}} />
           <Stack.Screen name="payment" component={payment} options={{headerShown: false}}/>
           <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
           <Stack.Screen name="detail business" component={detail_business} options={{headerShown: false}}/>

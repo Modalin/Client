@@ -6,7 +6,9 @@ import {Button , Card, CardItem, Body} from 'native-base'
 import NumberFormat  from 'react-number-format'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import { getMitraBusiness, getInvestorWallet } from '../../store/actions'
+import Splash from '../login/splahScreen'
 
+console.disableYellowBox = true;
 export default function home({navigation}) {
   const data = [{id: 1, value: "All"},{id: 2, value: "Pertanian"},{id: 3, value: "Jasa"},{id: 4, value: "Industri"},{id: 5, value: "Peternakan"},{id: 6, value: "Perikanan"}]
   const {mitraBusiness} = useSelector((state) => state.mitraBusiness)
@@ -24,11 +26,12 @@ export default function home({navigation}) {
 
   }, [dispatch, tokenInvestor])
 
+
   if (!mitraBusiness && !investorWallet) {
+    console.log('ini Wallet', investorWallet);
+    console.log('ini Mitra', mitraBusiness);
     return (
-      <View>
-        <Text>Loading....</Text>
-      </View>
+      <Splash></Splash>
     )
   } else {
     // console.log('ini di mitra bisnis');
@@ -79,7 +82,7 @@ export default function home({navigation}) {
           {/* flat list here */}
           <FlatList
             data={mitraBusiness}
-            keyExtractor={(item, index) => 'key'+index}
+            keyExtractor={(item, index) => index}
             renderItem={({ item }) =>
             <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })}>
               <CardItem>

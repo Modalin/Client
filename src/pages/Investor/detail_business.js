@@ -5,11 +5,10 @@ import {style as investor_style, shadow_ as box_shadow, color_ as color} from '.
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapData from '../maps/maps.js'
 import NumberFormat  from 'react-number-format'
+import {LineChart} from "react-native-chart-kit";
 
 export default function Edit({ route, navigation }) {
   const data = route.params.data;
-  // console.log('masuk detail di client yang baru');
-  // console.log(data);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [value, onChangeText] = useState(null);

@@ -17,8 +17,6 @@ export default function Business({navigation}) {
   useEffect(() => {
 
     if (tokenInvestor) {
-      console.log('ini token investor');
-      console.log(tokenInvestor);
 
       dispatch(getInvestorBusiness({ token: tokenInvestor.token }))
     }
@@ -33,7 +31,6 @@ export default function Business({navigation}) {
     )
   } else {
 
-    console.log(investorBusiness);
     return(
       <View style={[investor_style.container_home,investor_style.bar_, {backgroundColor: "#ffffff"}]}>
         <View style={[investor_style.category_list]}>

@@ -2,14 +2,16 @@ import {
     SET_LOGIN_INVESTOR, 
     SET_GET_INVESTOR_WALLET,
     SET_GET_INVESTOR_BUSINESS,
-    SET_GET_INVESTOR_INVEST
+    SET_GET_INVESTOR_INVEST,
+    SET_GET_INVESTOR_DATA
  } from '../actions';
 
 const initialStore = {
     tokenInvestor: {},
     investorBusiness: [],
     investorWallet: {},
-    investorInvest: {}
+    investorInvest: {},
+    dataInvestor: {}
 }
 
 export default function investors (state=initialStore, action) {
@@ -24,6 +26,8 @@ export default function investors (state=initialStore, action) {
             return { ...state, investorWallet: payload }
         case SET_GET_INVESTOR_INVEST :
             return { ...state, investorInvest: payload }
+        case SET_GET_INVESTOR_DATA :
+            return { ...state, dataInvestor: payload }
         default:
             break;
     }
