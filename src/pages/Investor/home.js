@@ -6,6 +6,7 @@ import {Button , Card, CardItem, Body} from 'native-base'
 import NumberFormat  from 'react-number-format'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import { getMitraBusiness, getInvestorWallet } from '../../store/actions'
+import Splash from '../login/splahScreen'
 
 console.disableYellowBox = true;
 export default function home({navigation}) {
@@ -25,11 +26,12 @@ export default function home({navigation}) {
 
   }, [dispatch, tokenInvestor])
 
+
   if (!mitraBusiness && !investorWallet) {
+    console.log('ini Wallet', investorWallet);
+    console.log('ini Mitra', mitraBusiness);
     return (
-      <View>
-        <Text>Loading....</Text>
-      </View>
+      <Splash></Splash>
     )
   } else {
     // console.log('ini di mitra bisnis');
@@ -79,9 +81,8 @@ export default function home({navigation}) {
         <View style={[investor_style.container_list, { marginBottom: 140 }]}>
           {/* flat list here */}
           <FlatList
-            keyExtractor={(item, index) => 'key'+index}
             data={mitraBusiness}
-            keyExtractor={(item, index) => 'key'+index}
+            keyExtractor={(item, index) => index}
             renderItem={({ item }) =>
             <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })}>
               <CardItem>
