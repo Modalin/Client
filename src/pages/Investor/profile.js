@@ -110,6 +110,7 @@ export default function Profile({ navigation }) {
       // dispatch(setInvestor({ photo_profile: url }))
       setPhoto(url)
       console.log("URL", url)
+      dispatch(setInvestor({ photo_profile: url }))
     }
   }
 
