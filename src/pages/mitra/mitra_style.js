@@ -42,7 +42,8 @@ const style = StyleSheet.create({
   card:{
     paddingVertical: 10,
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "center",
+    alignItems: "center"
   },
   round:{
     margin: 10,
@@ -82,16 +83,16 @@ const style = StyleSheet.create({
 
   profile_round:{
     margin: 10,
-    height: 60,
-    width: 60,
+    height: 70,
+    width: 70,
     borderRadius: 40,
     borderWidth: 1,
     borderColor: "#AEAEAE"
   },
 
   image_round:{
-    height: 60,
-    width: 60,
+    height: 70,
+    width: 70,
     borderRadius: 40,
     borderWidth: 1,
   },
