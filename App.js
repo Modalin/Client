@@ -68,6 +68,8 @@ export default function App() {
           <Stack.Screen name="detail business" component={detail_business} options={{headerShown: false}}/>
           <Stack.Screen name="edit profile" component={edit_profile} options={{headerShown: false}}/>
           <Stack.Screen name="image360" component={image360}/>
+          {/* Mitra */}
+          <Stack.Screen name="mitra" component={tab_bottom_mitra} options={{headerShown: false}}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

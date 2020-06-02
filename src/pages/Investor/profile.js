@@ -1,11 +1,14 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {View, Text, ScrollView, TextInput, TouchableHighlight, ActivityIndicator, SafeAreaView} from 'react-native'
+import {View, Text, ScrollView, TextInput, TouchableHighlight, ActivityIndicator, SafeAreaView, Image} from 'react-native'
 import {Card, Button} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
-import {editInvestorProfile, getInvestor} from '../../store/actions'
 import Splash from '../login/splahScreen'
+import {editInvestorProfile, getInvestor, setInvestor} from '../../store/actions'
+//Photo
+import * as ImagePicker from 'expo-image-picker'
+import { storage } from '../../firebase/config'
 
 export default function Profile({ navigation }) {
   const { dataInvestor } = useSelector(state => state.dataInvestor)
@@ -16,6 +19,7 @@ export default function Profile({ navigation }) {
   const [address, setAddress] = useState("")
   const [account, setAccount] = useState("")
   const [job, setJob] = useState("")
+  const [photo_profile, setPhoto] = useState("")
 
   const dispatch = useDispatch()
 
@@ -38,6 +42,7 @@ export default function Profile({ navigation }) {
           phone: phone ? phone : dataInvestor.phone,
           address: address ? address : dataInvestor.address,
           job: job ? job : dataInvestor.job,
+          photo_profile,
           wallet : {
             account_number : account ? account : dataInvestor.wallet.account_number
           }
@@ -60,6 +65,55 @@ export default function Profile({ navigation }) {
 
   }, [dispatch, tokenInvestor])
 
+  const _pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      })
+      if (!result.cancelled) {
+        setPhoto(result.uri)
+        uploadImage(result.uri)
+      }
+    } catch (E) {
+      console.log(E)
+    }
+
+    async function uploadImage(uri) {
+      // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
+      console.disableYellowBox = true
+      //Get image name
+      let imageName = uri.split('/')
+      imageName = imageName[imageName.length - 1]
+
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.onload = function() {
+          resolve(xhr.response)
+        }
+        xhr.onerror = function(e) {
+          console.log(e)
+          reject(new TypeError('Network request failed'))
+        }
+        xhr.responseType = 'blob'
+        xhr.open('GET', uri, true)
+        xhr.send(null)
+      })
+
+      const ref = storage.ref('/investor').child(imageName)
+      const snapshot = await ref.put(blob)
+      // We're done with the blob, close and release it
+      blob.close()
+
+      const url =  await snapshot.ref.getDownloadURL()
+      // dispatch(setInvestor({ photo_profile: url }))
+      setPhoto(url)
+      console.log("URL", url)
+      dispatch(setInvestor({ photo_profile: url }))
+    }
+  }
 
   if (dataInvestor.wallet) {
 
@@ -70,13 +124,15 @@ export default function Profile({ navigation }) {
           <View style={[investor_style.container,investor_style.bar_,{flexDirection: "row", paddingBottom: 20}]}>
             <View style={{ justifyContent: "center", marginHorizontal: 10}}>
               <Card style={[investor_style.profile_round]}>
-                <View></View>
+                <View>
+                  <Image style={investor_style.image_round} source={{ uri: `${tokenInvestor ? tokenInvestor.photo_profile : ''}`}}/>
+                </View>
               </Card>
               <TouchableHighlight
                 style={[investor_style.btn_image_profile]}
                 activeOpacity={0.6}
                 underlayColor="#DDDDDD"
-                onPress={() => navigation.navigate('edit profile', {request: 'edit_profile'})}>
+                onPress={_pickImage}>
                 <Text style={[{fontSize: 12, color: '#ffffff'}]}> Edit </Text>
               </TouchableHighlight>
             </View>
