@@ -39,8 +39,8 @@ export default function mitraPage({navigation}) {
                   </View>
                   <View style={[{borderBottomWidth: 1, borderBottomColor: color.grey, marginVertical: 10}]}></View>
                   <View style={[[style.text_grey,{}]]}>
-                    <Button style={[style.btn_green,{alignSelf: "flex-end"}]}>
-                      <Text style={[style.text_white,{textAlign: "center"}]}>Ambil Dana</Text>
+                    <Button style={[style.btn_green,{width:"auto" ,alignSelf: "flex-end", padding: 5}]}>
+                      <Text style={[style.text_white,{textAlign: "center", fontSize: 12}]}>Ambil Dana</Text>
                     </Button>
                   </View>
                 </View>
