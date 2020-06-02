@@ -23,11 +23,12 @@ import payment from './src/pages/Investor/payment'
 import maps from './src/pages/maps/maps'
 import detail_business from './src/pages/Investor/detail_business'
 import edit_profile from './src/pages/Investor/edit_profile'
+import image360 from './src/pages/google-vr/Image360'
 
 //mitra
 import tab_bottom_mitra from './src/pages/mitra/bottom_nav';
-import image360 from './src/pages/google-vr/Image360'
 import register_mitra from './src/pages/register/register_mitra'
+import detail_business_mitra from './src/pages/mitra/detail';
 const Stack = createStackNavigator()
 
 //Firebase
@@ -71,8 +72,10 @@ export default function App() {
           <Stack.Screen name="edit profile" component={edit_profile} options={{headerShown: false}}/>
           {/* Mitra */}
           <Stack.Screen name="mitra" component={tab_bottom_mitra} options={{headerShown: false}}/>
+          <Stack.Screen name="detail business mitra" component={detail_business_mitra} options={{headerShown: false}} />
           <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
           <Stack.Screen name="image360" component={image360}/>
+          {/* Mitra */}
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
