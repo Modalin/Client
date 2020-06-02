@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {View, Text, ImageBackground, ScrollView, Image, Modal, StyleSheet, TextInput} from 'react-native'
+import {View, Text, ImageBackground, ScrollView, TouchableHighlight, Modal, StyleSheet, TextInput} from 'react-native'
 import {Button} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow, color_ as color} from './investor_style'
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -61,9 +61,12 @@ export default function Edit({ route, navigation }) {
             </View>
             {/* onTouchEnd={() => navigation.navigate('maps', { request: 'maps', map: data.location })} */}
             <View style={[investor_style.padding_b_10,{}]} >
-              <MapData props={{ request: 'maps', map: data.location }}></MapData>
+              <TouchableHighlight>
+                <MapData props={{ request: 'maps', map: data.location }}></MapData>
+              </TouchableHighlight>
             </View>
             <View style={{alignItems:"center"}}>
+
               <Button style={[investor_style.btn_green]} onPress={() => {setModalVisible(true);}}>
                 <Text style={[{fontSize: 14, color: '#ffffff'}]}> Modalin </Text>
               </Button>

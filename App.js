@@ -7,6 +7,9 @@ import { AppLoading } from 'expo'
 import { Provider } from 'react-redux';
 import store from './src/store/index';
 
+//splash
+import Splash from './src/pages/login/splahScreen'
+
 //login
 import landing_user from './src/pages/login/landing_user';
 import identify_user from './src/pages/login/identify_user';
@@ -39,11 +42,11 @@ export default function App() {
     )
   }else{
     return (
-      <Provider store={store}>
+    <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
           {/* baypass mitra */}
-          <Stack.Screen name="mitra" component={tab_bottom_mitra} options={{headerShown: false}}/>
+          {/* <Stack.Screen name="mitra" component={tab_bottom_mitra} options={{headerShown: false}}/> */}
           {/* baypass mitra */}
           {/* User Login */}
           <Stack.Screen name="landing user" component={landing_user} options={{headerShown: false}}/>
@@ -59,7 +62,7 @@ export default function App() {
           <Stack.Screen name="edit profile" component={edit_profile} options={{headerShown: false}}/>
         </Stack.Navigator>
       </NavigationContainer>
-      </Provider>
+    </Provider>
     );
   }
 }
