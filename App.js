@@ -25,6 +25,8 @@ import edit_profile from './src/pages/Investor/edit_profile'
 import createBusiness from './src/pages/mitra/createBusiness'
 import tab_bottom_mitra from './src/pages/mitra/bottom_nav'
 import image360 from './src/pages/google-vr/Image360'
+import location from './src/pages/maps/Locations'
+import location2 from './src/pages/maps/mapLocation'
 const Stack = createStackNavigator()
 
 //Firebase
@@ -57,18 +59,21 @@ export default function App() {
           {/* Create Business */}
           <Stack.Screen name="create business" component={createBusiness} options={{headerShown: false}}/>
           {/* User Login */}
-          <Stack.Screen name="landing user" component={landing_user} options={{headerShown: false}}/>
+          {/* <Stack.Screen name="landing user" component={landing_user} options={{headerShown: false}}/>
           <Stack.Screen name="identify user" component={identify_user} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
           <Stack.Screen name="login" component={login} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
           <Stack.Screen name="register investor" component={register_investor} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
-          <Stack.Screen name="identify user register" component={identify_user_register} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
+          <Stack.Screen name="identify user register" component={identify_user_register} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/> */}
           {/* Investor */}
-          <Stack.Screen name="investor" component={tab_bottom_investor} options={{headerShown: false}}/>
+          {/* <Stack.Screen name="investor" component={tab_bottom_investor} options={{headerShown: false}}/>
           <Stack.Screen name="payment" component={payment} options={{headerShown: false}}/>
           <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
           <Stack.Screen name="detail business" component={detail_business} options={{headerShown: false}}/>
           <Stack.Screen name="edit profile" component={edit_profile} options={{headerShown: false}}/>
-          <Stack.Screen name="image360" component={image360}/>
+          <Stack.Screen name="image360" component={image360}/> */}
+          <Stack.Screen name="maps" component={location} options={{title: "Pilih Lokasi Bisnis",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: false}}/>
+          <Stack.Screen name="mapsss" component={location} options={{title: "Pilih Lokasi Bisnis",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: false}}/>
+
         </Stack.Navigator>
       </NavigationContainer>
       </Provider>
