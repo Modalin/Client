@@ -9,7 +9,7 @@ export default function mitraPage({route, navigation}) {
   const [name, setName] = useState(null)
   const [phone, setPhone] = useState(null)
   const [Address, setAddress] = useState(null)
-
+  const [newPhoto, setNewPhoto] = useState(null)
   return (
     <View style={[style.container_home, {}]}>
        <View style={[style.shadow,style.container, {width: "100%", height: "30%", flexDirection: "row", paddingHorizontal: 20, justifyContent: "space-between"}]}>

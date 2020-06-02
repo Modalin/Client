@@ -26,6 +26,9 @@ export const SET_GET_INVESTOR_DATA = 'SET_GET_INVESTOR_DATA';
 export const SET_ERROR_LOGIN_INVESTOR = 'SET_ERROR_LOGIN_INVESTOR';
 export const SET_ERROR_LOGIN_MITRA = 'SET_ERROR_LOGIN_MITRA';
 
+export const setLoginMitra = (data) => {
+  return { type: SET_LOGIN_MITRA, payload: data }
+}
 
 export const setInvestor = (data) => {
     return { type: "SET_LOGIN_INVESTOR", payload : data }
