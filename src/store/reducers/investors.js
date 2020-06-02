@@ -7,6 +7,13 @@ import {
  } from '../actions';
 
 const initialStore = {
+    // profile: {
+    //     name: '',
+    //     photo_profile: '',
+    //     phone: '',
+    //     address: '',
+    //     job: ''
+    // },
     tokenInvestor: {},
     investorBusiness: [],
     investorWallet: {},
@@ -19,7 +26,7 @@ export default function investors (state=initialStore, action) {
 
     switch(type) {
         case SET_LOGIN_INVESTOR :
-            return { ...state, tokenInvestor : payload }
+            return { ...state, tokenInvestor : { ...payload } }
         case SET_GET_INVESTOR_BUSINESS :
             return { ...state, investorBusiness : payload }
         case SET_GET_INVESTOR_WALLET :

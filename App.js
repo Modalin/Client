@@ -25,6 +25,10 @@ import edit_profile from './src/pages/Investor/edit_profile'
 import tab_bottom_mitra from './src/pages/mitra/bottom_nav';
 const Stack = createStackNavigator()
 
+//Firebase
+// import * as firebase from 'firebase';
+// import { firebaseConfig } from './src/firebase/config';
+
 console.disableYellowBox = true;
 export default function App() {
 
@@ -32,6 +36,12 @@ export default function App() {
     'Segoe-Print': require('./assets/fonts/SegoePrint.ttf'),
     'Gill Sans': require('./assets/fonts/gillsans.ttf'),
   });
+
+  // //Check Firebase App named already exist
+  // console.log(firebase.apps.length)
+  // if (!firebase.apps.length) {
+  //   firebase.initializeApp(firebaseConfig);
+  // }
 
   if(!fontsLoaded){
     return(
