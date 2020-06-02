@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import {View, Text, TextInput, ScrollView} from 'react-native'
+import {View, Text, TextInput, ScrollView, StyleSheet, ActivityIndicator} from 'react-native'
 import {Form, Button} from 'native-base'
 import Gstyle from '../../style/global_style'
 import { registMitra } from '../../store/actions'
@@ -138,8 +138,14 @@ export default function registerMitra({route, navigation}) {
             setUrlSiup('')
             setEmployee('')
             setUrlKta('')
-        } else {
-            <Splash></Splash>
+        }
+
+        if (!finalUrlKtp && !finalUrlNpwp && !finalUrlKta && !finalUrlSiup) {
+          return (
+              <View style={styles.spinnerView}>
+                <ActivityIndicator size="large" color="#0000ff" />
+              </View>
+          )
         }
 
     }
@@ -172,6 +178,7 @@ export default function registerMitra({route, navigation}) {
         console.log(E)
       }
     }
+    
   
   return (
     <ScrollView>
@@ -358,7 +365,17 @@ export default function registerMitra({route, navigation}) {
       <Button style={Gstyle.btn_style} onPress={onRegistSubmit}>
         <Text style={[Gstyle.btn_text, {fontSize: 18}]}> Daftar </Text>
       </Button>
+    
     </View>
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  spinnerView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ffffff"
+  }
+})
