@@ -57,9 +57,9 @@ export default function App() {
           {/* Investor */}
           <Stack.Screen name="investor" component={tab_bottom_investor} options={{headerShown: false}} />
           <Stack.Screen name="payment" component={payment} options={{headerShown: false}}/>
-          <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
           <Stack.Screen name="detail business" component={detail_business} options={{headerShown: false}}/>
           <Stack.Screen name="edit profile" component={edit_profile} options={{headerShown: false}}/>
+          <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
