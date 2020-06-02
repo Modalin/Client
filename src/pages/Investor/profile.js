@@ -4,19 +4,19 @@ import { useSelector, useDispatch } from 'react-redux'
 import {View, Text, ScrollView, TextInput, TouchableHighlight} from 'react-native'
 import {Card, Button} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
-import {editInvestorProfile} from '../../store/actions'
+import { setInvestor } from '../../store/actions'
 
 export default function Profile({ navigation }) {
   const { tokenInvestor } = useSelector(state => state.tokenInvestor)
   const [editStatus, setEditStatus] = useState(false)
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
+  // const [email, setEmail] = useState('')
   const [phone, setPhone] = useState(0)
   const [address, setAddress] = useState('')
   const [account, setAccount] = useState(0)
   const [job, setJob] = useState('')
-  const [ktp, setKtp] = useState(0)
-  const [npwp, setNpwp] = useState(0)
+  // const [ktp, setKtp] = useState(0)
+  // const [npwp, setNpwp] = useState(0)
   const dispatch = useDispatch()
 
   const onHandleEdit = (e) => {
@@ -26,6 +26,8 @@ export default function Profile({ navigation }) {
 
   const onSubmitEdit = (e) => {
     e.preventDefault()
+    dispatch(setInvestor({ name, phone, address, account, job }))
+    setEditStatus(false)
     // dispatch(editInvestorProfile({
     //   name,
     //   email,
