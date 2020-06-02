@@ -147,21 +147,29 @@ export const registInvestor = (data) => {
     return (dispatch) => {
         axios
             .post(`${baseUrl}/investor/signUp`, {
-                name: data.name,
-                email : data.email,
+                name: data.name, 
+                email : data.email, 
                 password: data.password,
                 address: ' ',
                 job: ' ',
-                phone: '0',
                 photo_profile: ' ',
+                phone: 0,
+                wallet: {
+                    account_name: data.wallet.account_name,
+                    bank_name: data.wallet.bank_name,
+                    account_number: data.wallet.account_number,
+                    saldo: 0,
+                    income: 0,
+                    incomePersentase: 0
+                },
                 document: {
                     KTP: {
-                        url: ' ',
-                        no_KTP: '0'
+                        no_KTP: data.document.KTP.no_KTP,
+                        url: data.document.KTP.url
                     },
                     NPWP: {
-                        url: ' ',
-                        no_NPWP: ' '
+                        no_NPWP: data.document.NPWP.no_NPWP,
+                        url: data.document.NPWP.url
                     }
                 }
             })
