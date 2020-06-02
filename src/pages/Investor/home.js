@@ -16,11 +16,12 @@ export default function home({navigation}) {
   const {investorWallet} = useSelector((state) => state.investorWallet)
   const dispatch = useDispatch()
 
+  
   useEffect(() => {
 
-      dispatch(getMitraBusiness())
-
-      if (tokenInvestor) {
+    
+    if (tokenInvestor) {
+        dispatch(getMitraBusiness())
         dispatch(getInvestorWallet({ token : tokenInvestor.token }))
       }
 
@@ -36,6 +37,8 @@ export default function home({navigation}) {
   } else {
     // console.log('ini di mitra bisnis');
     // console.log(mitraBusiness)
+    console.log('ini mitra bisnis')
+    console.log(mitraBusiness)
     return (
       <View style={investor_style.container_home}>
         <View style={investor_style.container}>
@@ -80,40 +83,45 @@ export default function home({navigation}) {
 
         <View style={[investor_style.container_list, { marginBottom: 140 }]}>
           {/* flat list here */}
-          <FlatList
+          {/* <FlatList
             data={mitraBusiness}
             keyExtractor={(item, index) => index}
-            renderItem={({ item }) =>
-            <Card onTouchEnd={() => navigation.navigate('detail business',{ data : item })}>
-              <CardItem>
-                <Body>
-                  <View style={investor_style.card}>
-                    <Image style={investor_style.image_round} source={{ uri: `${item.images_360}`}}/>
-                    <View style={[{marginHorizontal: 20}]}>
-                      <Text style={investor_style.text_bold}>{item.business_name}</Text>
-                      {
-                        item.status === "" ? <Text></Text> :
-                        item.status === "Sedang Berjalan" ? <Text style={[investor_style.text_yellow]}>test</Text> :
-                        item.status === "Pendanaan Terpenuhi" ? <Text style={[investor_style.text_grey]}>ok</Text> : ""
-                      }
-                      <View style={investor_style.sub_income_card}>
-                        <View>
-                          <Text style={investor_style.text_grey}>Min Investasi</Text>
-                          <NumberFormat value={item.value_per_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[]}>{value}</Text>} />
-                        </View>
-                        <View>
-                          <Text style={investor_style.text_grey}>Persentase</Text>
-                          <Text style={[investor_style.text_green,{alignSelf:"flex-end"}]}>+{item.persentase_value}</Text>
+            renderItem={({ item }) => */}
+            {
+              mitraBusiness.map(item =>
+              
+              <Card key={item._id} onTouchEnd={() => navigation.navigate('detail business',{ data : item })}>
+                <CardItem>
+                  <Body>
+                    <View style={investor_style.card}>
+                      <Image style={investor_style.image_round} source={{ uri: `${item.images_360}`}}/>
+                      <View style={[{marginHorizontal: 20}]}>
+                        <Text style={investor_style.text_bold}>{item.business_name}</Text>
+                        {
+                          item.status === "" ? <Text></Text> :
+                          item.status === "Sedang Berjalan" ? <Text style={[investor_style.text_yellow]}>test</Text> :
+                          item.status === "Pendanaan Terpenuhi" ? <Text style={[investor_style.text_grey]}>ok</Text> : <Text></Text>
+                        }
+                        <View style={investor_style.sub_income_card}>
+                          <View>
+                            <Text style={investor_style.text_grey}>Min Investasi</Text>
+                            <NumberFormat value={item.value_per_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[]}>{value}</Text>} />
+                          </View>
+                          <View>
+                            <Text style={investor_style.text_grey}>Persentase</Text>
+                            <Text style={[investor_style.text_green,{alignSelf:"flex-end"}]}>+{item.persentase_value}</Text>
+                          </View>
                         </View>
                       </View>
                     </View>
-                  </View>
-                </Body>
-              </CardItem>
-            </Card>
+                  </Body>
+                </CardItem>
+              </Card>
+                )
             }
-            keyExtractor={item => item.id}
-          />
+            {/* }
+            // keyExtractor={item => item.id}
+          /> */}
 
 
         </View>

@@ -91,16 +91,19 @@ export default function registerInvestor({route, navigation}) {
             }
         }))
           navigation.navigate('login', { request: 'login', role: 'investor'})
+          setName('')
+          setEmail('')
+          setPassword('')
+          setBankName('')
+          setBankAccount('')
+          setBankNumber('')
+          setKtp('')
+          setUrlKtp('')
+          setNpwp('')
+          setUrlNpwp('')
         }
 
-        setName('')
-        setEmail('')
-        setPassword('')
-        setBankName('')
-        setBankAccount('')
-        setBankNumber('')
-        setKtp('')
-        setNpwp('')
+        
     }
 
     const _pickImage = async (document) => {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://ee754c622c73.ngrok.io'  
+const baseUrl = 'http://e840b66e5075.ngrok.io'  
 
 //investor
 
