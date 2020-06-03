@@ -72,12 +72,12 @@ export default function App() {
           <Stack.Screen name="detail business" component={detail_business} options={{headerShown: false}}/>
           <Stack.Screen name="edit profile" component={edit_profile} options={{headerShown: false}}/>
           <Stack.Screen name="image360" component={image360}/>
+          <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
           {/* Mitra */}
           <Stack.Screen name="mitra" component={tab_bottom_mitra} options={{headerShown: false}}/>
-          <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
           <Stack.Screen name="detail business mitra" component={detail_business_mitra} options={{headerShown: false}} />
           <Stack.Screen name="repot" component={repot} options={{title: 'Repot'}} />
-
+          {/* Mitra */}
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

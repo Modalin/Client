@@ -40,7 +40,7 @@ const style = StyleSheet.create({
     paddingHorizontal: 20,
   },
   card:{
-    paddingVertical: 10,
+    paddingVertical: 5,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center"
@@ -95,6 +95,7 @@ const style = StyleSheet.create({
     width: 70,
     borderRadius: 40,
     borderWidth: 1,
+    marginRight: 10,
   },
 
   btn_green:{

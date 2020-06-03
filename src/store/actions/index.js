@@ -1,37 +1,47 @@
 import axios from 'axios';
-const baseUrl = 'http://ee754c622c73.ngrok.io'
+const baseUrl = 'http://77188c8f1ca1.ngrok.io'
+
+//investor
 
 export const SET_LOGIN_INVESTOR = 'SET_LOGIN_INVESTOR';
-export const SET_LOGIN_MITRA = 'SET_LOGIN_MITRA';
 export const SET_LOADING = 'SET_LOADING';
 export const SET_REGIST_INVESTOR = 'SET_REGIST_INVESTOR';
-export const SET_REGIST_MITRA = 'SET_REGIST_MITRA';
 export const SET_EDIT_INVESTOR_PROFILE = 'SET_EDIT_INVESTOR_PROFILE';
-export const SET_DELETE_MITRA_PROFILE = 'SET_DELETE_MITRA_PROFILE';
 export const SET_DELETE_INVESTOR_PROFILE = 'SET_DELETE_INVESTOR_PROFILE';
 export const SET_EDIT_MITRA_PROFILE = 'SET_EDIT_MITRA_PROFILE';
 export const SET_GET_INVESTOR = 'SET_GET_INVESTOR';
 export const SET_GET_INVESTOR_WALLET = 'SET_GET_INVESTOR_WALLET';
 export const SET_DELETE_INVESTOR_WALLET = 'SET_DELETE_INVESTOR_WALLET';
 export const SET_GET_INVESTOR_BUSINESS = 'SET_GET_INVESTOR_BUSINESS';
+export const SET_GET_INVESTOR_DATA = 'SET_GET_INVESTOR_DATA';
 export const SET_GET_INVESTOR_INVEST = 'SET_GET_INVESTOR_INVEST';
+export const SET_GET_INVESTOR_BY_ID = 'SET_GET_INVESTOR_BY_ID';
+
+//mitra
+export const SET_LOGIN_MITRA = 'SET_LOGIN_MITRA';
+export const SET_REGIST_MITRA = 'SET_REGIST_MITRA';
+export const SET_DELETE_MITRA_PROFILE = 'SET_DELETE_MITRA_PROFILE';
 export const SET_GET_MITRA_BUSINESS = 'SET_GET_MITRA_BUSINESS';
 export const SET_POST_MITRA_BUSINESS = 'SET_POST_MITRA_BUSINESS';
 export const SET_EDIT_MITRA_BUSINESS = 'SET_POST_MITRA_BUSINESS';
 export const SET_EDIT_MITRA_BUSINESS_INVEST = 'SET_POST_MITRA_BUSINESS_INVEST';
 export const SET_EDIT_MITRA_BUSINESS_PROFIT = 'SET_POST_MITRA_BUSINESS_PROFIT';
-export const SET_GET_INVESTOR_DATA = 'SET_GET_INVESTOR_DATA';
+export const SET_GET_MITRA_BUSINESS_AUTH = 'SET_GET_MITRA_BUSINESS_AUTH';
 
 //error
 export const SET_ERROR_LOGIN_INVESTOR = 'SET_ERROR_LOGIN_INVESTOR';
 export const SET_ERROR_LOGIN_MITRA = 'SET_ERROR_LOGIN_MITRA';
 
-export const setLoginMitra = (data) => {
-  return { type: SET_LOGIN_MITRA, payload: data }
-}
-
 export const setInvestor = (data) => {
     return { type: "SET_LOGIN_INVESTOR", payload : data }
+}
+
+export const setLoginMitra = (data) => {
+    return { type: SET_LOGIN_MITRA, payload: data }
+}
+
+export const setGetInvestorById = (data) => {
+    return { type: SET_GET_INVESTOR_BY_ID, payload: data }
 }
 
 export const setLoading = (status) => {
@@ -102,6 +112,10 @@ export const set_get_investor = (data) => {
     return { type: SET_GET_INVESTOR_DATA, payload: data}
 }
 
+export const set_get_business_mitra_auth = (data) => {
+    return { type: SET_GET_MITRA_BUSINESS_AUTH, payload: data}
+}
+
 //error
 export const set_error_login_investor = (status) => {
     return { type: SET_ERROR_LOGIN_INVESTOR, payload: status }
@@ -131,12 +145,12 @@ export const loginInvestor = (data) => {
 export const loginMitra = (data) => {
     return (dispatch) => {
         axios
-            .post(`${baseUrl}/mitra/signIn`, {
+            .post(`${baseUrl}/mitra/signin`, {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
-                console.log(JSON.stringify(data, null, 4));
-                dispatch(setLoginMitra(data.token))
+                console.log(data);
+                dispatch(setLoginMitra(data))
             })
             .catch(err => {
                 console.log('masuk error mitra');
@@ -227,9 +241,27 @@ export const registMitra = (data) => {
     }
 }
 
+export const getMitraBusinessAuth = (data) => {
+    console.log('masuk store business auth');
+    console.log(data);
+    return (dispatch) => {
+        axios
+            .get(`${baseUrl}/mitra/business/${data.id}`, {
+                headers: {
+                    'token' : data.token
+                }
+            })
+            .then(({ data }) => {
+                dispatch(set_get_business_mitra_auth(data))
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+    }
+}
+
 export const getInvestor = (data) => {
-    console.log('masuk params di store');
-    console.log('ini datanya', data);
     return (dispatch) => {
         axios
             .get(`${baseUrl}/investor/`, {
@@ -240,6 +272,21 @@ export const getInvestor = (data) => {
             .then(({ data }) => {
                 console.log('masuk success get data profile investor di store', data);
                 dispatch(set_get_investor(data))
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+export const getInvestorById = (id) => {
+    console.log('masuk store');
+    console.log(id);
+    return (dispatch) => {
+        axios
+            .get(`${baseUrl}/investor/find/${id}`)
+            .then(({ data }) => {
+                dispatch(setGetInvestorById(data))
             })
             .catch(err => {
                 console.log(err);
@@ -366,11 +413,13 @@ export const getInvestorInvest = () => {
     }
 }
 
-export const getMitraBusiness = (data) => {
+export const getMitraBusiness = () => {
     return (dispatch) => {
         axios
             .get(`${baseUrl}/mitra/business`)
             .then(({ data }) => {
+                console.log("ini dari redux",data);
+
                 dispatch(set_mitra_business(data))
             })
             .catch(err => {

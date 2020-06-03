@@ -1,21 +1,23 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import {View, Text, ImageBackground, ScrollView, TouchableHighlight ,Modal, StyleSheet} from 'react-native'
 import {Picker, Button} from 'native-base'
 import {style, color_ as color} from './mitra_style'
 import NumberFormat  from 'react-number-format'
 import Repot from './repot'
 
-export default function Detail({navigation}) {
+export default function Detail({ route, navigation }) {
   const [status, setStatus] = useState({selected: null})
   const [IsInvestorViewModal, setIsInvestorViewModal] = useState(false);
   const [IsRepotViewModal, setIsRepotViewModal] = useState(false);
+  const dataBusiness = route.params.data;
+
   return(
     <View style={[style.container_home, style.bar_,{}]}>
-      <ImageBackground style={{width: "100%",height: 150}} source={{ uri : `https://media-cdn.tripadvisor.com/media/photo-s/11/67/bb/9b/rinjani-mountain-panorama.jpg`}}>
+      <ImageBackground style={{width: "100%",height: 150}} source={{ uri : `${dataBusiness.images_360}`}}>
           <View style={[{height: 150, backgroundColor: "#000000", opacity: 0.75,justifyContent: "flex-end"}]}>
             <View style={[{flexDirection: "row", justifyContent: "space-between", padding: 10}]}>
-              <Text style={[style.text_white]}>Ayam Geprek Juara</Text>
-              <Text style={[style.text_white]}>3 Unit Left</Text>
+              <Text style={[style.text_white]}>{dataBusiness.business_name}</Text>
+              <Text style={[style.text_white]}>{dataBusiness.business_unit} Unit Left</Text>
             </View>
           </View>
       </ImageBackground>
@@ -25,10 +27,16 @@ export default function Detail({navigation}) {
             <View style={[{flexDirection: "row", justifyContent: "space-between"}]}>
               <View>
                 <Text>Dana Dibutuhkan</Text>
-                <NumberFormat value={10000000} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_bold]}>{value}</Text>} />
+                {
+                  dataBusiness.investor.length < 1 ? <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_bold]}>{value}</Text>} /> :
+                  dataBusiness.investor.map(el =>
+                    <NumberFormat key={el._id} value={el.invest_value * el.total_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_bold]}>{value}</Text>} />
+                  )
+                }
+
               </View>
               <View style={[{alignItems:"flex-end"}]}>
-                <Text>Dana Dibutuhkan</Text>
+                <Text>Dana Terkumpul</Text>
                 <NumberFormat value={10000000} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_green, style.text_bold]}>{value}</Text>} />
               </View>
             </View>
@@ -37,7 +45,7 @@ export default function Detail({navigation}) {
             <View style={[{}]}>
               <View>
                 <Text style={[style.text_grey, style.padding_b_10]}>Deskripsi</Text>
-                <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+                <Text>{dataBusiness.business_description}</Text>
                 <View style={[style.padding_b_10, {borderBottomWidth: 1, borderColor: color.grey}]}></View>
               </View>
               <View>
@@ -49,22 +57,25 @@ export default function Detail({navigation}) {
                   selectedValue={status}
                   onValueChange={(value) => setStatus(value)}
                 >
-                  <Picker.Item label="Menunggu Pendanaan" value="" />
-                  <Picker.Item label="Sedang Berjalan" value="Sedang Berjalan" />
-                  <Picker.Item label="Pendanaan Terpenuhi" value="Pendanaan Terpenuhi" />
+                  {
+                    dataBusiness.status === "" ? <Picker.Item label="Menunggu Pendanaan" value="" /> :
+                    dataBusiness.status === "Sedang Berjalan" ? <Picker.Item label="Sedang Berjalan" value="Sedang Berjalan" /> :
+                    dataBusiness.status === "Pendanaan Terpenuhi" ? <Picker.Item label="Pendanaan Terpenuhi" value="Pendanaan Terpenuhi" /> : ""
+                  }
+
                 </Picker>
                 <View style={[{borderBottomWidth: 1, borderColor: color.grey},style.padding_b_10]}></View>
               </View>
               <TouchableHighlight onPress={() => {setIsInvestorViewModal(true)}} underlayColor="#ffffff">
                 <View>
                   <Text style={[style.text_grey, style.padding_b_10]}>Investor</Text>
-                  <Text>4</Text>
+                  <Text>{dataBusiness.investor.length}</Text>
                   <View style={[style.padding_b_10, {borderBottomWidth: 1, borderColor: color.grey}]}></View>
                 </View>
               </TouchableHighlight>
               <View>
                 <Text style={[style.text_grey, style.padding_b_10]}>Lokasi</Text>
-                <Text>Jl. Plitur 1 No.2, RT.2, Kayu Putih, Kec. Pulo Gadung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13210</Text>
+                <Text>{dataBusiness.location.address}</Text>
                 <View style={[style.padding_b_10, {borderBottomWidth: 1, borderColor: color.grey}]}></View>
               </View>
               <View>
@@ -88,6 +99,15 @@ export default function Detail({navigation}) {
             <View style={inner_style.modalView}>
               <Text style={[style.text_bold,{fontSize: 18, textAlign: "left"}]}>List Investor</Text>
               {/* flat list here */}
+              {
+                dataBusiness.investor.length < 1 ? <Text>Investor Kosong</Text> :
+                dataBusiness.investor.map(el =>
+                  <View key={el._id} style={{ marginVertical: 18}}>
+                    <Text style={[style.text_bold]}>Total Unit : {el.total_unit}</Text>
+                    <NumberFormat value={el.invest_value} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_bold]}>Nilai Pendanaan : {value}</Text>} />
+                  </View>
+                )
+              }
               <Button style={[style.btn_red,{width: "100%", }]} onPress={() => {setIsInvestorViewModal(!IsInvestorViewModal);}}>
                 <Text style={[{fontSize: 14, color: '#ffffff', textAlign: "center"}]}> Cancel </Text>
               </Button>

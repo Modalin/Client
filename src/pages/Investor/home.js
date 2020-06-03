@@ -18,9 +18,9 @@ export default function home({navigation}) {
 
   useEffect(() => {
 
-      dispatch(getMitraBusiness())
 
-      if (tokenInvestor) {
+    if (tokenInvestor) {
+        dispatch(getMitraBusiness())
         dispatch(getInvestorWallet({ token : tokenInvestor.token }))
       }
 
@@ -35,7 +35,8 @@ export default function home({navigation}) {
     )
   } else {
     // console.log('ini di mitra bisnis');
-    // console.log(mitraBusiness)
+    console.log(mitraBusiness)
+    console.log('ini Wallet', investorWallet);
     return (
       <View style={investor_style.container_home}>
         <View style={investor_style.container}>
@@ -94,7 +95,7 @@ export default function home({navigation}) {
                       {
                         item.status === "" ? <Text></Text> :
                         item.status === "Sedang Berjalan" ? <Text style={[investor_style.text_yellow]}>test</Text> :
-                        item.status === "Pendanaan Terpenuhi" ? <Text style={[investor_style.text_grey]}>ok</Text> : ""
+                        item.status === "Pendanaan Terpenuhi" ? <Text style={[investor_style.text_grey]}>ok</Text> : <Text></Text>
                       }
                       <View style={investor_style.sub_income_card}>
                         <View>

@@ -10,10 +10,14 @@ const Tab = createBottomTabNavigator()
 export default function Tab_nav() {
   return (
     <Tab.Navigator tabBarOptions={{}}>
-      <Tab.Screen name="Beranda" component={home}/>
-      <Tab.Screen name="Transaksi" component={transaction}/>
+      <Tab.Screen name="Beranda" component={home} options={{tabBarIcon: ({ tintColor }) => (
+        <Ionicons name="ios-home" color={"#AEAEAE"} size={25} />
+      )}}/>
+      <Tab.Screen name="Transaksi" component={transaction} options={{tabBarIcon: ({ tintColor }) => (
+        <Ionicons name="ios-sync" color={"#AEAEAE"} size={25} />
+      )}}/>
       <Tab.Screen name="Profile" component={profile} options={{tabBarIcon: ({ tintColor }) => (
-        <Ionicons name="ios-people" color={"#AEAEAE"} size={25} />
+        <Ionicons name="ios-contact" color={"#AEAEAE"} size={25} />
       )}}/>
     </Tab.Navigator>
   )
