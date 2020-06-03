@@ -15,26 +15,35 @@ export default function home({navigation}) {
   const {mitraBusiness} = useSelector((state) => state.mitraBusiness)
   const {tokenInvestor} = useSelector((state) => state.tokenInvestor)
   const {investorWallet} = useSelector((state) => state.investorWallet)
-  const [token, setToken] = useState('')
+  const [tokenAsync, setToken] = useState('')
   const dispatch = useDispatch()
 
-
   useEffect(() => {
-    navigation.addListener('focus', async () => {
-      setToken(await AsyncStorage.getItem('token'))
-      await getMitraBusiness(() => {
-        if (tokenInvestor) {
-          dispatch(getInvestorWallet({ token : tokenInvestor.token}))
-        }
-      })
-    });
+
+    navigation.addListener('focus', async() => {
+      if (tokenInvestor) {
+        await dispatch(getInvestorWallet({ token : tokenInvestor.token})).then(async() => {
+          await dispatch(getMitraBusiness( async() => {
+              setToken(await AsyncStorage.getItem('token'))
+            }))
+        })
+      }
+      });
   }, [dispatch, navigation, tokenInvestor])
+
+  if (!mitraBusiness && !tokenAsync) {
+    return (
+      <Loading />
+    )
+  }
 
   if (!mitraBusiness && !investorWallet) {
     return (
       <Loading />
     )
   } else {
+    console.log('dapet data');
+    console.log(investorWallet);
     return (
       <View style={investor_style.container_home}>
         <View style={investor_style.container}>

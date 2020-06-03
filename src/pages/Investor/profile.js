@@ -225,8 +225,8 @@ export default function Profile({ navigation }) {
                   <Text style={[{fontSize: 14, color: '#ffffff'}]}> Edit </Text>
                 </Button>
                 }
-                <Button style={[investor_style.btn_red,{marginVertical: 10}]}>
-                  <Text style={[investor_style.text_white]} onPress={handleLogout}>Sign Out</Text>
+                <Button style={[investor_style.btn_red,{marginVertical: 10}]} onPress={handleLogout}>
+                  <Text style={[investor_style.text_white]}>Sign Out</Text>
                 </Button>
               </View>
             </View>

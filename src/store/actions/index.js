@@ -4,6 +4,7 @@ import { AsyncStorage } from 'react-native'
 
 //investor
 
+
 export const SET_LOGIN_INVESTOR = 'SET_LOGIN_INVESTOR';
 export const SET_LOADING = 'SET_LOADING';
 export const SET_REGIST_INVESTOR = 'SET_REGIST_INVESTOR';
@@ -134,7 +135,6 @@ export const loginInvestor = (data) => {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
-                // console.log('Data Setelah Login', data)
                 AsyncStorage.setItem('token', data.token)
                 AsyncStorage.setItem('role', 'investor')
                 dispatch(setInvestor(data))
@@ -153,7 +153,7 @@ export const loginMitra = (data) => {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
-                console.log('Data Setelah Login', data)
+                console.log(data);
                 AsyncStorage.setItem('token', data.token)
                 AsyncStorage.setItem('role', 'mitra')
                 dispatch(setLoginMitra(data))
@@ -247,15 +247,11 @@ export const registMitra = (data) => {
     }
 }
 
-export const getMitraBusinessAuth = (data) => {
+export const getMitraBusinessAuth = (id) => {
     console.log('masuk store business auth');
     return (dispatch) => {
         axios
-            .get(`${baseUrl}/mitra/business/${data.id}`, {
-                headers: {
-                    'token' : `${data.token}`
-                }
-            })
+            .get(`${baseUrl}/mitra/business/${id}`)
             .then(({ data }) => {
                 dispatch(set_get_business_mitra_auth(data))
             })
@@ -432,27 +428,15 @@ export const getMitraBusiness = () => {
     }
 }
 
-export const postMitraBusiness = (data, token) => {
-    console.log('masuk store');
-    console.log(data);
+export const postMitraBusiness = (data) => {
     return (dispatch) => {
-        axios({
-            method: 'post',
-            url: `${baseUrl}/mitra/business`,
-            data,
-            headers: {
-                token
-            }
-        })
+        axios
+            .post(`${baseUrl}/mitra/business`)
             .then(({ data }) => {
-                console.group('Berhasil Create Business', data)
+
             })
             .catch(err => {
-                console.log('Error postMitraBusiness', err)
-            })
-            .finally(_ => {
-                console.log('Berhasil masuk finally postMitraBusiness')
-                dispatch(setLoading(false))
+
             })
     }
 }
@@ -514,3 +498,4 @@ export const investToBusiness = (data) => {
             })
     }
 }
+                
