@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {View, Text, TextInput, StyleSheet, TouchableHighlight} from 'react-native';
 import {Form, Button} from 'native-base';
 import Gstyle from '../../style/global_style';
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,7 +57,7 @@ export default function login({route, navigation}) {
           textContent={'Loading...'}
           textStyle={styles.spinnerTextStyle}
         />
-      <Text style={Gstyle.title_bold}>Masuk {role} Modalin</Text>
+      <Text style={[Gstyle.title_bold, { textAlign: "center"}]}>Masuk {role} Modalin</Text>
       <Form style={Gstyle.form_style}>
         <TextInput
         style={Gstyle.login_input}
@@ -73,9 +73,9 @@ export default function login({route, navigation}) {
         placeholder= "Password"
         />
       </Form>
-      <Button style={Gstyle.btn_style} onPress={onLoginSubmit}>
-        <Text style={[Gstyle.btn_text, {fontSize: 18}]}> Masuk </Text>
-      </Button>
+      <TouchableHighlight style={Gstyle.btn_style} onPress={onLoginSubmit}>
+        <Text style={[Gstyle.btn_text, {fontSize: 20, textAlign: "center"}]}> Masuk </Text>
+      </TouchableHighlight>
     </View>
   )
 }

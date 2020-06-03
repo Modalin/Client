@@ -15,6 +15,24 @@ const style = StyleSheet.create({
   img_banner:{
     resizeMode: "cover"
   },
+  btn_style_border_green:{
+    width: "80%",
+    padding: 15,
+    borderWidth: 1.5,
+    borderColor: "#00B965",
+    marginTop: 40,
+    borderRadius: 15,
+    backgroundColor: "#ffffff",
+    justifyContent: "center"
+  },
+  btn_style:{
+    width: "80%",
+    padding: 15,
+    marginTop: 40,
+    borderRadius: 15,
+    backgroundColor: "#00B965",
+    justifyContent: "center",
+  },
   container_full_white:{
     paddingTop: Constant.statusBarHeight + 100,
     flex: 1,
@@ -25,19 +43,11 @@ const style = StyleSheet.create({
   logo_text_title:{
     textAlign: "center",
     padding: 50,
-    fontFamily: "Segoe-Print",
+    fontFamily: "San Frans",
     fontSize: 32
   },
-  btn_style:{
-    width: "80%",
-    padding: 20,
-    marginTop: 50,
-    borderRadius: 15,
-    backgroundColor: "#00B965",
-    justifyContent: "center"
-  },
   btn_text:{
-    color: "#ffffff",
+    color: "#ffffff"
   },
   text_green:{
     color: "#00B965",

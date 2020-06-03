@@ -3,6 +3,7 @@ import {View, Text, ImageBackground, ScrollView, TouchableHighlight ,Modal, Styl
 import {Picker, Button} from 'native-base'
 import {style, color_ as color} from './mitra_style'
 import NumberFormat  from 'react-number-format'
+import CalculateByBusiness from '../../javaScript/calculate_by_business'
 import Repot from './repot'
 
 export default function Detail({ route, navigation }) {

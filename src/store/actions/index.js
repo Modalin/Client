@@ -1,5 +1,6 @@
 import axios from 'axios';
-const baseUrl = 'http://a7a4a2bde0a3.ngrok.io'  
+const baseUrl = 'http://e822e4e41c26.ngrok.io'  
+import { AsyncStorage } from 'react-native'
 
 //investor
 
@@ -133,6 +134,9 @@ export const loginInvestor = (data) => {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
+                // console.log('Data Setelah Login', data)
+                AsyncStorage.setItem('token', data.token)
+                AsyncStorage.setItem('role', 'investor')
                 dispatch(setInvestor(data))
             })
             .catch(err => {
@@ -149,7 +153,9 @@ export const loginMitra = (data) => {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
-                console.log(data);
+                console.log('Data Setelah Login', data)
+                AsyncStorage.setItem('token', data.token)
+                AsyncStorage.setItem('role', 'mitra')
                 dispatch(setLoginMitra(data))
             })
             .catch(err => {

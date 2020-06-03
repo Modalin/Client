@@ -87,7 +87,8 @@ const style = StyleSheet.create({
   },
 
   text_grey:{
-    color: "#AEAEAE"
+    color: "#AEAEAE",
+    paddingTop: 5
   },
   text_yellow:{
     color: "#FFFF00"

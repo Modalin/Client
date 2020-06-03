@@ -1,12 +1,13 @@
 import React from 'react'
-import { useEffect } from 'react'
+import { useEffect , useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {View, Text, ScrollView, FlatList, Image} from 'react-native'
+import {View, Text, ScrollView, FlatList, Image, AsyncStorage} from 'react-native'
 import {Button , Card, CardItem, Body} from 'native-base'
 import NumberFormat  from 'react-number-format'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import { getMitraBusiness, getInvestorWallet } from '../../store/actions'
 import Splash from '../login/splahScreen'
+import Loading from '../loading_screen'
 
 console.disableYellowBox = true;
 export default function home({navigation}) {
@@ -14,22 +15,29 @@ export default function home({navigation}) {
   const {mitraBusiness} = useSelector((state) => state.mitraBusiness)
   const {tokenInvestor} = useSelector((state) => state.tokenInvestor)
   const {investorWallet} = useSelector((state) => state.investorWallet)
+  const [token, setToken] = useState('')
   const dispatch = useDispatch()
 
-  
+
   useEffect(() => {
-
-    if (tokenInvestor) {
-        dispatch(getMitraBusiness())
-        dispatch(getInvestorWallet({ token : tokenInvestor.token }))
+    navigation.addListener('focus', async () => {
+      setToken(await AsyncStorage.getItem('token'))
+      if (tokenInvestor || token) {
+        dispatch(getInvestorWallet({ token : token || tokenInvestor.token }))
       }
+    });
+  }, [dispatch, navigation, tokenInvestor])
 
-  }, [dispatch, tokenInvestor])
 
+  if (!mitraBusiness || !token) {
+    return (
+      <Loading />
+    )
+  }
 
   if (!mitraBusiness && !investorWallet) {
     return (
-      <Splash></Splash>
+      <Loading />
     )
   } else {
     return (

@@ -39,6 +39,7 @@ export default function Edit({ route, navigation }) {
     let result = Rumus(data.profit_times,data.persentase_value,data.value_per_unit)
     setIncome(result)
   }else{
+    console.log(data);
     return (
       <View style={[investor_style.bar_, {flex: 1}]}>
         <ImageBackground style={{width: "100%",height: 150}} source={{ uri : `${data.images_360}`}}>
@@ -56,6 +57,10 @@ export default function Edit({ route, navigation }) {
                 <View>
                   <Text style={[investor_style.text_grey]}>Minimal Invest</Text>
                   <NumberFormat value={data.value_per_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_bold]}>{value}</Text>} />
+                  <View>
+                  <Text style={[investor_style.text_grey]}>Kontak Mitra</Text>
+                  <Text style={[investor_style.text_bold]}>{data.owner.phone}</Text>
+                </View>
                 </View>
                 <View style={[{}]}>
                   <View style={[{alignItems:"flex-end"}]}>
@@ -96,9 +101,9 @@ export default function Edit({ route, navigation }) {
               </View>
               <View style={{alignItems:"center"}}>
 
-                <Button style={[investor_style.btn_green]} onPress={() => {setModalVisible(true);}}>
-                  <Text style={[{fontSize: 14, color: '#ffffff'}]}> Modalin </Text>
-                </Button>
+                <TouchableHighlight style={[investor_style.btn_green]} onPress={() => {setModalVisible(true);}} >
+                  <Text style={[{fontSize: 20, textAlign: "center", padding:10, color: '#ffffff'}]}> Modalin </Text>
+                </TouchableHighlight>
               </View>
             </View>
           </View>

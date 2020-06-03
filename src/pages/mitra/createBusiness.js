@@ -21,6 +21,8 @@ export default function mitraPage({navigation, route}) {
   const [location, setLocation] = useState({address: '', lat: '', long: ''})
   const [business_value, setFund] = useState('')
   const [images_360, setImage_360] = useState('')
+  const [profit_times, setProfit_times] = useState('')
+  const [periode, setPeriode] = useState('')
   const { loading } = useSelector(state => state.loading)
   const dispatch = useDispatch();
 
@@ -40,7 +42,7 @@ export default function mitraPage({navigation, route}) {
   async function createBusiness() {
 
     await dispatch(setLoading(true))
-    const data = { business_name, business_type, business_unit, value_per_unit, persentase, description, location, business_value, images_360}
+    const data = { business_name, business_type, business_unit, value_per_unit, persentase, description, location, business_value, images_360, profit_times, periode}
 
     await uploadImage(photo_local).then( async() => {
       console.log('masuk');
@@ -55,7 +57,7 @@ export default function mitraPage({navigation, route}) {
   const _pickImage = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [4, 3],
         quality: 1,
@@ -69,6 +71,28 @@ export default function mitraPage({navigation, route}) {
       console.log(E)
     }
 
+  }
+
+  const _takeImage = async () => {
+    try {
+      const cameraPermission = await ImagePicker.getCameraPermissionsAsync()
+      console.log("Request Camera", cameraPermission)
+      if (!cameraPermission.granted) {
+        let result = await ImagePicker.launchCameraAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        })
+        console.log("Result", result)
+        console.log("Photo Local", photo_local)
+        if (!result.cancelled) {
+          setPhotoLocal(result.uri)
+        }
+      }
+    } catch (E) {
+      console.log(E)
+    }
   }
 
   async function uploadImage(uri) {
@@ -151,7 +175,10 @@ export default function mitraPage({navigation, route}) {
                     <Image style={{width:200, height: 200}} source={{ uri: `${photo_local}`}}/>
                   : <Text></Text>}
                 </View>
-                <View style={[{marginVertical: 0, marginHorizontal: 50, alignItems: 'center'}]}>
+                <View style={[{marginHorizontal: 0, alignItems: 'center', flexWrap: 'nowrap'}]}>
+                  <Button style={[btn_style]} onPress={_takeImage}>
+                    <Text style={[Gstyle.btn_text, {fontSize: 15}]}>Ambil Foto</Text>
+                  </Button>
                   <Button style={[btn_style]} onPress={_pickImage}>
                     <Text style={[Gstyle.btn_text, {fontSize: 15}]}>Pilih Foto</Text>
                   </Button>
@@ -212,8 +239,26 @@ export default function mitraPage({navigation, route}) {
                 <Text style={[style.text_grey, style.padding_b_10]}>Persentase Pembagian/Tahun</Text>
                 <TextInput
                   style={[{borderBottomWidth: 1, borderColor: color.grey}]}
+                  onChangeText={setProfit_times}
+                  value={profit_times}
+                  keyboardType='numeric'
+                />
+              </View>
+              <View style={{marginVertical: 20}}>
+                <Text style={[style.text_grey, style.padding_b_10]}>Berapa Kali Untung/Tahun</Text>
+                <TextInput
+                  style={[{borderBottomWidth: 1, borderColor: color.grey}]}
                   onChangeText={setPersentase}
                   value={persentase}
+                  keyboardType='numeric'
+                />
+              </View>
+              <View style={{marginVertical: 20}}>
+                <Text style={[style.text_grey, style.padding_b_10]}>Peroide Usaha</Text>
+                <TextInput
+                  style={[{borderBottomWidth: 1, borderColor: color.grey}]}
+                  onChangeText={setPeriode}
+                  value={periode}
                   keyboardType='numeric'
                 />
               </View>

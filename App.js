@@ -11,28 +11,26 @@ import store from './src/store/index'
 import Splash from './src/pages/login/splahScreen'
 
 //login
-import landing_user from './src/pages/login/landing_user'
-import identify_user from './src/pages/login/identify_user'
-import identify_user_register from './src/pages/register/identify_user'
-import login from './src/pages/login/login'
-import register_investor from './src/pages/register/register_investor'
+import LandingUser from './src/pages/login/landing_user'
+import IdentifyUser from './src/pages/login/identify_user'
+import IdentifyUserRegister from './src/pages/register/identify_user'
+import Login from './src/pages/login/login'
+import RegisterInvestor from './src/pages/register/register_investor'
+import RegisterMitra from './src/pages/register/register_mitra'
 
 //investor
-import tab_bottom_investor from './src/pages/Investor/bottom_nav'
-import payment from './src/pages/Investor/payment'
-import maps from './src/pages/maps/maps'
-import detail_business from './src/pages/Investor/detail_business'
-import edit_profile from './src/pages/Investor/edit_profile'
+import TabInvestor from './src/pages/Investor/bottom_nav'
+import Payment from './src/pages/Investor/payment'
+import DetailBusinessInvestor from './src/pages/Investor/detail_business'
+import EditProfileInvestor from './src/pages/Investor/edit_profile'
 
 //mitra
-import tab_bottom_mitra from './src/pages/mitra/bottom_nav';
-import detail_business_mitra from './src/pages/mitra/detail';
-import repot from './src/pages/mitra/repot';
-import register_mitra from './src/pages/register/register_mitra'
-import createBusiness from './src/pages/mitra/createBusiness'
+import TabMitra from './src/pages/mitra/bottom_nav';
+import DetailBusinessMitra from './src/pages/mitra/detail';
+import MonthlyReports from './src/pages/mitra/repot';
+import CreateBusiness from './src/pages/mitra/createBusiness'
 import image360 from './src/pages/google-vr/Image360'
-import location from './src/pages/maps/Locations'
-import location2 from './src/pages/maps/mapLocation'
+import Location from './src/pages/maps/Locations'
 const Stack = createStackNavigator()
 
 console.disableYellowBox = true
@@ -41,13 +39,8 @@ export default function App() {
   let [fontsLoaded] = useFonts({
     'Segoe-Print': require('./assets/fonts/SegoePrint.ttf'),
     'Gill Sans': require('./assets/fonts/gillsans.ttf'),
+    'San Frans': require('./assets/fonts/SFUIDisplay-Bold.ttf')
   })
-
-  // //Check Firebase App named already exist
-  // console.log(firebase.apps.length)
-  // if (!firebase.apps.length) {
-  //   firebase.initializeApp(firebaseConfig)
-  // }
 
   if(!fontsLoaded){
     return(
@@ -58,26 +51,24 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* Create Business */}
-          <Stack.Screen name="landing user" component={landing_user} options={{headerShown: false}}/>
           {/* User Login */}
-          <Stack.Screen name="create business" component={createBusiness} options={{headerShown: false}}/>
-          <Stack.Screen name="identify user" component={identify_user} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
-          <Stack.Screen name="login" component={login} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
-          <Stack.Screen name="register investor" component={register_investor} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
-          <Stack.Screen name="register mitra" component={register_mitra} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
-          <Stack.Screen name="identify user register" component={identify_user_register} options={{title: "Modalin", headerTitleStyle:{fontFamily: "Gill Sans"}}}/>
+          <Stack.Screen name="landing user" component={LandingUser} options={{headerShown: false}}/>
+          <Stack.Screen name="identify user" component={IdentifyUser} options={{title: "Modalin", headerTitleStyle: {fontFamily: "San Frans", fontWeight: "bolder", backgroundColor: '21bf73'},  headerTintColor: '#fff'}}/>
+          <Stack.Screen name="identify user register" component={IdentifyUserRegister} options={{title: "Modalin", headerTitleStyle: {fontFamily: "San Frans", fontWeight: "bolder", backgroundColor: '21bf73'},  headerTintColor: '#fff'}}/>
+          <Stack.Screen name="login" component={Login} options={{title: "Login", headerTitleStyle: {fontFamily: "San Frans", fontWeight: "bolder", backgroundColor: '21bf73'},  headerTintColor: '#fff'}}/>
+          <Stack.Screen name="register investor" component={RegisterInvestor} options={{title: "Investor", headerTitleStyle: {fontFamily: "San Frans", fontWeight: "bolder", backgroundColor: '21bf73'},  headerTintColor: '#fff'}}/>
+          <Stack.Screen name="register mitra" component={RegisterMitra} options={{title: "Mitra", headerTitleStyle: {fontFamily: "San Frans", fontWeight: "bolder", backgroundColor: '21bf73'},  headerTintColor: '#fff'}}/>
           {/* Investor */}
-          <Stack.Screen name="investor" component={tab_bottom_investor} options={{headerShown: false}}/>
-          <Stack.Screen name="payment" component={payment} options={{headerShown: false}}/>
-          <Stack.Screen name="detail business" component={detail_business} options={{headerShown: false}}/>
-          <Stack.Screen name="edit profile" component={edit_profile} options={{headerShown: false}}/>
+          <Stack.Screen name="investor" component={TabInvestor} options={{headerShown: false}}/>
+          <Stack.Screen name="payment" component={Payment} options={{headerShown: false}}/>
+          <Stack.Screen name="detail business" component={DetailBusinessInvestor} options={{headerShown: false}}/>
+          <Stack.Screen name="edit profile" component={EditProfileInvestor} options={{headerShown: false}}/>
           {/* Mitra */}
-          <Stack.Screen name="mitra" component={tab_bottom_mitra} options={{headerShown: false}}/>
-          <Stack.Screen name="detail business mitra" component={detail_business_mitra} options={{headerShown: false}} />
-          <Stack.Screen name="repot" component={repot} options={{title: 'Repot'}} />
-          {/* {/* Mitra */}
-          <Stack.Screen name="maps" component={location} options={{title: "Pilih Lokasi Bisnis",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: false}}/>
+          <Stack.Screen name="mitra" component={TabMitra} options={{headerShown: false}}/>
+          <Stack.Screen name="detail business mitra" component={DetailBusinessMitra} options={{headerShown: false}} />
+          <Stack.Screen name="repot" component={MonthlyReports} options={{title: 'Laporan'}} />
+          <Stack.Screen name="create business" component={CreateBusiness} options={{headerShown: false}}/>
+          <Stack.Screen name="maps" component={Location} options={{title: "Pilih Lokasi Bisnis",headerTitleStyle: {fontFamily: "San Frans", fontWeight: "bolder", backgroundColor: '21bf73'},  headerTintColor: '#fff',  headerShown: false}}/>
 
         </Stack.Navigator>
       </NavigationContainer>

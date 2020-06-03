@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {View, Text, ScrollView, TextInput, TouchableHighlight, ActivityIndicator, SafeAreaView, Image} from 'react-native'
+import {View, Text, ScrollView, TextInput, TouchableHighlight, Alert, ActivityIndicator, SafeAreaView, Image, AsyncStorage} from 'react-native'
 import {Card, Button} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import Splash from '../login/splahScreen'
@@ -26,7 +26,21 @@ export default function Profile({ navigation }) {
 
 
   const handleLogout = () => {
-    navigation.navigate('landing user', { request : 'landing_user' })
+    AsyncStorage.removeItem('token')
+    AsyncStorage.removeItem('role')
+    Alert.alert(
+      "Modalin",
+      "Anda yakin akan keluar?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => navigation.navigate('landing user', { request : 'landing_user' }) }
+      ],
+      { cancelable: false },
+    )
   }
 
   const onHandleEdit = (e) => {
@@ -125,30 +139,30 @@ export default function Profile({ navigation }) {
     console.log('ini data investor', dataInvestor);
     return (
       <View style={[investor_style.container_home]}>
-        <ScrollView>
-          <View style={[investor_style.container,investor_style.bar_,{flexDirection: "row", paddingBottom: 20}]}>
-            <View style={{ justifyContent: "center", marginHorizontal: 10}}>
-              <Card style={[investor_style.profile_round]}>
-                <View>
-                  <Image style={investor_style.image_round} source={{ uri: `${photo_profile}`}}/>
-                </View>
-              </Card>
-              <TouchableHighlight
-                style={[investor_style.btn_image_profile]}
-                activeOpacity={0.6}
-                underlayColor="#DDDDDD"
-                onPress={_pickImage}>
-                <Text style={[{fontSize: 12, color: '#ffffff'}]}> Edit </Text>
-              </TouchableHighlight>
-            </View>
-            <View style={[{justifyContent: "center", marginHorizontal: 20}]}>
-              {
-                editStatus ? <TextInput  style={{ borderBottomWidth:1, borderBottomColor: "#aeaeae", paddingVertical: 5}} onChangeText={(text) => setName(text)} value={name ? name : dataInvestor.name}/> :
-                <Text>{dataInvestor.name}</Text>
-              }
-              <Text>Investor</Text>
-            </View>
+        <View style={[investor_style.container,investor_style.bar_,{flexDirection: "row", paddingBottom: 20}]}>
+          <View style={{ justifyContent: "center", marginHorizontal: 10}}>
+            <Card style={[investor_style.profile_round]}>
+              <View>
+                <Image style={investor_style.image_round} source={{ uri: `${photo_profile}`}}/>
+              </View>
+            </Card>
+            <TouchableHighlight
+              style={[investor_style.btn_image_profile]}
+              activeOpacity={0.6}
+              underlayColor="#DDDDDD"
+              onPress={_pickImage}>
+              <Text style={[{fontSize: 12, color: '#ffffff'}]}> Edit </Text>
+            </TouchableHighlight>
           </View>
+          <View style={[{justifyContent: "center", marginHorizontal: 20}]}>
+            {
+              editStatus ? <TextInput  style={{ borderBottomWidth:1, borderBottomColor: "#aeaeae", paddingVertical: 5}} onChangeText={(text) => setName(text)} value={name ? name : dataInvestor.name}/> :
+              <Text>{dataInvestor.name}</Text>
+            }
+            <Text>Investor</Text>
+          </View>
+        </View>
+        <ScrollView>
           {/* info */}
           <View style={[investor_style.container, {marginTop: 20}]}>
             {/* email */}

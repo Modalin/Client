@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import {Image, View, Text, TouchableHighlight, ScrollView} from 'react-native'
+import {Image, View, Text, TouchableHighlight, ScrollView, Alert, AsyncStorage} from 'react-native'
 import {Button, Card} from 'native-base'
 import {style, color_ as color} from './mitra_style'
 import Splash from '../login/splahScreen'
@@ -10,7 +10,21 @@ export default function mitraPage({navigation}) {
   const { data } = tokenMitra;
 
   const handleLogout = () => {
-    navigation.navigate('landing user', { request : 'landing_user' })
+    AsyncStorage.removeItem('token')
+    AsyncStorage.removeItem('role')
+    Alert.alert(
+      "Modalin",
+      "Anda yakin akan keluar?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => navigation.navigate('landing user', { request : 'landing_user' }) }
+      ],
+      { cancelable: false },
+    )
   }
 
   if (!tokenMitra) {
@@ -22,12 +36,12 @@ export default function mitraPage({navigation}) {
     console.log('tokenmitra masuk');
     console.log(tokenMitra);
     return (
-      <View style={[style.container_home, {}]}>
+      <View style={[style.container_home, {}]}> 
          <View style={[style.shadow,style.container, {width: "100%", height: "30%", flexDirection: "row", paddingHorizontal: 20, justifyContent: "space-between"}]}>
           <View style={[{flexDirection: "row",  alignItems: "center"}]}>
             <View>
               <Card style={[style.profile_round]}>
-                <Image  style={[style.image_round]} source={require('../Investor/tst.jpg')}></Image>
+                <Image  style={[style.image_round]} source={{ uri: `${data.photo_profile}`}}></Image>
               </Card>
               <TouchableHighlight
                   style={[{backgroundColor: color.green, borderRadius: 10, padding: 5,}]}
