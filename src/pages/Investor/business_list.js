@@ -31,6 +31,8 @@ export default function Business({navigation}) {
     )
   } else {
 
+    console.clear();
+    
     return(
       <View style={[investor_style.container_home,investor_style.bar_, {backgroundColor: "#ffffff"}]}>
         <View style={[investor_style.category_list]}>

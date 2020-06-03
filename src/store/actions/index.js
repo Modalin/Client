@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://e840b66e5075.ngrok.io'  
+const baseUrl = 'http://77188c8f1ca1.ngrok.io'  
 
 //investor
 
@@ -242,23 +242,17 @@ export const registMitra = (data) => {
     }
 }
 
-export const getMitraBusinessAuth = (data) => {
+export const getMitraBusinessAuth = (id) => {
     console.log('masuk store business auth');
-    console.log(data);
     return (dispatch) => {
         axios
-            .get(`${baseUrl}/mitra/business/${data.id}`, {
-                headers: {
-                    'token' : data.token
-                }
-            })
+            .get(`${baseUrl}/mitra/business/${id}`)
             .then(({ data }) => {
                 dispatch(set_get_business_mitra_auth(data))
             })
             .catch(err => {
                 console.log(err);
             })
-
     }
 }
 
@@ -471,10 +465,29 @@ export const editMitraInvestProfit = (id, data) => {
         axios
             .post(`${baseUrl}/mitra/business/profit/${id}`)
             .then(({ data }) => {
-
+                console.log(data);
             })
             .catch(err => {
 
+            })
+    }
+}
+
+export const investToBusiness = (data) => {
+    const dataSend = {
+        invest_value: data.invest_value,
+        total_unit: data.total_unit
+    }
+    return (dispatch) => {
+        axios
+            .patch(`${baseUrl}/investor/business/${data.id}`, dataSend, { headers: {
+                'token' : data.token
+            }})
+            .then(({ data }) => {
+                console.log(data);
+            })
+            .catch(err => {
+                console.log(err);
             })
     }
 }

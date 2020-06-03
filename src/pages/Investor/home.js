@@ -19,7 +19,6 @@ export default function home({navigation}) {
   
   useEffect(() => {
 
-    
     if (tokenInvestor) {
         dispatch(getMitraBusiness())
         dispatch(getInvestorWallet({ token : tokenInvestor.token }))
@@ -29,16 +28,10 @@ export default function home({navigation}) {
 
 
   if (!mitraBusiness && !investorWallet) {
-    console.log('ini Wallet', investorWallet);
-    console.log('ini Mitra', mitraBusiness);
     return (
       <Splash></Splash>
     )
   } else {
-    // console.log('ini di mitra bisnis');
-    // console.log(mitraBusiness)
-    console.log('ini mitra bisnis')
-    console.log(mitraBusiness)
     return (
       <View style={investor_style.container_home}>
         <View style={investor_style.container}>

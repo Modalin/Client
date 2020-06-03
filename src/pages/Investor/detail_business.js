@@ -1,4 +1,6 @@
 import React,{useState} from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {View, Text, ImageBackground, ScrollView, TouchableHighlight, Modal, StyleSheet, TextInput} from 'react-native'
 import {Button} from 'native-base'
 import {style as investor_style, shadow_ as box_shadow, color_ as color} from './investor_style'
@@ -6,12 +8,32 @@ import MapData from '../maps/maps.js'
 import NumberFormat  from 'react-number-format'
 import PureChart from 'react-native-pure-chart';
 import Rumus from '../../javaScript/profit'
+import { investToBusiness, getMitraBusinessAuth } from '../../store/actions'
 
 export default function Edit({ route, navigation }) {
-  const data = route.params.data;
   const [modalVisible, setModalVisible] = useState(false);
-  const [value, onChangeText] = useState(null);
+  const [unit, onChangeText] = useState(null);
   const [income, setIncome] = useState(null)
+  const [data, setData] = useState(route.params.data)
+  const { mitraBusinessAuth }  = useSelector((state) => state.mitraBusinessAuth)
+  const { tokenInvestor } = useSelector((state) => state.tokenInvestor)
+  const dispatch = useDispatch()
+
+  
+  const handleInvest = () => {
+    if (unit && tokenInvestor) {
+      dispatch(investToBusiness({
+        id: data._id,
+        invest_value: unit*data.value_per_unit,
+        total_unit: unit,
+        token: tokenInvestor.token
+      }))
+      setModalVisible(!modalVisible)
+      alert(`Success invest ${data.business_name} dengan total keseluruhan ${unit*data.value_per_unit}`)
+      navigation.goBack()
+    }
+  }
+    
 
   if(income == null){
     let result = Rumus(data.profit_times,data.persentase_value,data.value_per_unit)
@@ -63,7 +85,7 @@ export default function Edit({ route, navigation }) {
               </View>
               <View style={[investor_style.padding_b_10]}>
                 <Text style={[investor_style.text_grey, investor_style.padding_b_10]}>Location</Text>
-                <Text style={[{textAlign: "justify"}, investor_style.padding_b_10]}>{data.location.address}</Text>
+                {/* <Text style={[{textAlign: "justify"}, investor_style.padding_b_10]}>{data.location.address}</Text> */}
                 <View style={[{borderBottomWidth: 1, borderColor: color.grey},investor_style.padding_b_10]}></View>
               </View>
               {/* onTouchEnd={() => navigation.navigate('maps', { request: 'maps', map: data.location })} */}
@@ -92,13 +114,13 @@ export default function Edit({ route, navigation }) {
               <NumberFormat value={data.value_per_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_grey]}>Min {value}/Unit</Text>} />
               <TextInput
                 style={{ height: 40, borderColor: color.grey, borderWidth: 1 , borderRadius: 10, padding: 10, width: "100%", marginVertical: 20}}
-                onChangeText={text => onChangeText(text)}
-                value={value}
+                onChangeText={unit => onChangeText(unit)}
+                value={unit}
                 placeholder= 'Banyak Unit'
                 keyboardType= "numeric"
 
               />
-              <Button style={[investor_style.btn_green,{width: "100%", marginBottom: 5}]} onPress={() => {setModalVisible(!modalVisible);}}>
+              <Button style={[investor_style.btn_green,{width: "100%", marginBottom: 5}]} onPress={handleInvest}>
                 <Text style={[{fontSize: 14, color: '#ffffff', textAlign: "center"}]}> Modalin </Text>
               </Button>
               <Button style={[investor_style.btn_red,{width: "100%", }]} onPress={() => {setModalVisible(!modalVisible);}}>

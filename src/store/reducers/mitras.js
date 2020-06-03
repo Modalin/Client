@@ -6,7 +6,7 @@ import {
 
 const initialStore = {
     mitraBusiness: [],
-    mitraBusinessAuth: [],
+    mitraBusinessAuth: {},
     tokenMitra: {}
 }
 
