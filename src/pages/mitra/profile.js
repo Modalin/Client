@@ -102,8 +102,8 @@ export default function mitraPage({navigation}) {
               <Button style={[style.btn_green,{marginVertical: 10}]}>
                 <Text style={[style.text_white]}>Edit</Text>
               </Button>
-              <Button style={[style.btn_red,{marginVertical: 10}]}>
-                <Text style={[style.text_white]} onPress={handleLogout}>Sign Out</Text>
+              <Button style={[style.btn_red,{marginVertical: 10}]} onPress={handleLogout}>
+                <Text style={[style.text_white]}>Sign Out</Text>
               </Button>
             </View>
           </View>

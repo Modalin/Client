@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://77188c8f1ca1.ngrok.io'  
+const baseUrl = 'http://a7a4a2bde0a3.ngrok.io'  
 
 //investor
 
@@ -426,15 +426,27 @@ export const getMitraBusiness = () => {
     }
 }
 
-export const postMitraBusiness = (data) => {
+export const postMitraBusiness = (data, token) => {
+    console.log('masuk store');
+    console.log(data);
     return (dispatch) => {
-        axios
-            .post(`${baseUrl}/mitra/business`)
+        axios({
+            method: 'post',
+            url: `${baseUrl}/mitra/business`,
+            data,
+            headers: {
+                token
+            }
+        })
             .then(({ data }) => {
-
+                console.group('Berhasil Create Business', data)
             })
             .catch(err => {
-
+                console.log('Error postMitraBusiness', err)
+            })
+            .finally(_ => {
+                console.log('Berhasil masuk finally postMitraBusiness')
+                dispatch(setLoading(false))
             })
     }
 }
