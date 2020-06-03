@@ -5,8 +5,11 @@ import {Button} from 'native-base'
 import Gstyle from '../../style/global_style'
 
 export default function identify_user({route, navigation}) {
+ 
   const {request} = route.params
+
   if(request === "login"){
+   
     return(
         <View style={Gstyle.container_full_white}>
           <Text style={Gstyle.title_bold}>Siapakah Anda ?</Text>
