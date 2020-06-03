@@ -19,7 +19,7 @@ import tab_bottom_investor from './src/pages/Investor/bottom_nav'
 import payment from './src/pages/Investor/payment'
 import maps from './src/pages/maps/maps'
 import detail_business from './src/pages/Investor/detail_business'
-import edit_profile from './src/pages/Investor/edit_profile'
+// import edit_profile from './src/pages/Investor/edit_profile'
 
 //mitra
 import createBusiness from './src/pages/mitra/createBusiness'

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, ActivityIndicator, Button, StyleSheet, Dimensions, Image } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
-
 console.disableYellowBox = true;
 export default class App extends Component {
   constructor(props) {
@@ -79,7 +78,8 @@ export default class App extends Component {
     //   lat:this.state.region.latitude,
     //   lng:this.state.region.longitude
     // })
-    alert(this.state.userLocation)
+    this.props.navigation.navigate('create business', { lat: this.state.region.latitude, long: this.state.region.longitude, address: this.state.userLocation ? this.state.userLocation : 'Rumahku' })
+    // alert(this.state.userLocation)
   };
 
   render() {
@@ -117,7 +117,7 @@ export default class App extends Component {
             <View style={styles.btnContainer}>
               <Button
                 title="PILIH LOKASI INI"
-                disabled={this.state.regionChangeProgress}
+                // disabled={this.state.regionChangeProgress}
                 onPress={this.onHandleSelect}
               >
               </Button>

@@ -5,6 +5,7 @@ import investorWallet from './investors'
 import investorInvest from './investors'
 import mitraBusiness from './mitras'
 import dataInvestor from './investors'
+import loading from './mitras'
 
 export default combineReducers ({
     tokenInvestor,
@@ -12,5 +13,6 @@ export default combineReducers ({
     investorWallet,
     investorInvest,
     mitraBusiness,
-    dataInvestor
+    dataInvestor,
+    loading
 })
