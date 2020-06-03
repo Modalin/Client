@@ -181,6 +181,7 @@ export default function mitraPage({navigation, route}) {
                   style={[{borderBottomWidth: 1, borderColor: color.grey}]}
                   onChangeText={setFund}
                   value={fund}
+                  keyboardType='numeric'
                 />
               </View>
               <View style={{marginVertical: 20}}>
@@ -189,6 +190,7 @@ export default function mitraPage({navigation, route}) {
                   style={[{borderBottomWidth: 1, borderColor: color.grey}]}
                   onChangeText={setBusinessUnit}
                   value={business_unit}
+                  keyboardType='numeric'
                 />
               </View>
               <View style={{marginVertical: 20}}>
@@ -197,6 +199,7 @@ export default function mitraPage({navigation, route}) {
                   style={[{borderBottomWidth: 1, borderColor: color.grey}]}
                   onChangeText={setValuePerUnit}
                   value={value_per_unit}
+                  keyboardType='numeric'
                 />
               </View>
               <View style={{marginVertical: 20}}>
@@ -205,6 +208,7 @@ export default function mitraPage({navigation, route}) {
                   style={[{borderBottomWidth: 1, borderColor: color.grey}]}
                   onChangeText={setPersentase}
                   value={persentase}
+                  keyboardType='numeric'
                 />
               </View>
             </Form>
