@@ -31,7 +31,11 @@ export default function login({route, navigation}) {
 
       if (role.toLowerCase() === 'investor') {
         dispatch(loginInvestor({ email, password }))
-        navigation.navigate('investor', { request: 'tab-bottom-investor'})
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'investor' }],
+        });
+        // navigation.navigate('investor', { request: 'tab-bottom-investor'})
       } else if (role.toLowerCase() === 'mitra') {
         dispatch(loginMitra({ email, password }))
         navigation.navigate('mitra dashboard',{ request: 'mitraPage' })

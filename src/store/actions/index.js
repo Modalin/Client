@@ -1,6 +1,6 @@
 import axios from 'axios';
-// const baseUrl = 'http://ee754c622c73.ngrok.io'  
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'http://ee754c622c73.ngrok.io'  
+// const baseUrl = 'http://localhost:3000'
 
 export const SET_LOGIN_INVESTOR = 'SET_LOGIN_INVESTOR';
 export const SET_LOGIN_MITRA = 'SET_LOGIN_MITRA';
