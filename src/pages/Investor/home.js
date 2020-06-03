@@ -22,18 +22,13 @@ export default function home({navigation}) {
   useEffect(() => {
     navigation.addListener('focus', async () => {
       setToken(await AsyncStorage.getItem('token'))
-      if (tokenInvestor || token) {
-        dispatch(getInvestorWallet({ token : token || tokenInvestor.token }))
-      }
+      await getMitraBusiness(() => {
+        if (tokenInvestor) {
+          dispatch(getInvestorWallet({ token : tokenInvestor.token}))
+        }
+      })
     });
   }, [dispatch, navigation, tokenInvestor])
-
-
-  if (!mitraBusiness || !token) {
-    return (
-      <Loading />
-    )
-  }
 
   if (!mitraBusiness && !investorWallet) {
     return (
