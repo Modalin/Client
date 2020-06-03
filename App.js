@@ -27,8 +27,9 @@ import image360 from './src/pages/google-vr/Image360'
 
 //mitra
 import tab_bottom_mitra from './src/pages/mitra/bottom_nav';
-import register_mitra from './src/pages/register/register_mitra'
 import detail_business_mitra from './src/pages/mitra/detail';
+import repot from './src/pages/mitra/repot';
+import register_mitra from './src/pages/register/register_mitra'
 const Stack = createStackNavigator()
 
 //Firebase
@@ -70,11 +71,12 @@ export default function App() {
           <Stack.Screen name="payment" component={payment} options={{headerShown: false}}/>
           <Stack.Screen name="detail business" component={detail_business} options={{headerShown: false}}/>
           <Stack.Screen name="edit profile" component={edit_profile} options={{headerShown: false}}/>
+          <Stack.Screen name="image360" component={image360}/>
+          <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
           {/* Mitra */}
           <Stack.Screen name="mitra" component={tab_bottom_mitra} options={{headerShown: false}}/>
           <Stack.Screen name="detail business mitra" component={detail_business_mitra} options={{headerShown: false}} />
-          <Stack.Screen name="maps" component={maps} options={{title: "Map",headerTitleStyle: {fontFamily: "Gill Sans"}, headerShown: true}}/>
-          <Stack.Screen name="image360" component={image360}/>
+          <Stack.Screen name="repot" component={repot} options={{title: 'Repot'}} />
           {/* Mitra */}
         </Stack.Navigator>
       </NavigationContainer>

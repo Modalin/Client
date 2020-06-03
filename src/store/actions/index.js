@@ -26,12 +26,11 @@ export const SET_POST_MITRA_BUSINESS = 'SET_POST_MITRA_BUSINESS';
 export const SET_EDIT_MITRA_BUSINESS = 'SET_POST_MITRA_BUSINESS';
 export const SET_EDIT_MITRA_BUSINESS_INVEST = 'SET_POST_MITRA_BUSINESS_INVEST';
 export const SET_EDIT_MITRA_BUSINESS_PROFIT = 'SET_POST_MITRA_BUSINESS_PROFIT';
-export const SET_GET_MITRA_BUSINESS_AUTH = 'SET_GET_MITRA_BUSINESS_AUTH'; 
+export const SET_GET_MITRA_BUSINESS_AUTH = 'SET_GET_MITRA_BUSINESS_AUTH';
 
 //error
 export const SET_ERROR_LOGIN_INVESTOR = 'SET_ERROR_LOGIN_INVESTOR';
 export const SET_ERROR_LOGIN_MITRA = 'SET_ERROR_LOGIN_MITRA';
-
 
 export const setInvestor = (data) => {
     return { type: "SET_LOGIN_INVESTOR", payload : data }
@@ -205,8 +204,8 @@ export const registMitra = (data) => {
     return (dispatch) => {
         axios
             .post(`${baseUrl}/mitra/signup`, {
-                name: data.name, 
-                email : data.email, 
+                name: data.name,
+                email : data.email,
                 password: data.password,
                 bank_name: data.bank_name,
                 bank_account: data.bank_account,
@@ -417,6 +416,8 @@ export const getMitraBusiness = () => {
         axios
             .get(`${baseUrl}/mitra/business`)
             .then(({ data }) => {
+                console.log("ini dari redux",data);
+
                 dispatch(set_mitra_business(data))
             })
             .catch(err => {

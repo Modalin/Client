@@ -37,8 +37,8 @@ export default function mitraPage({navigation}) {
         </View>
         <ScrollView style={[{padding: 20}]}>
           {/* Flat List Here */}
-            { mitraBusinessAuth.map((el) => 
-              
+            { mitraBusinessAuth.map((el) =>
+
             <Card onTouchEnd={() => navigation.navigate('detail business mitra', { data: el })} key={el._id}>
               <CardItem>
                 <Body>
@@ -52,10 +52,10 @@ export default function mitraPage({navigation}) {
                         <View style={[{}]}>
                         <Text style={[style.text_grey]}>Dana Terkumpul</Text>
                         {
-                          el.investor.length < 1 ? 
-                          <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_green]}>{value}</Text>} /> : 
-                          el.investor.map(element => 
-                            
+                          el.investor.length < 1 ?
+                          <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_green]}>{value}</Text>} /> :
+                          el.investor.map(element =>
+
                             <NumberFormat key={element._id} value={element.invest_value*element.total_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_green]}>{value}</Text>} />
                           )
                         }

@@ -5,7 +5,7 @@ import {style, color_ as color} from './mitra_style'
 import NumberFormat  from 'react-number-format'
 import Repot from './repot'
 
-export default function Detail({ route }) {
+export default function Detail({ route, navigation }) {
   const [status, setStatus] = useState({selected: null})
   const [IsInvestorViewModal, setIsInvestorViewModal] = useState(false);
   const [IsRepotViewModal, setIsRepotViewModal] = useState(false);
@@ -29,11 +29,11 @@ export default function Detail({ route }) {
                 <Text>Dana Dibutuhkan</Text>
                 {
                   dataBusiness.investor.length < 1 ? <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_bold]}>{value}</Text>} /> :
-                  dataBusiness.investor.map(el => 
-                    <NumberFormat key={el._id} value={el.invest_value * el.total_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_bold]}>{value}</Text>} />  
+                  dataBusiness.investor.map(el =>
+                    <NumberFormat key={el._id} value={el.invest_value * el.total_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_bold]}>{value}</Text>} />
                   )
                 }
-                
+
               </View>
               <View style={[{alignItems:"flex-end"}]}>
                 <Text>Dana Terkumpul</Text>
@@ -58,11 +58,11 @@ export default function Detail({ route }) {
                   onValueChange={(value) => setStatus(value)}
                 >
                   {
-                    dataBusiness.status === "" ? <Picker.Item label="Menunggu Pendanaan" value="" /> : 
+                    dataBusiness.status === "" ? <Picker.Item label="Menunggu Pendanaan" value="" /> :
                     dataBusiness.status === "Sedang Berjalan" ? <Picker.Item label="Sedang Berjalan" value="Sedang Berjalan" /> :
                     dataBusiness.status === "Pendanaan Terpenuhi" ? <Picker.Item label="Pendanaan Terpenuhi" value="Pendanaan Terpenuhi" /> : ""
                   }
-                  
+
                 </Picker>
                 <View style={[{borderBottomWidth: 1, borderColor: color.grey},style.padding_b_10]}></View>
               </View>
@@ -82,7 +82,7 @@ export default function Detail({ route }) {
                 {/* <Map></Map> */}
               </View>
               <View style={[{alignItems: "center"}]}>
-                <Button style={[style.btn_green,{marginVertical: 10}]} onPress={() => alert('wait')}>
+                <Button style={[style.btn_green,{marginVertical: 10}]} onPress={() => navigation.navigate('repot')}>
                   <Text style={[style.text_white]}>Repot</Text>
                 </Button>
               </View>
@@ -100,8 +100,8 @@ export default function Detail({ route }) {
               <Text style={[style.text_bold,{fontSize: 18, textAlign: "left"}]}>List Investor</Text>
               {/* flat list here */}
               {
-                dataBusiness.investor.length < 1 ? <Text>Investor Kosong</Text> : 
-                dataBusiness.investor.map(el => 
+                dataBusiness.investor.length < 1 ? <Text>Investor Kosong</Text> :
+                dataBusiness.investor.map(el =>
                   <View key={el._id} style={{ marginVertical: 18}}>
                     <Text style={[style.text_bold]}>Total Unit : {el.total_unit}</Text>
                     <NumberFormat value={el.invest_value} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_bold]}>Nilai Pendanaan : {value}</Text>} />
@@ -113,13 +113,6 @@ export default function Detail({ route }) {
               </Button>
             </View>
           </View>
-        </Modal>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={IsRepotViewModal}
-        >
-          <Repot></Repot>
         </Modal>
     </View>
   )

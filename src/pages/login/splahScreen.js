@@ -10,11 +10,11 @@ export default function landing_user({navigation}) {
   return (
     <View style={Gstyle.containerFull}>
       <Text style={Gstyle.logo_text_title}>ModalIn</Text>
-      <SvgUri
+      {/* <SvgUri
         width="350"
         height="350"
         source={require('../../../assets/3599938.svg')}
-      />
+      /> */}
       {/* <Image source={bgImage} style={Gstyle.img_banner}/> */}
       <View style={{marginTop:10}}>
         <Text>
