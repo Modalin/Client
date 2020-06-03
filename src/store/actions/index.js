@@ -242,11 +242,15 @@ export const registMitra = (data) => {
     }
 }
 
-export const getMitraBusinessAuth = (id) => {
+export const getMitraBusinessAuth = (data) => {
     console.log('masuk store business auth');
     return (dispatch) => {
         axios
-            .get(`${baseUrl}/mitra/business/${id}`)
+            .get(`${baseUrl}/mitra/business/${data.id}`, {
+                headers: {
+                    'token' : `${data.token}`
+                }
+            })
             .then(({ data }) => {
                 dispatch(set_get_business_mitra_auth(data))
             })

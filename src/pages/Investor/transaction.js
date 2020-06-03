@@ -6,6 +6,7 @@ import NumberFormat  from 'react-number-format'
 
 export default function Transaction({navigation}) {
   const data = [{id: 1, value: "All"},{id: 2, value: "Pertanian"},{id: 3, value: "Jasa"},{id: 4, value: "Industri"},{id: 5, value: "Peternakan"},]
+  
   return(
     <View style={[investor_style.container_home,investor_style.bar_, {backgroundColor: "#ffffff"}]}>
       {/* list bisnis */}

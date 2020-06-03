@@ -9,6 +9,7 @@ import {editInvestorProfile, getInvestor, setInvestor} from '../../store/actions
 //Photo
 import * as ImagePicker from 'expo-image-picker'
 import { storage } from '../../firebase/config'
+import { set } from 'react-native-reanimated'
 
 export default function Profile({ navigation }) {
   const { dataInvestor } = useSelector(state => state.dataInvestor)
@@ -24,19 +25,19 @@ export default function Profile({ navigation }) {
   const dispatch = useDispatch()
 
 
+  const handleLogout = () => {
+    navigation.navigate('landing user', { request : 'landing_user' })
+  }
+
   const onHandleEdit = (e) => {
     e.preventDefault()
     setEditStatus(true)
   }
 
-  console.log(name);
-  console.log(job);
   const onSubmitEdit = async (e) => {
-    e.preventDefault()
-    if (tokenInvestor) {
+      e.preventDefault()
 
-      if (dataInvestor) {
-        await uploadImage(result.uri)
+      if (tokenInvestor && dataInvestor) {
 
         const dataProfil = {
           name: name ? name : dataInvestor.name,
@@ -48,20 +49,22 @@ export default function Profile({ navigation }) {
             account_number : account ? account : dataInvestor.wallet.account_number
           }
         }
-        await dispatch(editInvestorProfile( { data : dataProfil, token :tokenInvestor.token }))
+
+        await uploadImage(photo_profile).then( async () => {
+           await dispatch(editInvestorProfile( { data : dataProfil, token :tokenInvestor.token }))
+           alert('successfully edit' )
+           setEditStatus(false)
+        })
+        
       }
-
-    }
-
-    alert('successfully edit' )
-    setEditStatus(false)
   }
 
   useEffect(() => {
 
     if (tokenInvestor) {
+      setEditStatus(false)
       console.log(tokenInvestor);
-      dispatch( getInvestor({ token: tokenInvestor.token}))
+      dispatch(getInvestor({ token: tokenInvestor.token}))
     }
 
   }, [dispatch, tokenInvestor])
@@ -76,6 +79,7 @@ export default function Profile({ navigation }) {
       })
       if (!result.cancelled) {
         setPhoto(result.uri)
+        setEditStatus(true)
       }
     } catch (E) {
       console.log(E)
@@ -207,6 +211,9 @@ export default function Profile({ navigation }) {
                   <Text style={[{fontSize: 14, color: '#ffffff'}]}> Edit </Text>
                 </Button>
                 }
+                <Button style={[investor_style.btn_red,{marginVertical: 10}]}>
+                  <Text style={[investor_style.text_white]} onPress={handleLogout}>Sign Out</Text>
+                </Button>
               </View>
             </View>
           </View>
