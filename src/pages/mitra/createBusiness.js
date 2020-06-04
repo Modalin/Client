@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 //Photo
 import * as ImagePicker from 'expo-image-picker'
 import { storage } from '../../firebase/config'
+import Transaction from './transaction'
 
 export default function mitraPage({navigation, route}) {
   const { tokenMitra } = useSelector((state) => state.tokenMitra)
@@ -42,21 +43,23 @@ export default function mitraPage({navigation, route}) {
   //Create Business
   async function createBusiness() {
 
-    await dispatch(setLoading(true))
+    // await dispatch(setLoading(true))
     const data = { business_name, business_type, business_unit, value_per_unit, persentase, description, location, business_value, images_360, profit_times, periode}
 
     await uploadImage(photo_local).then( async() => {
       console.log('masuk');
-      data.images_360 = images_360
+      data.images_360 = await images_360
+      await navigation.navigate('Transaksi', { data: data })
       console.log(data.images_360);
-      await dispatch(postMitraBusiness(data, tokenMitra.token))
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'mitra' }],
-        });
+
+      // await dispatch(postMitraBusiness(data, tokenMitra.token))
+        // navigation.reset({
+        //   index: 0,
+        //   routes: [{ name: Transaction }],
+        // });
         // navigation.push('mitra',{request: 'tab_bottom_mitra', refresh: 'refresh'})
-    })
-  }
+  })
+}
 
   //Image Picker
   const _pickImage = async () => {
@@ -271,8 +274,8 @@ export default function mitraPage({navigation, route}) {
               </View>
             </Form>
             <View style={[{marginVertical: 20, marginHorizontal: 50, alignItems: 'center'}]} >
-              <Button style={[Gstyle.btn_style]} onPress={createBusiness}>
-                <Text style={[Gstyle.btn_text, {fontSize: 18}]}>Daftar Usaha</Text>
+              <Button style={[Gstyle.btn_style, { width: '200%'}]} onPress={createBusiness}>
+                <Text style={[Gstyle.btn_text, {fontSize: 18}]}>Kirim Permohonan</Text>
               </Button>
             </View>
           </View>

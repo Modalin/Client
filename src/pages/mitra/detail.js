@@ -90,7 +90,7 @@ export default function Detail({ route, navigation }) {
               </View>
               <View style={[{alignItems: "center"}]}>
                 <Button style={[style.btn_green,{marginVertical: 10}]} onPress={() => navigation.navigate('repot')}>
-                  <Text style={[style.text_white]}>Repot</Text>
+                  <Text style={[style.text_white]}>Buat Laporan</Text>
                 </Button>
               </View>
             </View>

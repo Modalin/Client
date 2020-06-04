@@ -43,13 +43,13 @@ export default function mitraPage({navigation}) {
               <Card style={[style.profile_round]}>
                 <Image  style={[style.image_round]} source={{ uri: `${data.photo_profile}`}}></Image>
               </Card>
-              <TouchableHighlight
+              {/* <TouchableHighlight
                   style={[{backgroundColor: color.green, borderRadius: 10, padding: 5,}]}
                   activeOpacity={0.6}
                   underlayColor="#DDDDDD"
                   >
                   <Text style={[{fontSize: 12, color: '#ffffff', textAlign:"center"}]}> Edit </Text>
-                </TouchableHighlight>
+                </TouchableHighlight> */}
             </View>
             <View style={[{marginHorizontal: 20}]}>
               <Text>{data.name}</Text>

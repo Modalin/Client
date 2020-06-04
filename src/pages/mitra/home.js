@@ -26,7 +26,7 @@ export default function mitraPage({navigation}) {
           })
         }
     });
-    if (mitraBusinessAuth) {
+    if (mitraBusinessAuth && tokenMitra) {
       setTimeout(() => {
         setLoading(false)
       }, 2000)
@@ -84,7 +84,7 @@ export default function mitraPage({navigation}) {
                         <Image style={style.image_round} source={{ uri: `${el.images_360}`}}/>
                       </View>
                       <View style={[{width: "70%"}]}>
-                        <Text style={[{ fontSize: 16}]}>{el.business_name}</Text>
+                        <Text style={[{ fontSize: 18}]}>{el.business_name}</Text>
                         <View style={[{flexDirection: "row", justifyContent: "space-between", marginVertical: 5}]}>
                           <View style={[{}]}>
                           <Text style={[style.text_grey]}>Dana Terkumpul</Text>
@@ -103,11 +103,6 @@ export default function mitraPage({navigation}) {
                           </View>
                         </View>
                         <View style={[{borderBottomWidth: 1, borderBottomColor: color.grey, marginVertical: 10}]}></View>
-                        <View style={[[style.text_grey,{}]]}>
-                          <TouchableHighlight style={[style.btn_green,{alignSelf: "flex-end", width: 100}]}>
-                            <Text style={[style.btn_green,{width:"auto" ,alignSelf: "center", padding: 5, color: "#ffffff"}]}>Ambil Dana</Text>
-                          </TouchableHighlight>
-                        </View>
                       </View>
                     </View>
                   </Body>
