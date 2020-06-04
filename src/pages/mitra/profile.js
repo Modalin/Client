@@ -41,7 +41,10 @@ export default function mitraPage({navigation}) {
           <View style={[{flexDirection: "row",  alignItems: "center"}]}>
             <View>
               <Card style={[style.profile_round]}>
-                <Image  style={[style.image_round]} source={{ uri: `${data.photo_profile}`}}></Image>
+                {
+                  data.photo_profile ? <Image  style={[style.image_round]} source={{ uri: `${data.photo_profile}`}}></Image> :
+                  <Image  style={[style.image_round]} source={{ uri: 'https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg'}}></Image>
+                }
               </Card>
               {/* <TouchableHighlight
                   style={[{backgroundColor: color.green, borderRadius: 10, padding: 5,}]}
