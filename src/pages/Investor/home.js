@@ -21,14 +21,12 @@ export default function home({navigation}) {
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
 
-  console.log(tokenInvestor);
-
 
   useEffect(() => {
     dispatch(getMitraBusiness())
     if (tokenInvestor) {
-        navigation.addListener('focus', async() => {
-            await dispatch(getInvestorWallet({ token : tokenInvestor.token})).then(async() => {
+      navigation.addListener('focus', async() => {
+      await dispatch(getInvestorWallet({ token : tokenInvestor.token})).then(async() => {
               setToken(await AsyncStorage.getItem('token'))
             })
           });
@@ -47,8 +45,7 @@ export default function home({navigation}) {
   }
 
 
-  if (mitraBusiness && investorWallet){
-    console.log('masuk mitra bisnis', mitraBusiness);
+  if (mitraBusiness && investorWallet && tokenInvestor){
     return (
       <View style={[investor_style.container_home,{backgroundColor: "#ffffff"}]}>
 

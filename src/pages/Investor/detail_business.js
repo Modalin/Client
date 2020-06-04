@@ -38,6 +38,7 @@ export default function Edit({ route, navigation }) {
     let result = Rumus(data.profit_times,data.persentase_value,data.value_per_unit)
     setIncome(result)
   }else{
+    console.log('ini data');
     console.log(data);
     return (
       <View style={[investor_style.bar_, {flex: 1}]}>
@@ -89,10 +90,9 @@ export default function Edit({ route, navigation }) {
               </View>
               <View style={[investor_style.padding_b_10]}>
                 <Text style={[investor_style.text_grey, investor_style.padding_b_10]}>Location</Text>
-                {/* <Text style={[{textAlign: "justify"}, investor_style.padding_b_10]}>{data.location.address}</Text> */}
+                <Text style={[{textAlign: "justify"}, investor_style.padding_b_10]}>{data.location.address}</Text>
                 <View style={[{borderBottomWidth: 1, borderColor: color.grey},investor_style.padding_b_10]}></View>
               </View>
-              {/* onTouchEnd={() => navigation.navigate('maps', { request: 'maps', map: data.location })} */}
               <View style={[investor_style.padding_b_10,{}]} >
                 <TouchableHighlight>
                   <MapData props={{ request: 'maps', map: data.location }}/>
