@@ -11,7 +11,7 @@ export default function Transaction({navigation}) {
     <View style={[style.bar_,{flex: 1, backgroundColor: "#ffffff"}]}>
       <ScrollView style={[{padding: 20}]}>
         {/* Flat List Here */}
-        <Card onTouchEnd={() => navigation.navigate('detail business mitra')}>
+        <Card alert={'on progress'} >
           <CardItem>
             <Body>
               <View style={[style.card,{justifyContent: "space-between",width: "100%", alignContent: "center"}]}>

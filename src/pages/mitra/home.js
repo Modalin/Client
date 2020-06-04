@@ -52,7 +52,7 @@ export default function mitraPage({navigation}) {
             <View style={[{justifyContent: "center"}]}>
               <View style={[{marginBottom: 10,}]}>
                 <Text  style={[{fontSize: 14, color: "#ffffff"}]}>Name</Text>
-                <Text  style={[{fontSize: 18, color: "#ffffff", fontWeight: "bold"}]}>{tokenMitra.name || "Empty"}</Text>
+                <Text  style={[{fontSize: 18, color: "#ffffff", fontWeight: "bold"}]}>{tokenMitra.data.name || "Empty"}</Text>
               </View>
               <View style={[{}]}>
               </View>
