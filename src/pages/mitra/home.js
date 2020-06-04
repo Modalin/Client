@@ -7,6 +7,9 @@ import {Button, Card, CardItem, Body} from 'native-base'
 import {style, color_ as color} from './mitra_style'
 import NumberFormat  from 'react-number-format'
 import Loading from '../loading_screen'
+// gradient
+import { LinearGradient } from 'expo-linear-gradient';
+import SvgUri from "expo-svg-uri"
 
 export default function mitraPage({navigation}) {
   const dispatch = useDispatch()
@@ -40,14 +43,34 @@ export default function mitraPage({navigation}) {
     console.log(mitraBusinessAuth.length, ' ini jumlah array');
     return (
       <View style={[{flex: 1, backgroundColor: "#ffffff"}]}>
-        <View style={[style.shadow,style.container, {width: "100%", height: "30%", justifyContent: "center"}]}>
-          {/* <Card style={[style.profile_round]}>
+        <LinearGradient
+            // colors={['#00A855', '#6FD6A2', "#BBE9D1"]}
+            // start={[0.2, 0.3]}
+            start={[1.2, 2]}
+            colors={["#00A855" , 'transparent',"#7FDDAE",'#2CBC7B',]}
+            style={[style.bar_,{height: "30%",width: "100%",flexDirection:"row",justifyContent: "space-between", paddingHorizontal: 20,paddingVertical: 10,}]}>
+            <View style={[{justifyContent: "center"}]}>
+              <View style={[{marginBottom: 10,}]}>
+                <Text  style={[{fontSize: 14, color: "#ffffff"}]}>Name</Text>
+                <Text  style={[{fontSize: 18, color: "#ffffff", fontWeight: "bold"}]}>{tokenMitra.name || "Empty"}</Text>
+              </View>
+              <View style={[{}]}>
+              </View>
+            </View>
+            <View style={[{ justifyContent:"flex-end",height: "100%"}]}>
+              <TouchableHighlight style={[style.btn_green,{minWidth: "50%", padding: 10, alignSelf: "flex-end",marginVertical: 10}]} onPress={() => navigation.navigate('create business', { request: 'create_business'})}>
+                <Text style={[style.text_white],{textAlign: "center", color: "#ffffff"}}>Tambah Usaha</Text>
+              </TouchableHighlight>
+            </View>
+          </LinearGradient>
+        {/* <View style={[style.shadow,style.container, {width: "100%", height: "30%", justifyContent: "center"}]}>
+           <Card style={[style.profile_round]}>
             <Image style={[style.image_round]} source={{ uri:`${mitraBusinessAuth.photo_profile}`}}></Image>
-          </Card> */}
+          </Card> *
           <TouchableHighlight style={[style.btn_green,{maxWidth: "40%", padding: 10, justifyContentent: "center",marginVertical: 10}]} onPress={() => navigation.navigate('create business', { request: 'create_business'})}>
             <Text style={[style.text_white],{textAlign: "center", color: "#ffffff"}}>Tambah Usaha</Text>
           </TouchableHighlight>
-        </View>
+        </View> */}
         <View style={{ flex: 1}}>
           <ScrollView style={[{padding: 20}]}>
             {/* Flat List Here */}
@@ -66,8 +89,8 @@ export default function mitraPage({navigation}) {
                           <View style={[{}]}>
                           <Text style={[style.text_grey]}>Dana Terkumpul</Text>
                           {
-                            el.investor.length < 1 ? <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_green]}>{value}</Text>} /> 
-                            : 
+                            el.investor.length < 1 ? <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_green]}>{value}</Text>} />
+                            :
                             // el.investor.map(element =>
                             //   <NumberFormat key={element._id} value={element.invest_value*element.total_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_green]}>{value}</Text>} />
                             // )

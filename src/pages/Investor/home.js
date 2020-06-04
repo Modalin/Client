@@ -8,6 +8,8 @@ import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import { getMitraBusiness, getInvestorWallet } from '../../store/actions'
 import Splash from '../login/splahScreen'
 import Loading from '../loading_screen'
+// gradient
+import { LinearGradient } from 'expo-linear-gradient';
 
 console.disableYellowBox = true;
 export default function home({navigation}) {
@@ -48,30 +50,33 @@ export default function home({navigation}) {
   if (mitraBusiness && investorWallet){
     console.log('masuk mitra bisnis', mitraBusiness);
     return (
-      <View style={investor_style.container_home}>
-        <View style={investor_style.container}>
-          <View style={{alignSelf: "flex-start", backgroundColor: "white"}}>
-            <Image
-              resizeMode="contain"
-              style={{width: 70}}
-              source={require('../../../assets/garden.png')}
-            />
-          </View>
-          <View>
-            <NumberFormat value={investorWallet.saldo} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_bold,{alignSelf: "center", fontSize: 18}]}>{value}</Text>} />
-            <View style={investor_style.income_value}>
+      <View style={[investor_style.container_home,{backgroundColor: "#ffffff"}]}>
+
+        <View style={[{backgroundColor: "#ffffff"}]}>
+          <LinearGradient
+            // colors={['#00A855', '#6FD6A2', "#BBE9D1"]}
+            // start={[0.2, 0.3]}
+            start={[1.2, 2]}
+            colors={["#00A855" , 'transparent',"#7FDDAE",'#2CBC7B',]}
+            style={[,investor_style.bar_,{height: 200, }]}>
+            <View style={[{marginHorizontal: 20,marginVertical: 10 ,flexDirection: "row"}]}>
               <View>
-                <NumberFormat value={investorWallet.income} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_green, {alignSelf: "flex-start"}]}>{value}</Text>} />
-                <Text style={[investor_style.text_grey,{alignSelf: "flex-start"}]}>Pendapatan</Text>
+                <View style={[{marginBottom: 10}]}>
+                  <Text  style={[{fontSize: 14, color: "#ffffff"}]}>Name</Text>
+                  <Text  style={[{fontSize: 18, color: "#ffffff", fontWeight: "bold"}]}>{tokenInvestor.name || "Empty"}</Text>
+                </View>
+                <View style={[{}]}>
+                  <Text style={[{fontSize: 14, color: "#ffffff"}]}>Total Investasi</Text>
+                  <NumberFormat value={investorWallet.saldo ? investorWallet.saldo : 0} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_bold,{ fontSize: 18, color: "#ffffff"}]}>{value}</Text>} />
+                </View>
               </View>
-              <View style={{borderLeftWidth: 1, height: 80, borderColor: "#AEAEAE"}}></View>
               <View>
-                <Text style={[investor_style.text_green, {alignSelf: "flex-start"}]}>{investorWallet.incomePersentase}%/year</Text>
-                <Text style={[investor_style.text_grey,{alignSelf: "flex-start"}]}>Persentase</Text>
+                {/* <Image style={investor_style.image_round} source={{ uri: `${tokenInvestor.photo_profile}`}}/> */}
               </View>
             </View>
-          </View>
+          </LinearGradient>
         </View>
+
         {/* category */}
         <View style={investor_style.category_list}>
           <ScrollView
@@ -97,7 +102,7 @@ export default function home({navigation}) {
             renderItem={({ item }) => */}
             {
               mitraBusiness.map(item =>
-              
+
               <Card key={item._id} onTouchEnd={() => navigation.navigate('detail business',{ data : item })}>
                 <CardItem>
                   <Body>
@@ -139,3 +144,27 @@ export default function home({navigation}) {
   }
 
 }
+
+{/* <View style={investor_style.container}>
+<View style={{alignSelf: "flex-start", backgroundColor: "white"}}>
+  <Image
+    resizeMode="contain"
+    style={{width: 70}}
+    source={require('../../../assets/garden.png')}
+  />
+</View>
+<View>
+  <NumberFormat value={investorWallet.saldo} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_bold,{alignSelf: "center", fontSize: 18}]}>{value}</Text>} />
+  <View style={investor_style.income_value}>
+    <View>
+      <NumberFormat value={investorWallet.income} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_green, {alignSelf: "flex-start"}]}>{value}</Text>} />
+      <Text style={[investor_style.text_grey,{alignSelf: "flex-start"}]}>Pendapatan</Text>
+    </View>
+    <View style={{borderLeftWidth: 1, height: 80, borderColor: "#AEAEAE"}}></View>
+    <View>
+      <Text style={[investor_style.text_green, {alignSelf: "flex-start"}]}>{investorWallet.incomePersentase}%/year</Text>
+      <Text style={[investor_style.text_grey,{alignSelf: "flex-start"}]}>Persentase</Text>
+    </View>
+  </View>
+</View>
+</View> */}

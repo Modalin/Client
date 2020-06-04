@@ -37,7 +37,7 @@ export default function mitraPage({navigation, route}) {
     }
   }, [route, setLocation])
 
-  
+
   //Create Business
   async function createBusiness() {
 
@@ -171,7 +171,7 @@ export default function mitraPage({navigation, route}) {
               <View style={{marginVertical: 20}}>
                 <Text style={[style.text_grey, style.padding_b_10]}>Foto Lokasi Usaha</Text>
                 <View style={{alignItems: 'center'}}>
-                  {photo_local ? 
+                  {photo_local ?
                     <Image style={{width:200, height: 200}} source={{ uri: `${photo_local}`}}/>
                   : <Text></Text>}
                 </View>
@@ -202,7 +202,7 @@ export default function mitraPage({navigation, route}) {
                     </View>
                     <View style={[{borderBottomWidth: 1, borderColor: color.grey}]}></View>
                     <View style={[{marginVertical: 0, marginHorizontal: 50, alignItems: 'center'}]}>
-                      <Button style={[btn_style]} onPress={() => navigation.navigate('maps',{ request: 'location' })}>
+                      <Button style={[btn_style, {}]} onPress={() => navigation.navigate('maps',{ request: 'location' })}>
                         <Text style={[Gstyle.btn_text, {fontSize: 15}]}>Pilih Alamat</Text>
                       </Button>
                     </View>
