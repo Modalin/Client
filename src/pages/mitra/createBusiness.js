@@ -50,7 +50,11 @@ export default function mitraPage({navigation, route}) {
       data.images_360 = images_360
       console.log(data.images_360);
       await dispatch(postMitraBusiness(data, tokenMitra.token))
-        navigation.push('mitra',{request: 'tab_bottom_mitra', refresh: 'refresh'})
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'mitra' }],
+        });
+        // navigation.push('mitra',{request: 'tab_bottom_mitra', refresh: 'refresh'})
     })
   }
 

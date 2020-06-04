@@ -142,7 +142,7 @@ export const loginInvestor = (data) => {
                 dispatch(setInvestor(data))
             })
             .catch(err => {
-                console.log(err);
+                dispatch(set_error_login_investor(err))
                 // dispatch(set_error_login_investor(err))
             })
     }
@@ -155,15 +155,15 @@ export const loginMitra = (data) => {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
-                console.log(data);
                 AsyncStorage.setItem('token', data.token)
                 AsyncStorage.setItem('role', 'mitra')
                 dispatch(setLoginMitra(data))
             })
             .catch(err => {
-                console.log('masuk error mitra');
-                console.log(err);
-                dispatch(set_error_login_mitra(err))
+
+                dispatch(set_error_login_mitra({
+                    message : "Password/Email salah"
+                }))
             })
     }
 }
