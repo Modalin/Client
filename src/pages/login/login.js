@@ -6,7 +6,6 @@ import Gstyle from '../../style/global_style';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginInvestor, loginMitra, getInvestorWallet } from '../../store/actions';
 import Spinner from 'react-native-loading-spinner-overlay';
-import SvgUri from "expo-svg-uri"
 // import SyncStorage from 'sync-storage';
 
 export default function login({route, navigation}) {

@@ -9,6 +9,7 @@ import NumberFormat  from 'react-number-format'
 import PureChart from 'react-native-pure-chart';
 import Rumus from '../../javaScript/profit'
 import { investToBusiness, getMitraBusinessAuth } from '../../store/actions'
+import Loading from '../loading_screen'
 
 export default function Edit({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -19,7 +20,6 @@ export default function Edit({ route, navigation }) {
   const { tokenInvestor } = useSelector((state) => state.tokenInvestor)
   const dispatch = useDispatch()
 
-  
   const handleInvest = () => {
     if (unit && tokenInvestor) {
       dispatch(investToBusiness({
@@ -33,7 +33,6 @@ export default function Edit({ route, navigation }) {
       navigation.goBack()
     }
   }
-    
 
   if(income == null){
     let result = Rumus(data.profit_times,data.persentase_value,data.value_per_unit)

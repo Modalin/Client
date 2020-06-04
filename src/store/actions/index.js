@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://bfba818977ea.ngrok.io' 
+const baseUrl = 'http://6d103e714de7.ngrok.io' 
 import { AsyncStorage } from 'react-native'
 
 //investor
@@ -129,12 +129,14 @@ export const set_error_login_mitra = (status) => {
 
 
 export const loginInvestor = (data) => {
+    console.log('inputan masuk store', data);
     return (dispatch) => {
         axios
             .post(`${baseUrl}/investor/signIn`, {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
+                console.log('masuk data ', data);
                 AsyncStorage.setItem('token', data.token)
                 AsyncStorage.setItem('role', 'investor')
                 dispatch(setInvestor(data))
@@ -247,11 +249,15 @@ export const registMitra = (data) => {
     }
 }
 
-export const getMitraBusinessAuth = (id) => {
+export const getMitraBusinessAuth = (data) => {
     console.log('masuk store business auth');
     return (dispatch) => {
         axios
-            .get(`${baseUrl}/mitra/business/${id}`)
+            .get(`${baseUrl}/mitra/business/${data.id}`, {
+                headers: {
+                    'token' : `${data.token}`
+                }
+            })
             .then(({ data }) => {
                 dispatch(set_get_business_mitra_auth(data))
             })

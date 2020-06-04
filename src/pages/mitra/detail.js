@@ -11,6 +11,9 @@ export default function Detail({ route, navigation }) {
   const [IsInvestorViewModal, setIsInvestorViewModal] = useState(false);
   const [IsRepotViewModal, setIsRepotViewModal] = useState(false);
   const dataBusiness = route.params.data;
+  let total = 0;
+
+  console.log('ini data bisnis', dataBusiness);
 
   return(
     <View style={[style.container_home, style.bar_,{}]}>
@@ -27,18 +30,21 @@ export default function Detail({ route, navigation }) {
           <View style={[style.card_detail]}>
             <View style={[{flexDirection: "row", justifyContent: "space-between"}]}>
               <View>
-                <Text>Dana Dibutuhkan</Text>
+                <Text>Dana Terkumpul</Text>
+                {
+                  dataBusiness.investor.map(el => {
+                    total += el.total_unit
+                  })
+                }
                 {
                   dataBusiness.investor.length < 1 ? <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_bold]}>{value}</Text>} /> :
-                  dataBusiness.investor.map(el =>
-                    <NumberFormat key={el._id} value={el.invest_value * el.total_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_bold]}>{value}</Text>} />
-                  )
+                  <NumberFormat value={total*dataBusiness.value_per_unit} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_bold]}>{value}</Text>} />
                 }
 
               </View>
               <View style={[{alignItems:"flex-end"}]}>
-                <Text>Dana Terkumpul</Text>
-                <NumberFormat value={10000000} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_green, style.text_bold]}>{value}</Text>} />
+                <Text>Dana Dibutuhkan</Text>
+                <NumberFormat value={dataBusiness.business_value} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[style.text_green, style.text_bold]}>{value}</Text>} />
               </View>
             </View>
           </View>

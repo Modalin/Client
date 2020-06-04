@@ -6,35 +6,37 @@ import {Image, View, Text, ScrollView, FlatList, ActivityIndicator, StyleSheet, 
 import {Button, Card, CardItem, Body} from 'native-base'
 import {style, color_ as color} from './mitra_style'
 import NumberFormat  from 'react-number-format'
+import Loading from '../loading_screen'
 
 export default function mitraPage({navigation}) {
   const dispatch = useDispatch()
   const { mitraBusinessAuth } = useSelector((state) => state.mitraBusinessAuth)
   const { tokenMitra } = useSelector((state) => state.tokenMitra)
-  const [token, setToken] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [asyncToken, setToken] = useState('')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     navigation.addListener('focus', async () => {
-      await setToken(await AsyncStorage.getItem('token'))
-      if (tokenMitra || token) {
-        await dispatch(getMitraBusinessAuth(token || tokenMitra.token))
-      }
+      if (tokenMitra) {
+        await dispatch(getMitraBusinessAuth({ id: tokenMitra.id, token: tokenMitra.token})).then(async() => {
+            await setToken(await AsyncStorage.getItem('token'))
+          })
+        }
     });
-  }, [dispatch, navigation])
+    if (mitraBusinessAuth) {
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000)
+    }
+  }, [dispatch, navigation, tokenMitra])
 
   if (loading) {
     return (
-      <View style={styles.spinnerView}>
-        <ActivityIndicator size="large" color="#00B965" />
-      </View>
+      <Loading />
     )
   }
 
-  console.log('Async Token', token)
-  if((!mitraBusinessAuth && !tokenMitra) && !token) {
-    setLoading(true)
-  } else {
+  if(mitraBusinessAuth && tokenMitra){
     console.log(mitraBusinessAuth.length, ' ini jumlah array');
     return (
       <View style={[{flex: 1, backgroundColor: "#ffffff"}]}>

@@ -1,4 +1,5 @@
 import React from 'react'
+// import { } from 'react'
 import {Image, View, Text, ScrollView} from 'react-native'
 import {Card, CardItem, Body} from 'native-base'
 import {style, color_ as color} from './mitra_style'
