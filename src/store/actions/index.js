@@ -132,7 +132,7 @@ export const loginInvestor = (data) => {
     console.log('inputan masuk store', data);
     return (dispatch) => {
         axios
-            .post(`${baseUrl}/investor/signIn`, {
+            .post(`${baseUrl}/investor/signin`, {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
@@ -171,7 +171,7 @@ export const loginMitra = (data) => {
 export const registInvestor = (data) => {
     return (dispatch) => {
         axios
-            .post(`${baseUrl}/investor/signUp`, {
+            .post(`${baseUrl}/investor/signup`, {
                 name: data.name,
                 email : data.email,
                 password: data.password,

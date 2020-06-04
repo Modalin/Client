@@ -17,6 +17,10 @@ export default function login({route, navigation}) {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
 
+  console.log(role);
+  console.log(email);
+  console.log(password);
+
   const onLoginSubmit = (e) => {
     e.preventDefault();
 
