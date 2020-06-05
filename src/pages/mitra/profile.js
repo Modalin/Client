@@ -42,7 +42,7 @@ export default function mitraPage({navigation}) {
             <View>
               <Card style={[style.profile_round]}>
                 {
-                  data.photo_profile ? <Image  style={[style.image_round]} source={{ uri: `${data.photo_profile}`}}></Image> :
+                  // data.photo_profile ? <Image  style={[style.image_round]} source={{ uri: `${data.photo_profile}`}}></Image> :
                   <Image  style={[style.image_round]} source={{ uri: 'https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg'}}></Image>
                 }
               </Card>
