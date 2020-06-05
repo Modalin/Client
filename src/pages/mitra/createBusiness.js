@@ -8,14 +8,16 @@ import { useDispatch, useSelector } from 'react-redux'
 //Photo
 import * as ImagePicker from 'expo-image-picker'
 import { storage } from '../../firebase/config'
+import Transaction from './transaction'
+import Loading from '../loading_screen'
 
 export default function mitraPage({navigation, route}) {
   const { tokenMitra } = useSelector((state) => state.tokenMitra)
   //Business
   const [business_name, setBusinessName] = useState('')
-  const [business_type, setBusinessType] = useState('')
-  const [business_unit, setBusinessUnit] = useState('')
-  const [value_per_unit, setValuePerUnit] = useState('')
+  const [business_type, setBusinessType] = useState('1')
+  const [business_unit, setBusinessUnit] = useState('1')
+  const [value_per_unit, setValuePerUnit] = useState('1')
   const [persentase, setPersentase] = useState('')
   const [description, setDescription] = useState('')
   const [location, setLocation] = useState({address: '', lat: '', long: ''})
@@ -25,6 +27,9 @@ export default function mitraPage({navigation, route}) {
   const [periode, setPeriode] = useState('')
   const { loading } = useSelector(state => state.loading)
   const dispatch = useDispatch();
+  const [value, setValue] = useState(0)
+
+  //loading
 
   //Photo
   const [photo_local, setPhotoLocal] = useState('')
@@ -41,17 +46,23 @@ export default function mitraPage({navigation, route}) {
   //Create Business
   async function createBusiness() {
 
-    await dispatch(setLoading(true))
+    // await dispatch(setLoading(true))
     const data = { business_name, business_type, business_unit, value_per_unit, persentase, description, location, business_value, images_360, profit_times, periode}
 
     await uploadImage(photo_local).then( async() => {
       console.log('masuk');
-      data.images_360 = images_360
+      data.images_360 = await images_360
+      await navigation.navigate('Transaksi', { data: data })
       console.log(data.images_360);
-      await dispatch(postMitraBusiness(data, tokenMitra.token))
-        navigation.push('mitra',{request: 'tab_bottom_mitra', refresh: 'refresh'})
-    })
-  }
+
+      // await dispatch(postMitraBusiness(data, tokenMitra.token))
+        // navigation.reset({
+        //   index: 0,
+        //   routes: [{ name: Transaction }],
+        // });
+        // navigation.push('mitra',{request: 'tab_bottom_mitra', refresh: 'refresh'})
+  })
+}
 
   //Image Picker
   const _pickImage = async () => {
@@ -77,7 +88,7 @@ export default function mitraPage({navigation, route}) {
     try {
       const cameraPermission = await ImagePicker.getCameraPermissionsAsync()
       console.log("Request Camera", cameraPermission)
-      if (!cameraPermission.granted) {
+      // if (!cameraPermission.granted) {
         let result = await ImagePicker.launchCameraAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
           allowsEditing: true,
@@ -89,7 +100,7 @@ export default function mitraPage({navigation, route}) {
         if (!result.cancelled) {
           setPhotoLocal(result.uri)
         }
-      }
+      // }
     } catch (E) {
       console.log(E)
     }
@@ -131,9 +142,7 @@ export default function mitraPage({navigation, route}) {
   console.log("Loading", loading)
   if (loading) {
     return (
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
+      <Loading />
     )
   }
 
@@ -186,9 +195,9 @@ export default function mitraPage({navigation, route}) {
                   <Button style={[btn_style]} onPress={_takeImage}>
                     <Text style={[Gstyle.btn_text, {fontSize: 15}]}>Ambil Foto</Text>
                   </Button>
-                  <Button style={[btn_style]} onPress={_pickImage}>
+                  {/* <Button style={[btn_style]} onPress={_pickImage}>
                     <Text style={[Gstyle.btn_text, {fontSize: 15}]}>Pilih Foto</Text>
-                  </Button>
+                  </Button> */}
                 </View>
               </View>
               <View style={{marginVertical: 20}}>
@@ -208,7 +217,7 @@ export default function mitraPage({navigation, route}) {
                       <Text style={{height: 50}}>{location.address}</Text>
                     </View>
                     <View style={[{borderBottomWidth: 1, borderColor: color.grey}]}></View>
-                    <View style={[{marginVertical: 0, marginHorizontal: 50, alignItems: 'center'}]}>
+                    <View style={[{marginVertical: 0, marginHorizontal: 0, alignItems: 'center'}]}>
                       <Button style={[btn_style, {}]} onPress={() => navigation.navigate('maps',{ request: 'location' })}>
                         <Text style={[Gstyle.btn_text, {fontSize: 15}]}>Pilih Alamat</Text>
                       </Button>
@@ -228,8 +237,9 @@ export default function mitraPage({navigation, route}) {
                 <Text style={[style.text_grey, style.padding_b_10]}>Jumlah Unit Saham</Text>
                 <TextInput
                   style={[{borderBottomWidth: 1, borderColor: color.grey}]}
-                  onChangeText={setBusinessUnit }
-                  value={business_unit == ''|| business_unit == '0'? '1' : business_unit}
+                  onChangeText={setBusinessUnit}
+                  onTouchEnd={() => setValuePerUnit(+business_value/+business_unit)}
+                  value={business_unit ? business_unit : '1'}
                   keyboardType='numeric'
                 />
               </View>
@@ -238,6 +248,7 @@ export default function mitraPage({navigation, route}) {
                 <TextInput
                   style={[{borderBottomWidth: 1, borderColor: color.grey}]}
                   onChangeText={setValuePerUnit}
+                  editable={false}
                   value={String((+business_value)/(+business_unit))}
                   keyboardType='numeric'
                 />
@@ -261,7 +272,7 @@ export default function mitraPage({navigation, route}) {
                 />
               </View>
               <View style={{marginVertical: 20}}>
-                <Text style={[style.text_grey, style.padding_b_10]}>Peroide Usaha</Text>
+                <Text style={[style.text_grey, style.padding_b_10]}>Peroide Usaha/Tahun</Text>
                 <TextInput
                   style={[{borderBottomWidth: 1, borderColor: color.grey}]}
                   onChangeText={setPeriode}
@@ -271,8 +282,8 @@ export default function mitraPage({navigation, route}) {
               </View>
             </Form>
             <View style={[{marginVertical: 20, marginHorizontal: 50, alignItems: 'center'}]} >
-              <Button style={[Gstyle.btn_style]} onPress={createBusiness}>
-                <Text style={[Gstyle.btn_text, {fontSize: 18}]}>Daftar Usaha</Text>
+              <Button style={[Gstyle.btn_style, { width: '200%'}]} onPress={createBusiness}>
+                <Text style={[Gstyle.btn_text, {fontSize: 18}]}>Kirim Permohonan</Text>
               </Button>
             </View>
           </View>

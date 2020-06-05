@@ -48,7 +48,7 @@ export default function Profile({ navigation }) {
     setEditStatus(true)
   }
 
-  const onSubmitEdit = async (e) => {
+  const onSubmitEdit = (e) => {
       e.preventDefault()
 
       if (tokenInvestor && dataInvestor) {
@@ -58,17 +58,18 @@ export default function Profile({ navigation }) {
           phone: phone ? phone : dataInvestor.phone,
           address: address ? address : dataInvestor.address,
           job: job ? job : dataInvestor.job,
-          photo_profile,
+          photo_profile :  photo_profile ? photo_profile: dataInvestor.photo_profile,
           wallet : {
             account_number : account ? account : dataInvestor.wallet.account_number
           }
         }
+        
+        dispatch(editInvestorProfile( { data : dataProfil, token :tokenInvestor.token }))
+        alert('successfully edit' )
+        setEditStatus(false)
 
-        await uploadImage(photo_profile).then( async () => {
-           await dispatch(editInvestorProfile( { data : dataProfil, token :tokenInvestor.token }))
-           alert('successfully edit' )
-           setEditStatus(false)
-        })
+        // await uploadImage(photo_profile).then( async () => {
+        // })
         
       }
   }
@@ -143,16 +144,12 @@ export default function Profile({ navigation }) {
           <View style={{ justifyContent: "center", marginHorizontal: 10}}>
             <Card style={[investor_style.profile_round]}>
               <View>
-                <Image style={investor_style.image_round} source={{ uri: `${photo_profile}`}}/>
+                {
+                  photo_profile ? <Image onPress={_pickImage} style={investor_style.image_round} source={{ uri: `${photo_profile}`}}/> :
+                <Image onPress={_pickImage} style={[investor_style.image_round, {marginHorizontal: -1, marginVertical: -1}]} source={{ uri: 'https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg'}}/>
+                }
               </View>
             </Card>
-            <TouchableHighlight
-              style={[investor_style.btn_image_profile]}
-              activeOpacity={0.6}
-              underlayColor="#DDDDDD"
-              onPress={_pickImage}>
-              <Text style={[{fontSize: 12, color: '#ffffff'}]}> Edit </Text>
-            </TouchableHighlight>
           </View>
           <View style={[{justifyContent: "center", marginHorizontal: 20}]}>
             {

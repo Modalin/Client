@@ -9,6 +9,7 @@ import mitraBusinessAuth from './mitras'
 import tokenMitra from './mitras'
 import dataInvestorById from './investors'
 import loading from './mitras'
+import errorLoadingInvestor from './investors'
 
 export default combineReducers ({
     tokenInvestor,
@@ -18,6 +19,7 @@ export default combineReducers ({
     dataInvestorById,
     mitraBusiness,
     mitraBusinessAuth,
+    errorLoadingInvestor,
     dataInvestor,
     tokenMitra,
     loading

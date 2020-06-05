@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getMitraBusinessAuth } from '../../store/actions'
-import {Image, View, Text, ScrollView, FlatList, ActivityIndicator, StyleSheet, TouchableHighlight, AsyncStorage} from 'react-native'
+import {Image, View, Text, ScrollView, FlatList, ActivityIndicator, StyleSheet, TouchableHighlight, AsyncStorage, ImageBackground} from 'react-native'
 import {Button, Card, CardItem, Body} from 'native-base'
 import {style, color_ as color} from './mitra_style'
 import NumberFormat  from 'react-number-format'
@@ -26,7 +26,7 @@ export default function mitraPage({navigation}) {
           })
         }
     });
-    if (mitraBusinessAuth) {
+    if (mitraBusinessAuth && tokenMitra) {
       setTimeout(() => {
         setLoading(false)
       }, 2000)
@@ -43,30 +43,32 @@ export default function mitraPage({navigation}) {
     console.log(mitraBusinessAuth.length, ' ini jumlah array');
     return (
       <View style={[{flex: 1, backgroundColor: "#ffffff"}]}>
-        <LinearGradient
-            // colors={['#00A855', '#6FD6A2', "#BBE9D1"]}
-            // start={[0.2, 0.3]}
-            //---------------//
-            // end={[0.7, 0.3]}
-            // start={[0.1, 0.4]}
-            // colors={["#00A855" , '#6FD6A2',]}
-            start={[1.2, 2]}
-            colors={["#00A855" , 'transparent',"#7FDDAE",'#2CBC7B',]}
-            style={[style.bar_,{height: "30%",width: "100%",flexDirection:"row",justifyContent: "space-between", paddingHorizontal: 20,paddingVertical: 10,}]}>
-            <View style={[{justifyContent: "center"}]}>
-              <View style={[{marginBottom: 10,}]}>
-                <Text  style={[{fontSize: 14, color: "#ffffff"}]}>Name</Text>
-                <Text  style={[{fontSize: 18, color: "#ffffff", fontWeight: "bold"}]}>{tokenMitra.name || "Empty"}</Text>
+        <ImageBackground source={require('../../../assets/mitra_header.jpg')} style={[{height: 200, }]}>
+          <LinearGradient
+              // colors={['#00A855', '#6FD6A2', "#BBE9D1"]}
+              // start={[0.2, 0.3]}
+              //---------------//
+              // end={[0.7, 0.3]}
+              // start={[0.1, 0.4]}
+              // colors={["#00A855" , '#6FD6A2',]}
+              start={[1.2, 2]}
+              colors={['transparent','transparent','#2CBC7B',]}
+              style={[style.bar_,{width: "100%",flexDirection:"row",justifyContent: "space-between", paddingHorizontal: 20,paddingVertical: 10,}]}>
+              <View style={[{justifyContent: "center"}]}>
+                <View style={[{marginBottom: 10,}]}>
+                  <Text  style={[{fontSize: 14, color: "#ffffff"}]}>Name</Text>
+                  <Text  style={[{fontSize: 18, color: "#ffffff", fontWeight: "bold"}]}>{tokenMitra.data.name || "Empty"}</Text>
+                </View>
+                <View style={[{}]}>
+                </View>
               </View>
-              <View style={[{}]}>
+              <View style={[{ justifyContent:"flex-end",height: "100%"}]}>
+                <TouchableHighlight style={[style.btn_green,{minWidth: "50%", padding: 10, alignSelf: "flex-end",marginVertical: 10}]} onPress={() => navigation.navigate('create business', { request: 'create_business'})}>
+                  <Text style={[style.text_white],{textAlign: "center", color: "#ffffff"}}>Tambah Usaha</Text>
+                </TouchableHighlight>
               </View>
-            </View>
-            <View style={[{ justifyContent:"flex-end",height: "100%"}]}>
-              <TouchableHighlight style={[style.btn_green,{minWidth: "50%", padding: 10, alignSelf: "flex-end",marginVertical: 10}]} onPress={() => navigation.navigate('create business', { request: 'create_business'})}>
-                <Text style={[style.text_white],{textAlign: "center", color: "#ffffff"}}>Tambah Usaha</Text>
-              </TouchableHighlight>
-            </View>
-          </LinearGradient>
+            </LinearGradient>
+        </ImageBackground>
         {/* <View style={[style.shadow,style.container, {width: "100%", height: "30%", justifyContent: "center"}]}>
            <Card style={[style.profile_round]}>
             <Image style={[style.image_round]} source={{ uri:`${mitraBusinessAuth.photo_profile}`}}></Image>
@@ -88,7 +90,7 @@ export default function mitraPage({navigation}) {
                         <Image style={style.image_round} source={{ uri: `${el.images_360}`}}/>
                       </View>
                       <View style={[{width: "70%"}]}>
-                        <Text style={[{ fontSize: 16}]}>{el.business_name}</Text>
+                        <Text style={[{ fontSize: 18}]}>{el.business_name}</Text>
                         <View style={[{flexDirection: "row", justifyContent: "space-between", marginVertical: 5}]}>
                           <View style={[{}]}>
                           <Text style={[style.text_grey]}>Dana Terkumpul</Text>
@@ -107,11 +109,6 @@ export default function mitraPage({navigation}) {
                           </View>
                         </View>
                         <View style={[{borderBottomWidth: 1, borderBottomColor: color.grey, marginVertical: 10}]}></View>
-                        <View style={[[style.text_grey,{}]]}>
-                          <TouchableHighlight style={[style.btn_green,{alignSelf: "flex-end", width: 100}]}>
-                            <Text style={[style.btn_green,{width:"auto" ,alignSelf: "center", padding: 5, color: "#ffffff"}]}>Ambil Dana</Text>
-                          </TouchableHighlight>
-                        </View>
                       </View>
                     </View>
                   </Body>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://6d103e714de7.ngrok.io' 
+const baseUrl = 'http://376e22913847.ngrok.io'
 import { AsyncStorage } from 'react-native'
 
 //investor
@@ -132,7 +132,7 @@ export const loginInvestor = (data) => {
     console.log('inputan masuk store', data);
     return (dispatch) => {
         axios
-            .post(`${baseUrl}/investor/signIn`, {
+            .post(`${baseUrl}/investor/signin`, {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
@@ -142,7 +142,7 @@ export const loginInvestor = (data) => {
                 dispatch(setInvestor(data))
             })
             .catch(err => {
-                console.log(err);
+                dispatch(set_error_login_investor(err))
                 // dispatch(set_error_login_investor(err))
             })
     }
@@ -155,15 +155,15 @@ export const loginMitra = (data) => {
                 email: data.email, password: data.password
             })
             .then(({ data }) => {
-                console.log(data);
                 AsyncStorage.setItem('token', data.token)
                 AsyncStorage.setItem('role', 'mitra')
                 dispatch(setLoginMitra(data))
             })
             .catch(err => {
-                console.log('masuk error mitra');
-                console.log(err);
-                dispatch(set_error_login_mitra(err))
+
+                dispatch(set_error_login_mitra({
+                    message : "Password/Email salah"
+                }))
             })
     }
 }
@@ -171,7 +171,7 @@ export const loginMitra = (data) => {
 export const registInvestor = (data) => {
     return (dispatch) => {
         axios
-            .post(`${baseUrl}/investor/signUp`, {
+            .post(`${baseUrl}/investor/signup`, {
                 name: data.name,
                 email : data.email,
                 password: data.password,
@@ -504,4 +504,3 @@ export const investToBusiness = (data) => {
             })
     }
 }
-                

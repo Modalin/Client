@@ -1,13 +1,14 @@
 import React from 'react'
 import { useEffect , useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {View, Text, ScrollView, FlatList, Image, AsyncStorage} from 'react-native'
+import {View, Text, ScrollView, FlatList, Image, AsyncStorage,ImageBackground} from 'react-native'
 import {Button , Card, CardItem, Body} from 'native-base'
 import NumberFormat  from 'react-number-format'
 import {style as investor_style, shadow_ as box_shadow} from './investor_style'
 import { getMitraBusiness, getInvestorWallet } from '../../store/actions'
 import Splash from '../login/splahScreen'
 import Loading from '../loading_screen'
+import { getInvestorBusiness } from '../../store/actions'
 // gradient
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -16,23 +17,23 @@ export default function home({navigation}) {
   const data = [{id: 1, value: "All"},{id: 2, value: "Pertanian"},{id: 3, value: "Jasa"},{id: 4, value: "Industri"},{id: 5, value: "Peternakan"},{id: 6, value: "Perikanan"}]
   const {mitraBusiness} = useSelector((state) => state.mitraBusiness)
   const {tokenInvestor} = useSelector((state) => state.tokenInvestor)
+  const {investorBusiness} = useSelector((state) => state.investorBusiness)
   const {investorWallet} = useSelector((state) => state.investorWallet)
   const [tokenAsync, setToken] = useState('')
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
 
-  console.log(tokenInvestor);
-
 
   useEffect(() => {
     dispatch(getMitraBusiness())
     if (tokenInvestor) {
-        navigation.addListener('focus', async() => {
-            await dispatch(getInvestorWallet({ token : tokenInvestor.token})).then(async() => {
+      navigation.addListener('focus', async() => {
+      await dispatch(getInvestorWallet({ token : tokenInvestor.token})).then(async() => {
               setToken(await AsyncStorage.getItem('token'))
             })
           });
-      }
+        }
+
       if (mitraBusiness) {
         setTimeout(() => {
           setLoading(false)
@@ -47,36 +48,37 @@ export default function home({navigation}) {
   }
 
 
-  if (mitraBusiness && investorWallet){
-    console.log('masuk mitra bisnis', mitraBusiness);
+  if (mitraBusiness && investorWallet && tokenInvestor){
     return (
       <View style={[investor_style.container_home,{backgroundColor: "#ffffff"}]}>
 
         <View style={[{backgroundColor: "#ffffff"}]}>
-          <LinearGradient
+            <ImageBackground source={require('../../../assets/header_investor.jpg')} style={[{height: 200, }]}>
+              <LinearGradient
 
-            start={[1.2, 2]}
-            colors={["#00A855" , 'transparent',"#7FDDAE",'#2CBC7B',]}
-            // end={[0.7, 0.3]}
-            // start={[0.1, 0.4]}
-            // colors={["#00A855" , '#6FD6A2',]}
-            style={[,investor_style.bar_,{height: 200, }]}>
-            <View style={[{marginHorizontal: 20,marginVertical: 10 ,flexDirection: "row"}]}>
-              <View>
-                <View style={[{marginBottom: 10}]}>
-                  <Text  style={[{fontSize: 14, color: "#ffffff"}]}>Name</Text>
-                  <Text  style={[{fontSize: 18, color: "#ffffff", fontWeight: "bold"}]}>{tokenInvestor.name || "Empty"}</Text>
+                start={[1.2, 2]}
+                colors={['transparent','transparent','#2CBC7B',]}
+                // end={[0.7, 0.3]}
+                // start={[0.1, 0.4]}
+                // colors={["#00A855" , '#6FD6A2',]}
+                style={[,investor_style.bar_,{height: 200, }]}>
+                <View style={[{marginHorizontal: 20,marginVertical: 10 ,flexDirection: "row"}]}>
+                  <View>
+                    <View style={[{marginBottom: 10}]}>
+                      <Text  style={[{fontSize: 14, color: "#ffffff"}]}>Name</Text>
+                      <Text  style={[{fontSize: 18, color: "#ffffff", fontWeight: "bold"}]}>{tokenInvestor.name || "Empty"}</Text>
+                    </View>
+                    <View style={[{}]}>
+                      <Text style={[{fontSize: 14, color: "#ffffff"}]}>Total Investasi</Text>
+                      <NumberFormat value={investorWallet.saldo ? investorWallet.saldo : 0} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_bold,{ fontSize: 18, color: "#ffffff"}]}>{value}</Text>} />
+                    </View>
+                  </View>
+                  <View>
+                    {/* <Image style={investor_style.image_round} source={{ uri: `${tokenInvestor.photo_profile}`}}/> */}
+                  </View>
                 </View>
-                <View style={[{}]}>
-                  <Text style={[{fontSize: 14, color: "#ffffff"}]}>Total Investasi</Text>
-                  <NumberFormat value={investorWallet.saldo ? investorWallet.saldo : 0} displayType={'text'} thousandSeparator={true} prefix={'Rp '} renderText={value => <Text style={[investor_style.text_bold,{ fontSize: 18, color: "#ffffff"}]}>{value}</Text>} />
-                </View>
-              </View>
-              <View>
-                {/* <Image style={investor_style.image_round} source={{ uri: `${tokenInvestor.photo_profile}`}}/> */}
-              </View>
-            </View>
-          </LinearGradient>
+              </LinearGradient>
+            </ImageBackground>
         </View>
 
         {/* category */}

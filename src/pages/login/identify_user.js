@@ -10,10 +10,10 @@ export default function identify_user({route, navigation}) {
     return(
         <View style={Gstyle.container_full_white}>
           <Text style={[Gstyle.title_bold, {fontSize: 35}]}>Siapakah Anda ?</Text>
-          <TouchableHighlight style={Gstyle.btn_style} onPress={() => navigation.navigate('login',{request: request, role: "Investor"})}>
+          <TouchableHighlight style={Gstyle.btn_style} underlayColor="#92DFB7" onPress={() => navigation.navigate('login',{request: request, role: "Investor"})}>
             <Text style={[Gstyle.btn_text, {fontSize: 20, textAlign: "center"}]}> Investor </Text>
           </TouchableHighlight>
-          <TouchableHighlight style={[Gstyle.btn_style_border_green]} onPress={() => navigation.navigate('login',{request: request, role: "Mitra"})}>
+          <TouchableHighlight style={[Gstyle.btn_style_border_green]} underlayColor="#ffffff" onPress={() => navigation.navigate('login',{request: request, role: "Mitra"})}>
             <Text style={[Gstyle.text_green, {fontSize: 20, textAlign: "center"}]}> Mitra </Text>
           </TouchableHighlight>
          </View>

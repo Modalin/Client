@@ -1,13 +1,91 @@
 import React,{useState} from 'react'
 import {View, Text, ScrollView, TouchableHighlight, StyleSheet, TextInput} from 'react-native'
-import {Button, Card, CardItem, Body, Textarea, DatePicker} from 'native-base'
-import {style, color_ as color} from './mitra_style'
+import {Button, Card, CardItem, Body, Textarea, DatePicker, Image} from 'native-base'
+import {style, shadow_ as box_shadow, color_ as color, shadow_} from './mitra_style'
+import * as ImagePicker from 'expo-image-picker'
+import Gstyle from '../../style/global_style'
 
 
-export default function Repot(params) {
+export default function Repot({ navigation, route }) {
   const [deskripsi, setDeskripsi] = useState(null)
   const [date, setDate] = useState(null)
   const [income, setIncome] = useState(null)
+  const [photo_local, setPhotoLocal] = useState('')
+
+  const _pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      })
+      console.log("Result", result)
+      console.log("Photo Local", photo_local)
+      if (!result.cancelled) {
+        setPhotoLocal(result.uri)
+      }
+    } catch (E) {
+      console.log(E)
+    }
+
+  }
+
+  const _takeImage = async () => {
+    try {
+      const cameraPermission = await ImagePicker.getCameraPermissionsAsync()
+      console.log("Request Camera", cameraPermission)
+      // if (!cameraPermission.granted) {
+        let result = await ImagePicker.launchCameraAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        })
+        console.log("Result", result)
+        console.log("Photo Local", photo_local)
+        if (!result.cancelled) {
+          setPhotoLocal(result.uri)
+        }
+      // }
+    } catch (E) {
+      console.log(E)
+    }
+  }
+
+  async function uploadImage(uri) {
+    // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
+    console.disableYellowBox = true
+    //Get image name
+    let imageName = uri.split('/')
+    imageName = imageName[imageName.length - 1]
+
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+      xhr.onload = function() {
+        resolve(xhr.response)
+      }
+      xhr.onerror = function(e) {
+        console.log(e)
+        reject(new TypeError('Network request failed'))
+      }
+      xhr.responseType = 'blob'
+      xhr.open('GET', uri, true)
+      xhr.send(null)
+    })
+
+    const ref = storage.ref('/mitra/business').child(imageName)
+    const snapshot = await ref.put(blob)
+    // We're done with the blob, close and release it
+    blob.close()
+
+    const url =  await snapshot.ref.getDownloadURL()
+    // dispatch(setInvestor({ photo_profile: url }))
+    setImage_360(url)
+    console.log("URL", url)
+    return url
+  }
+
   return(
     <View style={[style.container_home,style.bar_,{backgroundColor: '#ffffff', padding: 20}]}>
       <ScrollView>
@@ -15,7 +93,7 @@ export default function Repot(params) {
           <CardItem>
             <Body>
               <View style={[{alignSelf: "center"}]}>
-                <Text style={[style.text_bold]}>Repot Usaha</Text>
+                <Text style={[style.text_bold]}>Buat Laporan</Text>
               </View>
               <View style={[{marginVertical: 40, width: "100%"}]}>
                 <View style={[{borderBottomWidth: 1, width: "100%", borderBottomColor: color.grey, marginVertical: 10}]}>
@@ -57,11 +135,20 @@ export default function Repot(params) {
                     keyboardType="numeric"
                     />
                 </View>
-                <View style={[{alignItems: "center"}]}>
-                  <Button style={[style.btn_green,{borderRadius: 20}]}>
-                    <Text style={[style.text_white]}>Upload Bukti</Text>
-                  </Button>
+                <View style={{marginVertical: 20}}>
+                <Text style={[style.text_grey, style.padding_b_10]}>Foto Perkembangan Usaha</Text>
+                    <View style={{alignItems: 'center'}}>
+                      {photo_local ?
+                      <Image style={{width:200, height: 200}} source={{ uri: `${photo_local}`}}/>
+                    : <Text></Text>}
+                    </View>
+                    <View style={[{alignItems: "center"}]}>
+                    <Button onPress={_pickImage} style={[style.btn_green,{borderRadius: 20}]}>
+                      <Text style={[style.text_white]}>Upload Bukti</Text>
+                    </Button>
                 </View>
+              </View>
+
               </View>
             </Body>
           </CardItem>

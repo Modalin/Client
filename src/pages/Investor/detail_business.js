@@ -35,10 +35,11 @@ export default function Edit({ route, navigation }) {
   }
 
   if(income == null){
+    console.log('hasil data',data.profit_times,data.persentase_value,data.value_per_unit);
     let result = Rumus(data.profit_times,data.persentase_value,data.value_per_unit)
     setIncome(result)
   }else{
-    console.log(data);
+    console.log('cart',income.diagram);
     return (
       <View style={[investor_style.bar_, {flex: 1}]}>
         <ImageBackground style={{width: "100%",height: 150}} source={{ uri : `${data.images_360}`}}>
@@ -89,10 +90,9 @@ export default function Edit({ route, navigation }) {
               </View>
               <View style={[investor_style.padding_b_10]}>
                 <Text style={[investor_style.text_grey, investor_style.padding_b_10]}>Location</Text>
-                {/* <Text style={[{textAlign: "justify"}, investor_style.padding_b_10]}>{data.location.address}</Text> */}
+                <Text style={[{textAlign: "justify"}, investor_style.padding_b_10]}>{data.location.address}</Text>
                 <View style={[{borderBottomWidth: 1, borderColor: color.grey},investor_style.padding_b_10]}></View>
               </View>
-              {/* onTouchEnd={() => navigation.navigate('maps', { request: 'maps', map: data.location })} */}
               <View style={[investor_style.padding_b_10,{}]} >
                 <TouchableHighlight>
                   <MapData props={{ request: 'maps', map: data.location }}/>
