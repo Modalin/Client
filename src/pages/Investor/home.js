@@ -54,10 +54,12 @@ export default function home({navigation}) {
 
         <View style={[{backgroundColor: "#ffffff"}]}>
           <LinearGradient
-            // colors={['#00A855', '#6FD6A2', "#BBE9D1"]}
-            // start={[0.2, 0.3]}
+
             start={[1.2, 2]}
             colors={["#00A855" , 'transparent',"#7FDDAE",'#2CBC7B',]}
+            // end={[0.7, 0.3]}
+            // start={[0.1, 0.4]}
+            // colors={["#00A855" , '#6FD6A2',]}
             style={[,investor_style.bar_,{height: 200, }]}>
             <View style={[{marginHorizontal: 20,marginVertical: 10 ,flexDirection: "row"}]}>
               <View>

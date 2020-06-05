@@ -137,6 +137,13 @@ export default function mitraPage({navigation, route}) {
     )
   }
 
+  function edit_value_unit(value) {
+
+    setBusinessUnit(value)
+    setValuePerUnit(+business_value/+business_unit)
+    console.log(+business_value/+business_unit);
+  }
+
   return (
     <View style={[style.container_home, style.bar_, {backgroundColor: "white"}]}>
       <View style={[style.container_list, shadow, {marginHorizontal: 20, marginBottom: 50, backgroundColor: 'white'}]}>
@@ -221,8 +228,8 @@ export default function mitraPage({navigation, route}) {
                 <Text style={[style.text_grey, style.padding_b_10]}>Jumlah Unit Saham</Text>
                 <TextInput
                   style={[{borderBottomWidth: 1, borderColor: color.grey}]}
-                  onChangeText={setBusinessUnit}
-                  value={business_unit}
+                  onChangeText={setBusinessUnit }
+                  value={business_unit == ''|| business_unit == '0'? '1' : business_unit}
                   keyboardType='numeric'
                 />
               </View>
@@ -231,7 +238,7 @@ export default function mitraPage({navigation, route}) {
                 <TextInput
                   style={[{borderBottomWidth: 1, borderColor: color.grey}]}
                   onChangeText={setValuePerUnit}
-                  value={value_per_unit}
+                  value={String((+business_value)/(+business_unit))}
                   keyboardType='numeric'
                 />
               </View>

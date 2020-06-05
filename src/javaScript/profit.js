@@ -11,7 +11,7 @@ export default function name(profit_time,persentase,min_investasi) {
   const result_per_profit_per_tahun = result * profit_time
 
   for(let index = 0 ; index < profit_time; index++){
-      data.push({x: index+1, y: +result})
+      data.push({x: index+1, y: Math.round(+result)})
   }
   const hasil = 0
   return {pendapatan_dlm_tahun : hasil, diagram: data}

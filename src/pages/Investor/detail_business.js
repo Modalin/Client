@@ -100,7 +100,7 @@ export default function Edit({ route, navigation }) {
               </View>
               <View style={{alignItems:"center"}}>
 
-                <TouchableHighlight style={[investor_style.btn_green]} onPress={() => {setModalVisible(true);}} >
+                <TouchableHighlight style={[investor_style.btn_green]} underlayColor="#92DFB7" onPress={() => {setModalVisible(true);}} >
                   <Text style={[{fontSize: 20, textAlign: "center", padding:10, color: '#ffffff'}]}> Modalin </Text>
                 </TouchableHighlight>
               </View>

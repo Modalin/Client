@@ -46,6 +46,10 @@ export default function mitraPage({navigation}) {
         <LinearGradient
             // colors={['#00A855', '#6FD6A2', "#BBE9D1"]}
             // start={[0.2, 0.3]}
+            //---------------//
+            // end={[0.7, 0.3]}
+            // start={[0.1, 0.4]}
+            // colors={["#00A855" , '#6FD6A2',]}
             start={[1.2, 2]}
             colors={["#00A855" , 'transparent',"#7FDDAE",'#2CBC7B',]}
             style={[style.bar_,{height: "30%",width: "100%",flexDirection:"row",justifyContent: "space-between", paddingHorizontal: 20,paddingVertical: 10,}]}>
