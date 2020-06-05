@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://192.168.43.141:3002' 
+const baseUrl = 'http://376e22913847.ngrok.io'
 import { AsyncStorage } from 'react-native'
 
 //investor
@@ -504,4 +504,3 @@ export const investToBusiness = (data) => {
             })
     }
 }
-                

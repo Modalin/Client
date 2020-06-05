@@ -35,11 +35,11 @@ export default function Edit({ route, navigation }) {
   }
 
   if(income == null){
+    console.log('hasil data',data.profit_times,data.persentase_value,data.value_per_unit);
     let result = Rumus(data.profit_times,data.persentase_value,data.value_per_unit)
     setIncome(result)
   }else{
-    console.log('ini data');
-    console.log(data);
+    console.log('cart',income.diagram);
     return (
       <View style={[investor_style.bar_, {flex: 1}]}>
         <ImageBackground style={{width: "100%",height: 150}} source={{ uri : `${data.images_360}`}}>
@@ -100,7 +100,7 @@ export default function Edit({ route, navigation }) {
               </View>
               <View style={{alignItems:"center"}}>
 
-                <TouchableHighlight style={[investor_style.btn_green]} onPress={() => {setModalVisible(true);}} >
+                <TouchableHighlight style={[investor_style.btn_green]} underlayColor="#92DFB7" onPress={() => {setModalVisible(true);}} >
                   <Text style={[{fontSize: 20, textAlign: "center", padding:10, color: '#ffffff'}]}> Modalin </Text>
                 </TouchableHighlight>
               </View>

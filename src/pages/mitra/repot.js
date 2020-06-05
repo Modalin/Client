@@ -148,7 +148,7 @@ export default function Repot({ navigation, route }) {
                     </Button>
                 </View>
               </View>
-                
+
               </View>
             </Body>
           </CardItem>

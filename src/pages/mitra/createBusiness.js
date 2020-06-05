@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker'
 import { storage } from '../../firebase/config'
 import Transaction from './transaction'
+import Loading from '../loading_screen'
 
 export default function mitraPage({navigation, route}) {
   const { tokenMitra } = useSelector((state) => state.tokenMitra)
@@ -27,6 +28,8 @@ export default function mitraPage({navigation, route}) {
   const { loading } = useSelector(state => state.loading)
   const dispatch = useDispatch();
   const [value, setValue] = useState(0)
+
+  //loading
 
   //Photo
   const [photo_local, setPhotoLocal] = useState('')
@@ -139,10 +142,15 @@ export default function mitraPage({navigation, route}) {
   console.log("Loading", loading)
   if (loading) {
     return (
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
+      <Loading />
     )
+  }
+
+  function edit_value_unit(value) {
+
+    setBusinessUnit(value)
+    setValuePerUnit(+business_value/+business_unit)
+    console.log(+business_value/+business_unit);
   }
 
   return (
