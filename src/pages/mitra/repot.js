@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
-import {View, Text, ScrollView, TouchableHighlight, StyleSheet, TextInput} from 'react-native'
-import {Button, Card, CardItem, Body, Textarea, DatePicker, Image} from 'native-base'
+import {View, Text, ScrollView, TouchableHighlight, StyleSheet, TextInput, Image} from 'react-native'
+import {Button, Card, CardItem, Body, Textarea, DatePicker} from 'native-base'
 import {style, shadow_ as box_shadow, color_ as color, shadow_} from './mitra_style'
 import * as ImagePicker from 'expo-image-picker'
 import Gstyle from '../../style/global_style'
@@ -21,9 +21,9 @@ export default function Repot({ navigation, route }) {
         quality: 1,
       })
       console.log("Result", result)
-      console.log("Photo Local", photo_local)
       if (!result.cancelled) {
         setPhotoLocal(result.uri)
+        console.log("Photo Local", photo_local)
       }
     } catch (E) {
       console.log(E)
@@ -145,6 +145,9 @@ export default function Repot({ navigation, route }) {
                     <View style={[{alignItems: "center"}]}>
                     <Button onPress={_pickImage} style={[style.btn_green,{borderRadius: 20}]}>
                       <Text style={[style.text_white]}>Upload Bukti</Text>
+                    </Button>
+                    <Button onPress={()=> navigation.navigate('Beranda')} style={[style.btn_green,{borderRadius: 20}]}>
+                      <Text style={[style.text_white]}>Kirim</Text>
                     </Button>
                 </View>
               </View>
