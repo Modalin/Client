@@ -22,7 +22,7 @@ const initialStore = {
     investorInvest: {},
     dataInvestor: {},
     dataInvestorById: {},
-    errorLoginInvestor: {}
+    errorLoginInvestor: false
 }
 
 export default function investors (state=initialStore, action) {

@@ -22,7 +22,8 @@ export default function home({navigation}) {
   const [tokenAsync, setToken] = useState('')
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
-
+  
+  console.log('masuk home');
 
   useEffect(() => {
     dispatch(getMitraBusiness())

@@ -9,6 +9,8 @@ import Spinner from 'react-native-loading-spinner-overlay';
 // import SyncStorage from 'sync-storage';
 
 export default function login({route, navigation}) {
+  const { tokenMitra } = useSelector((state) => state.tokenMitra)
+  const { tokenInvestor } = useSelector((state) => state.tokenInvestor)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [spinner, setSpinner] = useState(false);
@@ -16,9 +18,11 @@ export default function login({route, navigation}) {
   const {role} = route.params;
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
-  const { errorLoadingInvestor } = useSelector((state) => state.errorLoadingInvestor)
+  const { errorLoginInvestor } = useSelector((state) => state.errorLoginInvestor)
+  const { errorLoginMitra } = useSelector((state) => state.errorLoginMitra)
 
-  const onLoginSubmit = (e) => {
+
+  const onLoginSubmit = async (e) => {
     e.preventDefault();
 
     if (!email && !password) {
@@ -28,22 +32,34 @@ export default function login({route, navigation}) {
     } else if (!password){
       alert(`Mohon isi password ${role}`)
     } else {
-
       if (role.toLowerCase() === 'investor') {
-        dispatch(loginInvestor({ email, password }))
-        navigation.navigate('investor', { request: 'tab-bottom-investor'})
+        await dispatch(loginInvestor({ email, password }))
       } else if (role.toLowerCase() === 'mitra') {
-        dispatch(loginMitra({ email, password }))
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'mitra' }],
-        });
+        await dispatch(loginMitra({ email, password }))
       }
     }
 
-    setEmail('');
-    setPassword('')
+
+    // if (role === 'mitra') {
+    //   if(errorLoginMitra){
+    //     alert(`Password/email mitra salah`)
+    //   } else if (tokenMitra) {
+    //     alert('success login')
+    //     await navigation.navigate('mitra', { request: 'tab-bottom-mitra'})
+    //   }
+    // }
+    if (errorLoginInvestor) {
+      alert('Password/email investor salah')
+    } else if (errorLoginMitra) {
+      alert('Password/email mitra salah')
+    }
+      if (tokenInvestor) {
+        navigation.navigate('investor', { request: 'tab-bottom-investor', data : tokenInvestor})
+        setEmail('');
+        setPassword('')
+    }
   }
+
 
   return (
     <View style={Gstyle.container_full_white}>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://376e22913847.ngrok.io'
+const baseUrl = 'http://c46e694f1cdb.ngrok.io'
 import { AsyncStorage } from 'react-native'
 
 //investor
@@ -10,7 +10,6 @@ export const SET_LOADING = 'SET_LOADING';
 export const SET_REGIST_INVESTOR = 'SET_REGIST_INVESTOR';
 export const SET_EDIT_INVESTOR_PROFILE = 'SET_EDIT_INVESTOR_PROFILE';
 export const SET_DELETE_INVESTOR_PROFILE = 'SET_DELETE_INVESTOR_PROFILE';
-export const SET_EDIT_MITRA_PROFILE = 'SET_EDIT_MITRA_PROFILE';
 export const SET_GET_INVESTOR = 'SET_GET_INVESTOR';
 export const SET_GET_INVESTOR_WALLET = 'SET_GET_INVESTOR_WALLET';
 export const SET_DELETE_INVESTOR_WALLET = 'SET_DELETE_INVESTOR_WALLET';
@@ -24,6 +23,7 @@ export const SET_LOGIN_MITRA = 'SET_LOGIN_MITRA';
 export const SET_REGIST_MITRA = 'SET_REGIST_MITRA';
 export const SET_DELETE_MITRA_PROFILE = 'SET_DELETE_MITRA_PROFILE';
 export const SET_GET_MITRA_BUSINESS = 'SET_GET_MITRA_BUSINESS';
+export const SET_EDIT_MITRA_PROFILE = 'SET_EDIT_MITRA_PROFILE';
 export const SET_POST_MITRA_BUSINESS = 'SET_POST_MITRA_BUSINESS';
 export const SET_EDIT_MITRA_BUSINESS = 'SET_POST_MITRA_BUSINESS';
 export const SET_EDIT_MITRA_BUSINESS_INVEST = 'SET_POST_MITRA_BUSINESS_INVEST';
@@ -34,44 +34,27 @@ export const SET_GET_MITRA_BUSINESS_AUTH = 'SET_GET_MITRA_BUSINESS_AUTH';
 export const SET_ERROR_LOGIN_INVESTOR = 'SET_ERROR_LOGIN_INVESTOR';
 export const SET_ERROR_LOGIN_MITRA = 'SET_ERROR_LOGIN_MITRA';
 
+
+// investor
+
 export const setInvestor = (data) => {
     return { type: "SET_LOGIN_INVESTOR", payload : data }
-}
-
-export const setLoginMitra = (data) => {
-    return { type: SET_LOGIN_MITRA, payload: data }
 }
 
 export const setGetInvestorById = (data) => {
     return { type: SET_GET_INVESTOR_BY_ID, payload: data }
 }
 
-export const setLoading = (status) => {
-    return { type: SET_LOADING, payload : status }
-}
-
 export const set_regist_investor = (data) => {
     return { type: SET_REGIST_INVESTOR, payload: data }
-}
-
-export const set_regist_mitra = (data) => {
-    return { type: SET_REGIST_MITRA, payload: data }
 }
 
 export const set_edit_investor_profile = (data) => {
     return { type: SET_EDIT_INVESTOR_PROFILE, payload: data }
 }
 
-export const set_edit_mitra_profile = (data) => {
-    return { type: SET_EDIT_MITRA_PROFILE, payload: data }
-}
-
 export const set_delete_investor_profile = (data) => {
     return { type: SET_DELETE_INVESTOR_PROFILE, payload: data }
-}
-
-export const set_delete_mitra_profile = (data) => {
-    return { type: SET_DELETE_MITRA_PROFILE, payload: data }
 }
 
 export const set_get_investor_wallet = (data) => {
@@ -88,6 +71,32 @@ export const set_investor_business = (data) => {
 
 export const set_investor_invest = (data) => {
     return { type: SET_GET_INVESTOR_INVEST, payload: data }
+}
+
+export const set_get_investor = (data) => {
+    return { type: SET_GET_INVESTOR_DATA, payload: data}
+}
+
+//mitra
+
+export const set_edit_mitra_profile = (data) => {
+    return { type: SET_EDIT_MITRA_PROFILE, payload: data }
+}
+
+export const setLoginMitra = (data) => {
+    return { type: SET_LOGIN_MITRA, payload: data }
+}
+
+export const setLoading = (status) => {
+    return { type: SET_LOADING, payload : status }
+}
+
+export const set_regist_mitra = (data) => {
+    return { type: SET_REGIST_MITRA, payload: data }
+}
+
+export const set_delete_mitra_profile = (data) => {
+    return { type: SET_DELETE_MITRA_PROFILE, payload: data }
 }
 
 export const set_mitra_business = (data) => {
@@ -108,10 +117,6 @@ export const set_edit_mitra_business_invest = (data) => {
 
 export const set_edit_mitra_business_profit = (data) => {
     return { type: SET_EDIT_MITRA_BUSINESS_PROFIT, payload: data }
-}
-
-export const set_get_investor = (data) => {
-    return { type: SET_GET_INVESTOR_DATA, payload: data}
 }
 
 export const set_get_business_mitra_auth = (data) => {
@@ -142,8 +147,8 @@ export const loginInvestor = (data) => {
                 dispatch(setInvestor(data))
             })
             .catch(err => {
-                dispatch(set_error_login_investor(err))
-                // dispatch(set_error_login_investor(err))
+                console.log('masuk error login');
+                dispatch(set_error_login_investor(true))
             })
     }
 }
@@ -160,10 +165,8 @@ export const loginMitra = (data) => {
                 dispatch(setLoginMitra(data))
             })
             .catch(err => {
-
-                dispatch(set_error_login_mitra({
-                    message : "Password/Email salah"
-                }))
+                console.log('error login mitra');
+                dispatch(set_error_login_mitra(true))
             })
     }
 }

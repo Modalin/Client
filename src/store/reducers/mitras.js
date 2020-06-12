@@ -1,6 +1,7 @@
 import { 
     SET_GET_MITRA_BUSINESS,
     SET_GET_MITRA_BUSINESS_AUTH,
+    SET_ERROR_LOGIN_MITRA,
     SET_LOGIN_MITRA,
     SET_LOADING
  } from '../actions';
@@ -9,7 +10,8 @@ const initialStore = {
     mitraBusiness: [],
     mitraBusinessAuth: [],
     tokenMitra: {},
-    loading: false
+    loading: false,
+    errorLoginMitra: false
 }
 
 export default function mitras (state=initialStore, action) {
@@ -24,6 +26,8 @@ export default function mitras (state=initialStore, action) {
             return { ...state, tokenMitra : payload }
         case SET_LOADING :
             return { ...state, loading : payload }
+        case SET_ERROR_LOGIN_MITRA :
+            return { ...state, errorLoginMitra : payload }
         default:
             break;
     }
